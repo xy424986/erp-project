@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--扫描spring注解：排除掉@Controller-->
+    <context:component-scan base-package="com">
+        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+
+    <!-- 初始化数据源对象；DruidDataSource -->
+    <bean class="com.alibaba.druid.pool.DruidDataSource" id="druidDataSource">
+        <!-- 与数据库建立连接的基本信息 -->
+        <property value="com.mysql.jdbc.Driver" name="driverClassName"/>
+        <!-- ?characterEncoding=utf-8 旭哥系統帶的MySQL的中文編碼 -->
+        <property value="jdbc:mysql://localhost/vue?characterEncoding=utf-8" name="url"/>
+        <property value="root" name="username"/>
+        <property value="" name="password"/>
+        <!-- 关于数据库连接池的基本信息 -->
+        <property value="50" name="maxActive"/>
+        <property value="5" name="initialSize"/>
+        <property value="1" name="minIdle"/>
+        <property value="60000" name="maxWait"/>
+    </bean>
+
+    <!--创建SqlSessionFactory对象-->
+    <bean class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean" id="sqlSessionFactory">
+        <property name="dataSource" ref="druidDataSource"/>
+
+<!--
+        <property name="configLocation" value="classpath:log4j.properties"></property>
+-->
+        <!--配置别名-->
+        <property value="com.hnguigu.vo" name="typeAliasesPackage"/>
+        <!--添加分页插件-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                            <!--reasonable=true-->
+                            <!--supportMethodsArguments=true-->
+                            <!--params=count=countSql-->
+                            <!--autoRuntimeDialect=true-->
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+    <!--创建扫描mapper的代理器工厂 作用：扫描指定的接口，并且自动生成接口的实现类 并返回给spring容器 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--配置要扫描的mapper接口-->
+        <property value="com.hnguigu.mapper" name="basePackage"/>
+        <property value="sqlSessionFactory" name="sqlSessionFactoryBeanName"/>
+    </bean>
+
+    <!--5. 事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="druidDataSource"></property>
+    </bean>
+    <!--6. 打开事务注解，扫描@Transaction-->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+<!--    &lt;!&ndash; shiro配置&ndash;&gt;-->
+<!--    &lt;!&ndash; 1.  realm&ndash;&gt;-->
+<!--    <bean id="myRealm" class="com.hnguigu.realm.MyRealm">-->
+<!--<property name="credentialsMatcher" ref="credentialsMatcher"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 2.  安全管理器&ndash;&gt;-->
+<!--    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
+<!--        <property name="realm" ref="myRealm"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 3.  过滤器&ndash;&gt;-->
+<!--    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+<!--        <property name="loginUrl" value="login.jsp"></property> &lt;!&ndash; 访问了必须要认证才能访问的资源，而当前状态是未认证 &ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="unauthorizedUrl" value="404.jsp"></property>&ndash;&gt;&lt;!&ndash; 认证失败跳转&ndash;&gt;-->
+<!--        <property name="securityManager" ref="securityManager"></property>&lt;!&ndash; 将SecurityManager设置当前的运行环境中&ndash;&gt;-->
+<!--        &lt;!&ndash; 配置过滤链&ndash;&gt;-->
+<!--        <property name="filterChainDefinitions">-->
+<!--            <value>-->
+<!--                /login*=anon   &lt;!&ndash; login.jsp页面 可以任意访问&ndash;&gt;-->
+<!--                /register*=anon-->
+<!--                /js/**=anon-->
+<!--                /css/**=anon-->
+<!--&lt;!&ndash;                /rolelist.jsp=roles["admin"]&lt;!&ndash; 指定资源需要某个角色才能访问&ndash;&gt;&ndash;&gt;-->
+<!--                /**=authc  &lt;!&ndash; 根路径下其他资源必须认证才能访问 &ndash;&gt;-->
+<!--            </value>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; md5加密器&ndash;&gt;-->
+<!--    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">-->
+<!--        <property name="hashAlgorithmName" value="vk"></property>-->
+<!--        <property name="hashIterations" value="6"></property>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;手动指定cookie&ndash;&gt;-->
+<!--    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">-->
+<!--        <constructor-arg value="rememberMe"/>-->
+<!--        <property name="httpOnly" value="true"/>-->
+<!--        <property name="maxAge" value="604800"/>&lt;!&ndash; 7天   秒为单位 &ndash;&gt;-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; rememberMe管理器 &ndash;&gt;-->
+<!--    <bean id="rememberMeManager"-->
+<!--          class="org.apache.shiro.web.mgt.CookieRememberMeManager">-->
+<!--        &lt;!&ndash;注入自定义cookie(主要是设置寿命, 默认的一年太长)&ndash;&gt;-->
+<!--        <property name="cookie" ref="rememberMeCookie"/>-->
+<!--    </bean>-->
+</beans>
