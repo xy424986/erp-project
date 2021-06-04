@@ -17,9 +17,9 @@
         <!-- 与数据库建立连接的基本信息 -->
         <property value="com.mysql.jdbc.Driver" name="driverClassName"/>
         <!-- ?characterEncoding=utf-8 旭哥系統帶的MySQL的中文編碼 -->
-        <property value="jdbc:mysql://localhost/vue?characterEncoding=utf-8" name="url"/>
-        <property value="root" name="username"/>
-        <property value="" name="password"/>
+        <property value="jdbc:mysql://java1911.mysql.rds.aliyuncs.com/vuedb02?characterEncoding=utf-8" name="url"/>
+        <property value="user04" name="username"/>
+        <property value="1qaz@WSX" name="password"/>
         <!-- 关于数据库连接池的基本信息 -->
         <property value="50" name="maxActive"/>
         <property value="5" name="initialSize"/>
