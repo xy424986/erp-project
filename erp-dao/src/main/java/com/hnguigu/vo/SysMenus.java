@@ -8,12 +8,12 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @Data
 @TableName("sys_menus")
 public class SysMenus  {
-
 
     @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;/*序号*/
@@ -45,6 +45,15 @@ public class SysMenus  {
     @TableField("STATUS")
     private String status;/*是否可用*/
 
+    /**
+     * 子菜单集合
+     */
+    @TableField(exist = false)
+    List<SysMenus> childMenu;
 
+    //权限数据回显 点击选中一个角色  如果该角色拥有此菜单
+    //操作权限，checked 为true
+    @TableField(exist = false)
+    private boolean checked;
 
 }
