@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -68,17 +69,27 @@ public class SCell  {
     private String register;/*登记人*/
 
     @TableField("REGISTER_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
     private String checker;/*复核人*/
 
     @TableField("CHECK_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date checkTime;/*复核时间*/
 
     @TableField("CHECK_TAG")
     private String checkTag;/*审核标志*/
 
+    @TableField("STORAGE_UNIT")
+    private String storageUnit;/*储存单元*/
+
+    @TableField("STORAGE_UNIT_ABBREVIATION")
+    private String storageUnitAbbreviation;/*储存单元简称*/
+
+    @TableField("THE_DESIGNER")
+    private String theDesigner;/*设计人*/
 
 
 }
