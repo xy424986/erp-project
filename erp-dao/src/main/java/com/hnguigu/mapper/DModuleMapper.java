@@ -1,6 +1,7 @@
 package com.hnguigu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.DModule;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface DModuleMapper extends BaseMapper<DModule> {
      * @param state
      * @return
      */
-    List<DModule> queryByState(String state);
+    List<DFile> queryByState(String state);
 }

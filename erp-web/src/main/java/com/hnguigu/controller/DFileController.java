@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.hnguigu.service.DFileService;
 import com.hnguigu.vo.DFile;
+import com.hnguigu.vo.DModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +17,25 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-public class DfileController {
+@RequestMapping("/DFile")
+public class DFileController {
 
     @Autowired
     DFileService dFileService;
+
+    /**
+     * hhy
+     * 根据复核状态查询生产工序设计单数据
+     * 状态：
+     * S001-0: 等待审核
+     * S001-1: 审核通过
+     * S001-2: 审核不通过
+     * @return
+     */
+    @RequestMapping("queryByState.action")
+    public List<DFile> queryByState(){
+        return dFileService.queryByState("S001-1");
+    }
 
     @RequestMapping("/queryAllDFile.May")
     public IPage<DFile> queryAllDFile(@RequestParam(value = "pageno",defaultValue = "1") int pageno,

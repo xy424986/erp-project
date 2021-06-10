@@ -16,17 +16,4 @@ public class DModuleController {
     @Autowired
     DModuleService dModuleService;
 
-    /**
-     * hhy
-     * 根据复核状态查询生产工序设计单数据
-     * 状态：
-     * S001-0: 等待审核
-     * S001-1: 审核通过
-     * S001-2: 审核不通过
-     * @return
-     */
-    @RequestMapping("queryByState.action")
-    public List<DModule> queryByState(){
-        return dModuleService.queryByState("S001-1");
-    }
 }
