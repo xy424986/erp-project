@@ -1,8 +1,8 @@
 package com.hnguigu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hnguigu.vo.DFile;
-import com.hnguigu.vo.DModule;
 
 import java.util.List;
 
@@ -19,4 +19,27 @@ public interface DFileService extends IService<DFile> {
      * @return
      */
     List<DFile> queryByState(String state);
+    /**
+     *查询安全库存配置单表格数据
+     * @param pageno
+     * @param pagesize
+     * @param dFile
+     * @return
+     */
+    IPage<DFile> queryAllDFile( int pageno,int pagesize,DFile dFile);
+
+    /**
+     *查询安全库存配置单的数据
+     * @param productId
+     * @return
+     */
+    DFile queryByIdDFile(String productId);
+
+    /**
+     *查询安全库存配置单中的表格数据
+     * @param productId
+     * @return
+     */
+    List<DFile> queryByIdDFile2(String productId);
+
 }

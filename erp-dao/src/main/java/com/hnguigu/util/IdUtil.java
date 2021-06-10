@@ -95,7 +95,7 @@ public class IdUtil {
         //获取当前时间
         Date dt=new Date();
         SimpleDateFormat matter1=new SimpleDateFormat("yyyyMMdd");
-        String date =  matter1.format(dt);
+        String date = matter1.format(dt);
 
         String id=cell.getStoreId();
         int b= Integer.parseInt(id.substring(id.length()-4));

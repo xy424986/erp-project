@@ -37,25 +37,40 @@ public class DFileController {
         return dFileService.queryByState("S001-1");
     }
 
+    /**
+     * 查询安全库存配置单表格数据
+     * @param pageno
+     * @param pagesize
+     * @param dFile
+     * @return
+     */
     @RequestMapping("/queryAllDFile.May")
     public IPage<DFile> queryAllDFile(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
                                       @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
                                       DFile dFile){
-        return  dFileService.page(new Page<DFile>(pageno,pagesize),null);
+        return  dFileService.queryAllDFile(pageno,pagesize,dFile);
     }
+
+    /**
+     * 查询安全库存配置单的数据
+     * @param productId
+     * @return
+     */
     @RequestMapping("/queryByIdDFile.May")
     public DFile queryByIdDFile(String productId){
-        System.out.println("productId"+productId);
-        QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("PRODUCT_ID",productId);
-        return  dFileService.getOne(queryWrapper);
+        System.out.println("queryByIdDFile的productId"+productId);
+        return  dFileService.queryByIdDFile(productId);
     }
+
+    /**
+     * 查询安全库存配置单中的表格数据
+     * @param productId
+     * @return
+     */
     @RequestMapping("/queryByIdDFile2.May")
     public List<DFile> queryByIdDFile2(String productId){
-        System.out.println("productId"+productId);
-        QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("PRODUCT_ID",productId);
-        return  dFileService.list(queryWrapper);
+        System.out.println("queryByIdDFile2的productId"+productId);
+        return  dFileService.queryByIdDFile2(productId);
     }
 }
 

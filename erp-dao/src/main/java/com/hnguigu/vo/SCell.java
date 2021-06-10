@@ -28,6 +28,8 @@ public class SCell  {
 
     @TableField("PRODUCT_ID")
     private String productId;/*产品编号*/
+    @TableField(exist = false)
+    private DFile dFile;
 
     @TableField("PRODUCT_NAME")
     private String productName;/*产品名称*/

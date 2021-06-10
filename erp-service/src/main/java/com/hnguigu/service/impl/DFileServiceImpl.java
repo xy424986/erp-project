@@ -1,11 +1,12 @@
 package com.hnguigu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hnguigu.mapper.DFileMapper;
 import com.hnguigu.service.DFileService;
 import com.hnguigu.vo.DFile;
-import com.hnguigu.vo.DModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,42 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<DFile>();
         queryWrapper.eq("CHECK_TAG", state);
         return dFileMapper.selectList(queryWrapper);
+    }
+    /**
+     *查询安全库存配置单表格数据
+     * @param pageno
+     * @param pagesize
+     * @param dFile
+     * @return
+     */
+    @Override
+    public IPage<DFile> queryAllDFile(int pageno, int pagesize, DFile dFile) {
+        QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("CHECK_TAG",1);
+        return this.page(new Page<DFile>(pageno,pagesize),null);
+    }
+    /**
+     *查询安全库存配置单的数据
+     * @param productId
+     * @return
+     */
+    @Override
+    public DFile queryByIdDFile(String productId) {
+        System.out.println("queryByIdDFile1的productId"+productId);
+        QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("PRODUCT_ID",productId);
+        return  this.getOne(queryWrapper);
+    }
+    /**
+     *查询安全库存配置单中的表格数据
+     * @param productId
+     * @return
+     */
+    @Override
+    public List<DFile> queryByIdDFile2(String productId) {
+        System.out.println("queryByIdDFile2的productId"+productId);
+        QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("PRODUCT_ID",productId);
+        return  this.list(queryWrapper);
     }
 }
