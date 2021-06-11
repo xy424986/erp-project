@@ -1,0 +1,77 @@
+package com.hnguigu.util;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
+public class Scheduling {
+    private String productId;/*产品编号*/
+    private String gatherId;/*产品编号*/
+    private String attemper;/*调度人*/
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
+    private Date attemperTime;/*调度时间*/
+    private Integer amount;/*当前存储量*/
+
+    @Override
+    public String toString() {
+        return "Scheduling{" +
+                "productId='" + productId + '\'' +
+                ", gatherId='" + gatherId + '\'' +
+                ", attemper='" + attemper + '\'' +
+                ", attemperTime=" + attemperTime +
+                ", amount=" + amount +
+                '}';
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getGatherId() {
+        return gatherId;
+    }
+
+    public void setGatherId(String gatherId) {
+        this.gatherId = gatherId;
+    }
+
+    public String getAttemper() {
+        return attemper;
+    }
+
+    public void setAttemper(String attemper) {
+        this.attemper = attemper;
+    }
+
+    public Date getAttemperTime() {
+        return attemperTime;
+    }
+
+    public void setAttemperTime(Date attemperTime) {
+        this.attemperTime = attemperTime;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Scheduling() {
+    }
+
+    public Scheduling(String productId, String gatherId, String attemper, Date attemperTime, Integer amount) {
+        this.productId = productId;
+        this.gatherId = gatherId;
+        this.attemper = attemper;
+        this.attemperTime = attemperTime;
+        this.amount = amount;
+    }
+}

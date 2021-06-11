@@ -1,7 +1,6 @@
 package com.hnguigu.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
 import com.hnguigu.service.SCellService;
 import com.hnguigu.util.PageUtil;
@@ -17,7 +16,8 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-public class SCllController {
+@RequestMapping("/SCell")
+public class SCellController {
 
     @Autowired
     SCellService sCellService;
@@ -40,7 +40,7 @@ public class SCllController {
     public PageUtil<DFile> queryAllSCell(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
                                       @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
                                          DFile dFile){
-        PageInfo<DFile> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,0);
+        PageInfo<DFile> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,"S001-0", "S001-2");
         PageUtil<DFile> pageUtil =new PageUtil<DFile>();
         pageUtil.setTotal(sCellPageInfo.getTotal());
         pageUtil.setRows(sCellPageInfo.getList());
@@ -89,7 +89,7 @@ public class SCllController {
     public PageUtil<DFile> queryAllSCell2(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
                                          @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
                                          DFile dFile){
-        PageInfo<DFile> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,1);
+        PageInfo<DFile> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,"S001-1", "S001-2");
         PageUtil<DFile> pageUtil =new PageUtil<DFile>();
         pageUtil.setTotal(sCellPageInfo.getTotal());
         pageUtil.setRows(sCellPageInfo.getList());
@@ -97,6 +97,15 @@ public class SCllController {
     }
 
 
+    /**
+     * 制作安全库存配置单-修改
+     * @param sCell
+     * @return
+     */
+    @RequestMapping("/amendSCll.May")
+    public boolean amendSCll(SCell sCell){
+        return sCellService.amendSCll(sCell);
+    }
 
 
 }

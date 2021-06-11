@@ -35,6 +35,7 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         return dFileMapper.selectList(queryWrapper);
     }
     /**
+     * xyb
      *查询安全库存配置单表格数据
      * @param pageno
      * @param pagesize
@@ -44,7 +45,7 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     @Override
     public IPage<DFile> queryAllDFile(int pageno, int pagesize, DFile dFile) {
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("CHECK_TAG",1);
+        queryWrapper.eq("CHECK_TAG","S001-1");
         return this.page(new Page<DFile>(pageno,pagesize),null);
     }
     /**

@@ -18,7 +18,7 @@ public interface SCellService extends IService<SCell> {
      * 安全库存配置单-复核-总数据查询
      * @return
      */
-    PageInfo<DFile> queryAllSCll(int pageNo, int pageSize, DFile dFile,int tag);
+    PageInfo<DFile> queryAllSCll(int pageNo, int pageSize, DFile dFile,String tag,String tag2);
     /**
      *查询安全库存配置单-复核的数据
      * @param id
@@ -37,4 +37,10 @@ public interface SCellService extends IService<SCell> {
      * @return
      */
     boolean amendCheckTag(int id,String CheckTag);
+    /**
+     * 制作安全库存配置单-修改
+     * @param sCell
+     * @return
+     */
+    public boolean amendSCll(SCell sCell);
 }

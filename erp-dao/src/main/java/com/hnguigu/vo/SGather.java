@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 @Data
 @TableName("s_gather")
-public class SGather  {
+public class SGather{
 
 
     @TableId(value = "ID", type = IdType.AUTO)
@@ -73,10 +74,11 @@ public class SGather  {
     private String attemper;/*调度人*/
 
     @TableField("ATTEMPER_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date attemperTime;/*调度时间*/
 
-    @TableField("STORE_TAG")
-    private String storeTag;/*库存标志
+    @TableField("GATHER_TAG")
+    private String gatherTag;/*库存标志
                                 K002-1: 已登记
                                 K002-2: 已调度*/
 

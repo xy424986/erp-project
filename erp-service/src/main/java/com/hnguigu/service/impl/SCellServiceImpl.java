@@ -31,17 +31,18 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         IdUtil idUtil = new IdUtil();
       /*  String cellId = idUtil.CellId(sCell);
         sCell.setStoreId(cellId);*/
-        sCell.setCheckTag("0");
+        sCell.setCheckTag("S001-0");
         return this.save(sCell);
     }
     /**
      * 安全库存配置单-复核-总数据查询
      * @return
      */
-    public PageInfo<DFile> queryAllSCll(int pageNo, int pageSize, DFile dFile, int tag){
-        // 设置分页参数
+    public PageInfo<DFile> queryAllSCll(int pageNo, int pageSize, DFile dFile, String tag,String tag2){
+        System.out.println("queryAllSCll"+tag);
+           // 设置分页参数
         PageHelper.startPage(pageNo, pageSize);
-        List<DFile> sCells = sCellMapper.queryAllSCll(tag);
+        List<DFile> sCells = sCellMapper.queryAllSCll(tag,tag2);
         // 封装分页对象
         PageInfo<DFile> sCellPageInfo = new PageInfo<>(sCells);
         return sCellPageInfo;
@@ -78,7 +79,22 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
     @Override
     public boolean amendCheckTag(int id, String CheckTag) {
         SCell sCell = this.getById(id);
-        sCell.setCheckTag("1");
+        sCell.setCheckTag("S001-1");
         return this.updateById(sCell);
     }
+    /**
+     * 制作安全库存配置单-修改
+     * @param sCell
+     * @return
+     */
+    @Override
+    public boolean amendSCll(SCell sCell) {
+        System.out.println(sCell);
+        sCell.setCheckTag("S001-2");
+        return this.updateById(sCell);
+    }
+
+
+
+
 }
