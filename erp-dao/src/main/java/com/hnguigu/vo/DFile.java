@@ -55,7 +55,6 @@ public class DFile {
     @TableField("TYPE")
     private String type;//用途类型,Y001-1: 商品, Y001-2: 物料
 
-
     @TableField("PRODUCT_CLASS")
     private String productClass;//档次级别,D001-1: 高档,D001-2: 中档,D001-3: 低档
 

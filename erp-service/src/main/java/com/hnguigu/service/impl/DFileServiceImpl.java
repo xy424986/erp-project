@@ -9,6 +9,7 @@ import com.hnguigu.service.DFileService;
 import com.hnguigu.vo.DFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -28,14 +29,16 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
      * @param state
      * @return
      */
-    @Override
-    public List<DFile> queryByState(String state) {
-        QueryWrapper<DFile> queryWrapper = new QueryWrapper<DFile>();
-        queryWrapper.eq("CHECK_TAG", state);
-        return dFileMapper.selectList(queryWrapper);
-    }
+//    @Override
+//    public List<DFile> queryByState(String state) {
+//        QueryWrapper<DFile> queryWrapper = new QueryWrapper<DFile>();
+//        queryWrapper.eq("CHECK_TAG", state);
+//        return dFileMapper.selectList(queryWrapper);
+//    }
+
     /**
      * xyb
+     * hhy
      *查询安全库存配置单表格数据
      * @param pageno
      * @param pagesize
@@ -46,8 +49,13 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     public IPage<DFile> queryAllDFile(int pageno, int pagesize, DFile dFile) {
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("CHECK_TAG","S001-1");
-        return this.page(new Page<DFile>(pageno,pagesize),null);
+//        hhy
+        if(!StringUtils.isEmpty(dFile.getProductName())){
+            queryWrapper.like("name",dFile.getProductName());
+        }
+        return this.page(new Page<DFile>(pageno,pagesize), queryWrapper);
     }
+
     /**
      *查询安全库存配置单的数据
      * @param productId
