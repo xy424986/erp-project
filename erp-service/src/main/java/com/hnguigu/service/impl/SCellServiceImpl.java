@@ -21,7 +21,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
     SCellMapper sCellMapper;
 
     /**
-     * 制作安全库存配置单-添加
+     * 制作安全库存配置单-添加-xyb
      * @param sCell
      * @return
      */
@@ -35,11 +35,11 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         return this.save(sCell);
     }
     /**
-     * 安全库存配置单-复核-总数据查询
+     * 安全库存配置单-复核-总数据查询-xyb
      * @return
      */
     public PageInfo<DFile> queryAllSCll(int pageNo, int pageSize, DFile dFile, String tag,String tag2){
-        System.out.println("queryAllSCll"+tag);
+        System.out.println("queryAllSCll"+tag+":"+tag2);
            // 设置分页参数
         PageHelper.startPage(pageNo, pageSize);
         List<DFile> sCells = sCellMapper.queryAllSCll(tag,tag2);
@@ -48,7 +48,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         return sCellPageInfo;
     }
     /**
-     *查询安全库存配置单-复核的数据
+     *查询安全库存配置单-复核的数据-xyb
      * @param productId
      * @return
      */
@@ -60,7 +60,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         return  this.getOne(queryWrapper);
     }
     /**
-     *查询安全库存配置单中的-复核表格数据
+     *查询安全库存配置单中的-复核表格数据-xyb
      * @param productId
      * @return
      */
@@ -72,7 +72,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         return  this.list(queryWrapper);
     }
     /**
-     * 制作安全库存配置单-复核
+     * 制作安全库存配置单-复核-xyb
      * @param id,CheckTag
      * @return
      */
@@ -83,7 +83,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         return this.updateById(sCell);
     }
     /**
-     * 制作安全库存配置单-修改
+     * 制作安全库存配置单-修改-xyb
      * @param sCell
      * @return
      */

@@ -2,23 +2,21 @@ package com.hnguigu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 import com.hnguigu.mapper.SCellMapper;
 import com.hnguigu.mapper.SGatherDetailsMapper;
 import com.hnguigu.mapper.SGatherMapper;
 import com.hnguigu.service.SGatherService;
 import com.hnguigu.util.Scheduling;
-import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.SGatherDetails;
 import com.hnguigu.vo.ex.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> implements SGatherService {
@@ -37,11 +35,15 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
      * @return
      */
     @Override
-    public PageInfo<DFile> queryAllSGather(int pageNo, int pageSize, SGather sGather) {
-        PageHelper.startPage(pageNo, pageSize);
+    public IPage<SGather> queryAllSGather(int pageNo, int pageSize, SGather sGather) {
+       /* PageHelper.startPage(pageNo, pageSize);
         List<DFile> sGathers = sGatherMapper.querySGather();
-        PageInfo<DFile> sCellPageInfo = new PageInfo<>(sGathers);
-        return sCellPageInfo;
+        PageInfo<DFile> sCellPageInfo = new PageInfo<>(sGathers);*/
+        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+        if (!StringUtil.isEmpty(sGather.getGatherId()))
+        sGatherQueryWrapper.eq("GATHER_ID",sGather.getGatherId());
+
+        return this.page(new Page<SGather>(pageNo,pageSize), sGatherQueryWrapper);
     }
     /**
      * 入库调度单-查询

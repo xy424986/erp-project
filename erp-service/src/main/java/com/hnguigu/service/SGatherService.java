@@ -1,9 +1,8 @@
 package com.hnguigu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.pagehelper.PageInfo;
 import com.hnguigu.util.Scheduling;
-import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.ex.SGatherEx;
 
@@ -16,7 +15,7 @@ public interface SGatherService extends IService<SGather> {
      * @param sGather
      * @return
      */
-    PageInfo<DFile> queryAllSGather(int pageNo, int pageSize, SGather sGather);
+    IPage<SGather> queryAllSGather(int pageNo, int pageSize, SGather sGather);
 
     /**
      * 入库调度单-查询-xyb

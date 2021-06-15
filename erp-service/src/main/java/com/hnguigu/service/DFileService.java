@@ -19,7 +19,7 @@ public interface DFileService extends IService<DFile> {
      * @return
      */
 //    List<DFile> queryByState(String state);
-    /**
+    /**xyb
      *查询安全库存配置单表格数据
      * @param pageno
      * @param pagesize
@@ -28,14 +28,14 @@ public interface DFileService extends IService<DFile> {
      */
     IPage<DFile> queryAllDFile( int pageno,int pagesize,DFile dFile);
 
-    /**
+    /**xyb
      *查询安全库存配置单的数据
      * @param productId
      * @return
      */
     DFile queryByIdDFile(String productId);
 
-    /**
+    /**xyb
      *查询安全库存配置单中的表格数据
      * @param productId
      * @return

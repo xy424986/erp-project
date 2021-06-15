@@ -1,5 +1,6 @@
 package com.hnguigu.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
 import com.hnguigu.service.SGatherService;
 import com.hnguigu.util.Scheduling;
@@ -27,9 +28,9 @@ public class SGathersController {
      * @return
      */
     @RequestMapping("/queryAllSGather.May")
-    public PageInfo<DFile> queryAllSGather(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
-                                           @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
-                                           SGather sGather){
+    public IPage<SGather> queryAllSGather(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                          @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                          SGather sGather){
         return sGatherService.queryAllSGather(pageNo,pageSize,sGather);
     }
 
@@ -41,7 +42,7 @@ public class SGathersController {
     @RequestMapping("/queryByIdSGather.May")
     public SGatherEx queryByIdSGather(String productId){
         System.out.println("queryByIdSGather"+productId);
-        return sGatherService.queryByIdSGatherEx("020200010100100001");
+        return sGatherService.queryByIdSGatherEx(productId);
     }
 
     /**

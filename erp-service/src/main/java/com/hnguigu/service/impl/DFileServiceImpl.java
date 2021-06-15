@@ -56,7 +56,7 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         return this.page(new Page<DFile>(pageno,pagesize), queryWrapper);
     }
 
-    /**
+    /**xyb
      *查询安全库存配置单的数据
      * @param productId
      * @return
@@ -68,7 +68,7 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         queryWrapper.eq("PRODUCT_ID",productId);
         return  this.getOne(queryWrapper);
     }
-    /**
+    /**xyb
      *查询安全库存配置单中的表格数据
      * @param productId
      * @return

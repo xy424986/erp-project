@@ -22,7 +22,7 @@ public class SCellController {
     @Autowired
     SCellService sCellService;
     /**
-     * 制作安全库存配置单-添加
+     * 制作安全库存配置单-添加-xyb
      * @param sCell
      * @return
      */
@@ -33,7 +33,7 @@ public class SCellController {
     }
 
     /**
-     * 安全库存配置单-复核-总数据查询
+     * 安全库存配置单-复核-总数据查询-xyb
      * @return
      */
     @RequestMapping("/queryAllSCell.May")
@@ -48,7 +48,7 @@ public class SCellController {
     }
 
     /**
-     * 查询安全库存配置单-复核的数据
+     * 查询安全库存配置单-复核的数据-xyb
      * @param productId
      * @return
      */
@@ -59,7 +59,7 @@ public class SCellController {
     }
 
     /**
-     * 查询安全库存配置单中的-复核表格数据
+     * 查询安全库存配置单中的-复核表格数据-xyb
      * @param productId
      * @return
      */
@@ -70,7 +70,7 @@ public class SCellController {
     }
 
     /**
-     * 安全库存配置单中的-复核
+     * 安全库存配置单中的-复核-xyb
      * @param id
      * @param CheckTag
      * @return
@@ -82,7 +82,7 @@ public class SCellController {
 
 
     /**
-     * 安全库存配置单-查询-总数据查询
+     * 安全库存配置单-查询-总数据查询-xyb
      * @return
      */
     @RequestMapping("/queryAllSCell2.May")
@@ -98,7 +98,7 @@ public class SCellController {
 
 
     /**
-     * 制作安全库存配置单-修改
+     * 制作安全库存配置单-修改-xyb
      * @param sCell
      * @return
      */

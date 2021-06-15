@@ -52,7 +52,10 @@ public class SGatherDetails  {
     private String gatherTag;/*入库标志
                                 K002-1: 已登记
                                 K002-2: 已调度*/
-
+    @TableField("ass")
+    private String ass;/*
+                            储存地址集合
+                            */
 
 
 }
