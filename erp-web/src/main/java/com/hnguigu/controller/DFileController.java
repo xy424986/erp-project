@@ -8,6 +8,7 @@ import com.hnguigu.service.DFileService;
 import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.DModule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +34,11 @@ public class DFileController {
      * @return
      */
     @RequestMapping("queryByState.action")
-    public List<DFile> queryByState(){
-        return dFileService.queryByState("S001-1");
+    public IPage<DFile> queryByState(@RequestParam(value = "pageNumber",defaultValue = "1") int pageNumber,
+                                    @RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
+                                    DFile dFile){
+
+        return dFileService.queryAllDFile(pageNumber, pageSize, dFile);
     }
 
     /**

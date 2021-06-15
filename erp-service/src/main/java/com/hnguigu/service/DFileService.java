@@ -18,7 +18,7 @@ public interface DFileService extends IService<DFile> {
      * @param state
      * @return
      */
-    List<DFile> queryByState(String state);
+//    List<DFile> queryByState(String state);
     /**
      *查询安全库存配置单表格数据
      * @param pageno

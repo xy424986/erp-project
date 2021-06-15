@@ -39,6 +39,8 @@
         <!--添加分页插件-->
         <property name="plugins">
             <array>
+<!--                mybatisPlus分页插件-->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"></bean>
                 <bean class="com.github.pagehelper.PageInterceptor">
                     <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
                     <property name="properties">

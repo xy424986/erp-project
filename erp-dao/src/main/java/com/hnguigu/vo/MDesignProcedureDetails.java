@@ -22,7 +22,6 @@ import java.util.Date;
 @TableName("m_design_procedure_details")
 public class MDesignProcedureDetails  {
 
-
     @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;/*序号*/
 
