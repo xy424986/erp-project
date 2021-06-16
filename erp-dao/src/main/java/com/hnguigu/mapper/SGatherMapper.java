@@ -3,7 +3,6 @@ package com.hnguigu.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGather;
-import com.hnguigu.vo.ex.SGatherEx;
 import org.apache.ibatis.annotations.Param;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.apache.ibatis.annotations.Select;
