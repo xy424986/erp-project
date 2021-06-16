@@ -42,11 +42,10 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
         if (!StringUtil.isEmpty(sGather.getGatherId()))
         sGatherQueryWrapper.eq("GATHER_ID",sGather.getGatherId());
-
         return this.page(new Page<SGather>(pageNo,pageSize), sGatherQueryWrapper);
     }
     /**
-     * 入库调度单-查询
+     * 入库调度单-查询-xyb
      *
      * @param
      */
@@ -90,9 +89,6 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
             sGather.setAttemper(scheduling.getAttemper());//调度人
             sGather.setAttemperTime(scheduling.getAttemperTime());//调度时间;
 
-/*            QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
-            sGatherQueryWrapper.eq("GATHER_ID",scheduling.getGatherId());
-            boolean save = this.update(sGatherQueryWrapper);*/
             UpdateWrapper<SGather> sGatherUpdateWrapper = new UpdateWrapper<>();
             sGatherUpdateWrapper.eq("GATHER_ID",scheduling.getGatherId());
             boolean save = this.update(sGather,sGatherUpdateWrapper);

@@ -55,4 +55,10 @@ public class SGathersController {
     public String addSGath(Scheduling scheduling){
         return sGatherService.addSGather(scheduling);
     }
+
+/*
+    public SGather queryByIdSGather(String gatherId){
+        return sGatherService.queryByIdSGather(gatherId);
+    }*/
+
 }
