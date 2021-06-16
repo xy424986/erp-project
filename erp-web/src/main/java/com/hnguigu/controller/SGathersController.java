@@ -1,12 +1,10 @@
 package com.hnguigu.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.pagehelper.PageInfo;
 import com.hnguigu.service.SGatherService;
 import com.hnguigu.util.Scheduling;
-import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGather;
-import com.hnguigu.vo.ex.SGatherEx;
+import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
