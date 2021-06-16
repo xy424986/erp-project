@@ -56,9 +56,14 @@ public class SGathersController {
         return sGatherService.addSGather(scheduling);
     }
 
-/*
-    public SGather queryByIdSGather(String gatherId){
-        return sGatherService.queryByIdSGather(gatherId);
-    }*/
+    /**
+     * 入库调度单总调度-xyb
+     * @param gatherId 入库编号
+     * @return
+     */
+    @RequestMapping("/queryByGatherIdSGather.May")
+    public SGather queryByGatherIdSGather(String gatherId){
+        return sGatherService.queryByGatherIdSGather(gatherId);
+    }
 
 }

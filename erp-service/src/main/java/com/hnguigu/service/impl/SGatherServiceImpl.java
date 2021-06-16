@@ -100,4 +100,16 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         }
         return "入库失败!";
     }
+
+    /**
+     * 入库调度单总调度-xyb
+     * @param gatherId 入库编号
+     * @return
+     */
+    @Override
+    public SGather queryByGatherIdSGather(String gatherId) {
+        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+        sGatherQueryWrapper.eq("GATHER_ID",gatherId);
+        return this.getOne(sGatherQueryWrapper);
+    }
 }

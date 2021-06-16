@@ -16,7 +16,6 @@ public interface SGatherService extends IService<SGather> {
      * @return
      */
     IPage<SGather> queryAllSGather(int pageNo, int pageSize, SGather sGather);
-
     /**
      * 入库调度单-查询-xyb
      *
@@ -29,4 +28,10 @@ public interface SGatherService extends IService<SGather> {
      * @return
      */
      String addSGather(Scheduling scheduling);
+    /**
+     * 入库调度单总调度-xyb
+     * @param gatherId 入库编号
+     * @return
+     */
+    SGather queryByGatherIdSGather(String gatherId);
 }
