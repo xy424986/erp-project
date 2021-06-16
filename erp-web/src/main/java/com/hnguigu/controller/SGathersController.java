@@ -34,13 +34,14 @@ public class SGathersController {
 
     /**
      * 入库调度单-查询-xyb
-     * @param productId 产品编号
+     * @param id 产品编号
      * @return
      */
     @RequestMapping("/queryByIdSGather.May")
-    public SGatherEx queryByIdSGather(String productId){
-        System.out.println("queryByIdSGather"+productId);
-        return sGatherService.queryByIdSGatherEx(productId);
+    public SGatherEx queryByIdSGather(int id){
+        System.out.println("queryByIdSGather"+id);
+        SGatherEx sGatherEx = sGatherService.queryByIdSGatherEx(id);
+        return sGatherEx;
     }
 
     /**
@@ -53,4 +54,15 @@ public class SGathersController {
     public String addSGath(Scheduling scheduling){
         return sGatherService.addSGather(scheduling);
     }
+
+    /**
+     * 入库调度单总调度-xyb
+     * @param gatherId 入库编号
+     * @return
+     */
+    @RequestMapping("/queryByGatherIdSGather.May")
+    public SGather queryByGatherIdSGather(String gatherId){
+        return sGatherService.queryByGatherIdSGather(gatherId);
+    }
+
 }

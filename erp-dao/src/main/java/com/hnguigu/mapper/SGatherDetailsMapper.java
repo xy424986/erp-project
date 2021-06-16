@@ -11,7 +11,6 @@ public interface SGatherDetailsMapper extends BaseMapper<SGatherDetails> {
 
     @Select("select * from `s_gather_details` sgd\n" +
             "left join `s_gather` sg  on sg.ID = sgd.PARENT_ID \n" +
-            "where sgd.PARENT_ID=#{parentId} and sg.GATHER_TAG='K002-1' \n" +
-            " and sgd.GATHER_TAG='K002-1'")
-    List<SGatherDetails> queryByParentIdSGatherDetails(@Param("parentId") String parentId);
+            "where sgd.PARENT_ID=#{parentId} and sg.GATHER_TAG='K002-1'")
+    List<SGatherDetails> queryByParentIdSGatherDetails(@Param("parentId") String id);
 }

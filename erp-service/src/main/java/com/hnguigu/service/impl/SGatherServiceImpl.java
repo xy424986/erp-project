@@ -40,19 +40,22 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         List<DFile> sGathers = sGatherMapper.querySGather();
         PageInfo<DFile> sCellPageInfo = new PageInfo<>(sGathers);*/
         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sGather.getGatherId()))
-        sGatherQueryWrapper.eq("GATHER_ID",sGather.getGatherId());
-
-        return this.page(new Page<SGather>(pageNo,pageSize), sGatherQueryWrapper);
+        if (!StringUtil.isEmpty(sGather.getGatherId())) {
+            sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
+        }
+        IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
+        System.out.println("queryAllSGather:"+page);
+        return page;
     }
     /**
-     * 入库调度单-查询
+     * 入库调度单-查询-xyb
      *
      * @param
+     * @param id
      */
     @Override
-    public SGatherEx queryByIdSGatherEx(String productId) {
-        return sGatherMapper.queryByIdSGatherEx(productId);
+    public SGatherEx queryByIdSGatherEx(int id) {
+        return sGatherMapper.queryByIdSGatherEx(id);
     }
 
     /**
@@ -90,9 +93,6 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
             sGather.setAttemper(scheduling.getAttemper());//调度人
             sGather.setAttemperTime(scheduling.getAttemperTime());//调度时间;
 
-/*            QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
-            sGatherQueryWrapper.eq("GATHER_ID",scheduling.getGatherId());
-            boolean save = this.update(sGatherQueryWrapper);*/
             UpdateWrapper<SGather> sGatherUpdateWrapper = new UpdateWrapper<>();
             sGatherUpdateWrapper.eq("GATHER_ID",scheduling.getGatherId());
             boolean save = this.update(sGather,sGatherUpdateWrapper);
@@ -103,5 +103,17 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
             return "本次入库数量应该与应入库数量一致!";
         }
         return "入库失败!";
+    }
+
+    /**
+     * 入库调度单总调度-xyb
+     * @param gatherId 入库编号
+     * @return
+     */
+    @Override
+    public SGather queryByGatherIdSGather(String gatherId) {
+        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+        sGatherQueryWrapper.eq("GATHER_ID",gatherId);
+        return this.getOne(sGatherQueryWrapper);
     }
 }

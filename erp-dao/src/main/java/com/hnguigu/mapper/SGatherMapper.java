@@ -3,6 +3,7 @@ package com.hnguigu.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGather;
+import org.apache.ibatis.annotations.Param;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.apache.ibatis.annotations.Select;
 
@@ -23,10 +24,10 @@ public interface SGatherMapper extends BaseMapper<SGather> {
             "left join `s_gather` sg  on sg.ID = sgd.PARENT_ID\n" +
             "left join s_cell sc on sgd.PRODUCT_ID = sc.PRODUCT_ID\n" +
             "left join `d_file` df on df.PRODUCT_ID = sc.PRODUCT_ID\n" +
-            "where df.`PRODUCT_ID`=#{productId} \n" +
+            "where sgd.`ID`=#{id}\n" +
             "and sc.check_tag='S001-1' \n" +
             "and sg.GATHER_TAG='K002-1'\n" +
             "and sg.check_tag='S001-1'\n" +
             "and sgd.GATHER_TAG='K002-1' ")
-    SGatherEx queryByIdSGatherEx(String productId);
+    SGatherEx queryByIdSGatherEx(@Param("id") int id);
 }
