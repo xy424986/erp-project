@@ -22,6 +22,7 @@ public class SGatherDetailsController {
      */
     @RequestMapping("/queryByParentIdSGatherDetails.May")
     public List<SGatherDetails> queryByParentIdSGatherDetails(String parentId){
+        System.out.println("queryByParentIdSGatherDetails"+parentId);
         return sGatherDetailsService.queryByParentIdSGatherDetails(parentId);
     }
 

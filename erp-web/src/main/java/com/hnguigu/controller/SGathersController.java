@@ -36,13 +36,14 @@ public class SGathersController {
 
     /**
      * 入库调度单-查询-xyb
-     * @param productId 产品编号
+     * @param id 产品编号
      * @return
      */
     @RequestMapping("/queryByIdSGather.May")
-    public SGatherEx queryByIdSGather(String productId){
-        System.out.println("queryByIdSGather"+productId);
-        return sGatherService.queryByIdSGatherEx(productId);
+    public SGatherEx queryByIdSGather(int id){
+        System.out.println("queryByIdSGather"+id);
+        SGatherEx sGatherEx = sGatherService.queryByIdSGatherEx(id);
+        return sGatherEx;
     }
 
     /**

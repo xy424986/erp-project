@@ -40,18 +40,22 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         List<DFile> sGathers = sGatherMapper.querySGather();
         PageInfo<DFile> sCellPageInfo = new PageInfo<>(sGathers);*/
         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sGather.getGatherId()))
-        sGatherQueryWrapper.eq("GATHER_ID",sGather.getGatherId());
-        return this.page(new Page<SGather>(pageNo,pageSize), sGatherQueryWrapper);
+        if (!StringUtil.isEmpty(sGather.getGatherId())) {
+            sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
+        }
+        IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
+        System.out.println("queryAllSGather:"+page);
+        return page;
     }
     /**
      * 入库调度单-查询-xyb
      *
      * @param
+     * @param id
      */
     @Override
-    public SGatherEx queryByIdSGatherEx(String productId) {
-        return sGatherMapper.queryByIdSGatherEx(productId);
+    public SGatherEx queryByIdSGatherEx(int id) {
+        return sGatherMapper.queryByIdSGatherEx(id);
     }
 
     /**

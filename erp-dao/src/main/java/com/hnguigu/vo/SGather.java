@@ -56,12 +56,14 @@ public class SGather{
     private String register;/*登记人*/
 
     @TableField("REGISTER_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
     private String checker;/*复核人*/
 
     @TableField("CHECK_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date checkTime;/*复核时间*/
 
     @TableField("CHECK_TAG")

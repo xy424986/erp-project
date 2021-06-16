@@ -19,9 +19,9 @@ public interface SGatherService extends IService<SGather> {
     /**
      * 入库调度单-查询-xyb
      *
-     * @param productId@return
+     * @param id @return
      */
-     SGatherEx queryByIdSGatherEx(String productId);
+     SGatherEx queryByIdSGatherEx(int id);
     /**
      * 入库调度-xyb
      * @param scheduling 入库调度特制beng
