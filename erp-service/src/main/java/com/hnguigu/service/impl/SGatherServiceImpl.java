@@ -14,7 +14,7 @@ import com.hnguigu.util.Scheduling;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.SGatherDetails;
-import com.hnguigu.vo.ex.SGatherEx;
+import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

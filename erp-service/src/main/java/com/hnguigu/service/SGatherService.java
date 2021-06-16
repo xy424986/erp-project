@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hnguigu.util.Scheduling;
 import com.hnguigu.vo.SGather;
-import com.hnguigu.vo.ex.SGatherEx;
+import com.hnguigu.vo.extend.SGatherEx;
 
 public interface SGatherService extends IService<SGather> {
 

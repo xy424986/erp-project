@@ -1,4 +1,4 @@
-package com.hnguigu.vo.ex;
+package com.hnguigu.vo.extend;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
