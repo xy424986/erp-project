@@ -1,19 +1,31 @@
 package com.hnguigu.util;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Scheduling {
+public class SchedulingOutbound {
     private String productId;/*产品编号*/
-    private String gatherId;/*产品编号*/
+    private String payId;/*产品编号*/
     private String attemper;/*调度人*/
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date attemperTime;/*调度时间*/
-    private Integer amount;/*当前存储量*/
+    private Integer amount;/*要出库的数量*/
     private String ass;/*储存地址集合*/
     private String scellformId;/*明细表的parentId*/
+    private String reason;/*出库理由
+                        C002-1: 生产领料
+                        C002-2: 赠送
+                        C002-3: 内部借领
+                        C002-4: 其他借领*/
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
     public String getAss() {
         return ass;
@@ -32,12 +44,12 @@ public class Scheduling {
         this.productId = productId;
     }
 
-    public String getGatherId() {
-        return gatherId;
+    public String getPayId() {
+        return payId;
     }
 
-    public void setGatherId(String gatherId) {
-        this.gatherId = gatherId;
+    public void setPayId(String payId) {
+        this.payId = payId;
     }
 
     public String getAttemper() {
@@ -65,7 +77,7 @@ public class Scheduling {
 
     }
 
-    public Scheduling() {
+    public SchedulingOutbound() {
     }
 
     public String getScellformId() {
@@ -78,24 +90,26 @@ public class Scheduling {
 
     @Override
     public String toString() {
-        return "Scheduling{" +
+        return "SchedulingOutbound{" +
                 "productId='" + productId + '\'' +
-                ", gatherId='" + gatherId + '\'' +
+                ", payId='" + payId + '\'' +
                 ", attemper='" + attemper + '\'' +
                 ", attemperTime=" + attemperTime +
                 ", amount=" + amount +
                 ", ass='" + ass + '\'' +
                 ", scellformId='" + scellformId + '\'' +
+                ", reason='" + reason + '\'' +
                 '}';
     }
 
-    public Scheduling(String productId, String gatherId, String attemper, Date attemperTime, Integer amount, String ass, String scellformId) {
+    public SchedulingOutbound(String productId, String payId, String attemper, Date attemperTime, Integer amount, String ass, String scellformId, String reason) {
         this.productId = productId;
-        this.gatherId = gatherId;
+        this.payId = payId;
         this.attemper = attemper;
         this.attemperTime = attemperTime;
         this.amount = amount;
         this.ass = ass;
         this.scellformId = scellformId;
+        this.reason = reason;
     }
 }

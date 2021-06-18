@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -54,12 +55,14 @@ public class SPay {
     private String register;/*登记人*/
 
     @TableField("REGISTER_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
     private String checker;/*复核人*/
 
     @TableField("CHECK_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date checkTime;/*复核时间*/
 
     @TableField("CHECK_TAG")
@@ -72,6 +75,7 @@ public class SPay {
     private String attemper;/*调度人*/
 
     @TableField("ATTEMPER_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date attemperTime;/*调度时间*/
 
     @TableField("PAY_TAG")

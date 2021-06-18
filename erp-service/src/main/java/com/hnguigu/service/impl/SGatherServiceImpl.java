@@ -18,6 +18,8 @@ import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> implements SGatherService {
 
@@ -27,6 +29,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     SGatherDetailsMapper sGatherDetailsMapper;
     @Autowired
     SCellMapper sCellMapper;
+
     /**
      * 入库调度-总数据查询-xyb
      * @param pageNo
@@ -86,15 +89,30 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
             // a)当前存储量=当前存储量+本次入库数量
             int sCellAmount2=sCell.getAmount()+scheduling.getAmount();
             sCell.setAmount(sCellAmount2);//当前储存
-            sCellMapper.updateById(sCell);//添加当前储存
+
             sGatherDetails.setGatherTag("K002-2");//明细-已调度
-            sGatherDetailsMapper.updateById(sGatherDetails);//修改入库标志
-            sGather.setGatherTag("K002-2");//已调度
+            sGatherDetails.setAss(scheduling.getAss());//储存地址集合
+            sGatherDetails.setGatheredAmount(scheduling.getAmount());//确认入库数量
+            //连接查询
+            List<SGatherDetails> sGatherDetails1 = sGatherDetailsMapper.queryByParentIdSGatherDetails1(scheduling.getScellformId());
+            //判断明细表里的入库标志为K002-1字段是否只有一条
+            //只有一条就证明:这条明细记录入库标志为K002-1
+            //修改完这条就没有不调用的明细记录,可进入if判断修改入库表库存标志为K002-2(以调用)
+            System.out.println("addSGather中的sGatherDetails1.getProductId:"+scheduling.getProductId());
+            System.out.println("addSGather中的sGatherDetails1.size:"+sGatherDetails1.size());
+            if (sGatherDetails1.size() ==1){
+                System.out.println("进入if方法");
+                sGather.setGatherTag("K002-2");//已调度
+            }
+
             sGather.setAttemper(scheduling.getAttemper());//调度人
             sGather.setAttemperTime(scheduling.getAttemperTime());//调度时间;
 
             UpdateWrapper<SGather> sGatherUpdateWrapper = new UpdateWrapper<>();
             sGatherUpdateWrapper.eq("GATHER_ID",scheduling.getGatherId());
+
+            sCellMapper.updateById(sCell);//添加当前储存
+            sGatherDetailsMapper.updateById(sGatherDetails);//修改入库标志
             boolean save = this.update(sGather,sGatherUpdateWrapper);
             if (save)
                 return "入库成功!";
