@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -66,12 +67,14 @@ public class MDesignProcedure {
     @TableField("REGISTER")
     private String register;/*登记人*/
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
     @TableField("REGISTER_TIME")
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
     private String checker;/*复核人*/
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
     @TableField("CHECK_TIME")
     private Date checkTime;/*审核时间*/
 
@@ -87,6 +90,7 @@ public class MDesignProcedure {
     @TableField("CHANGER")
     private String changer;/*变更人*/
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
     @TableField("CHANGE_TIME")
     private Date changeTime;/*变更时间*/
 

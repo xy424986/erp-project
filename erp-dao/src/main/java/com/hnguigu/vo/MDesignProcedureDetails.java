@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -55,9 +56,11 @@ public class MDesignProcedureDetails  {
     @TableField("MODULE_SUBTOTAL")
     private Double moduleSubtotal;/*物料成本小计*/
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
     @TableField("REGISTER")
     private String register;/*登记人*/
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
     @TableField("REGISTER_TIME")
     private Date registerTime;/*登记时间*/
 

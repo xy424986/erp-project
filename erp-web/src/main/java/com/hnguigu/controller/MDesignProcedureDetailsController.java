@@ -17,6 +17,10 @@ public class MDesignProcedureDetailsController {
     @Autowired
     MDesignProcedureDetailsService mDesignProcedureDetailsService;
 
+    /**
+     * hhy
+     * @return
+     */
     @RequestMapping("queryByChangeState")
     public List<MDesignProcedureDetails> queryByChangeState(){
         return mDesignProcedureDetailsService.queryByChangeState("D003-0");
