@@ -21,9 +21,9 @@ public class MDesignProcedureDetailsController {
      * hhy
      * @return
      */
-    @RequestMapping("queryByChangeState")
-    public List<MDesignProcedureDetails> queryByChangeState(){
-        return mDesignProcedureDetailsService.queryByChangeState("D003-0");
-    }
+//    @RequestMapping("queryByChangeState.action")
+//    public List<MDesignProcedureDetails> queryByChangeState(){
+//        return mDesignProcedureDetailsService.queryByChangeState("D003-0");
+//    }
 
 }

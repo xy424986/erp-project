@@ -33,6 +33,7 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
         Double priceSum = 0.0;
 
         for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtend) {
+            mDesignProcedure.setDesignId("001");
             mDesignProcedure.setProductId(mDesignProcedureExtend1.getProductId());
             mDesignProcedure.setProductName(mDesignProcedureExtend1.getProductName());
             mDesignProcedure.setProcedureDescribe(mDesignProcedureExtend1.getProcedureDescribe1());
@@ -40,12 +41,15 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
             mDesignProcedure.setRegister(mDesignProcedureExtend1.getRegister());
             mDesignProcedure.setRegisterTime(new Date());
             mDesignProcedure.setCheckTag("S001-0");
+            mDesignProcedure.setChangeTag("B002-0");
+            mDesignProcedure.setDesignModuleTag("G002-0");
+            mDesignProcedure.setDesignModuleChangeTag("G003-0");
             priceSum += mDesignProcedureExtend1.getLabourHourAmount()*mDesignProcedureExtend1.getCostPrice();
         }
         mDesignProcedure.setCostPriceSum(priceSum);
-        System.out.println(priceSum);
-        System.out.println(mDesignProcedure);
-//        mDesignProcedureMapper.insert(mDesignProcedure)
-        return 0;
+//        System.out.println(priceSum);
+//        System.out.println(mDesignProcedure);
+
+        return mDesignProcedureMapper.insert(mDesignProcedure);
     }
 }

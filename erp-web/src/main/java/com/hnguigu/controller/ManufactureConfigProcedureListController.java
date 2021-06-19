@@ -17,6 +17,10 @@ public class ManufactureConfigProcedureListController {
     @Autowired
     ManufactureConfigProcedureListService manufactureConfigProcedureListService;
 
+    /**
+     * hhy
+     * @return
+     */
     @RequestMapping("queryAll.action")
     public List<ManufactureConfigProcedureList> queryAll(){
         return manufactureConfigProcedureListService.queryAll();
