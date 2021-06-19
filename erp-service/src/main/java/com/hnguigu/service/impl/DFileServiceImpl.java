@@ -48,8 +48,11 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     @Override
     public IPage<DFile> queryAllDFile(int pageno, int pagesize, DFile dFile) {
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("CHECK_TAG","S001-1");
-//        hhy
+       //xyb
+        if (!StringUtils.isEmpty(dFile.getCheckTag())) {
+            queryWrapper.eq("CHECK_TAG", dFile.getCheckTag());
+        }
+        //        hhy
         if(!StringUtils.isEmpty(dFile.getProductName())){
             queryWrapper.like("name",dFile.getProductName());
         }

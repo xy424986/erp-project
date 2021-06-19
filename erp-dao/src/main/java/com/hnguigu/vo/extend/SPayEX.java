@@ -13,9 +13,11 @@ public class SPayEX extends SPay {
     private String amountUnit;/*单位*/
     private Double costPrice;/*单价*/
     private Double subtotal;/*小计*/
-    private Integer gatheredAmount;/*确认入库件数*/
-    private String gatherTag;/*入库标志 K002-1: 已登记 K002-2: 已调度*/
-    private Integer maxCapacityAmount;/*最大存储量*/
+    private Integer paidAmount;/*确认出库件数*/
+    private String payTag;/*出库标志
+                            K002-1: 已登记
+                            K002-2: 已调度*/
+    private String payAss;/*储存地址集合*/
     private String firstKindId;//产品I级分类编号
     private String firstKindName;//产品I级分类名称
     private String secondKindId;//产品II级分类编号
@@ -23,8 +25,7 @@ public class SPayEX extends SPay {
     private String thirdKindId;//产品III级分类编号
     private String thirdKindName;//产品III级分类名称
     private String storageUnitAbbreviation;/*储存单元简称*/
-    private String payAss;/*储存地址集合*/
-    private int scAmount;/*已存数量*/
+    private int scAmoupayAssnt;/*已存数量*/
 
     @Override
     public String toString() {
@@ -38,9 +39,9 @@ public class SPayEX extends SPay {
                 ", amountUnit='" + amountUnit + '\'' +
                 ", costPrice=" + costPrice +
                 ", subtotal=" + subtotal +
-                ", gatheredAmount=" + gatheredAmount +
-                ", gatherTag='" + gatherTag + '\'' +
-                ", maxCapacityAmount=" + maxCapacityAmount +
+                ", paidAmount=" + paidAmount +
+                ", payTag='" + payTag + '\'' +
+                ", payAss='" + payAss + '\'' +
                 ", firstKindId='" + firstKindId + '\'' +
                 ", firstKindName='" + firstKindName + '\'' +
                 ", secondKindId='" + secondKindId + '\'' +
@@ -48,8 +49,7 @@ public class SPayEX extends SPay {
                 ", thirdKindId='" + thirdKindId + '\'' +
                 ", thirdKindName='" + thirdKindName + '\'' +
                 ", storageUnitAbbreviation='" + storageUnitAbbreviation + '\'' +
-                ", payAss='" + payAss + '\'' +
-                ", scAmount=" + scAmount +
+                ", scAmoupayAssnt=" + scAmoupayAssnt +
                 '}';
     }
 
@@ -127,28 +127,30 @@ public class SPayEX extends SPay {
         this.subtotal = subtotal;
     }
 
-    public Integer getGatheredAmount() {
-        return gatheredAmount;
+    public Integer getPaidAmount() {
+        return paidAmount;
     }
 
-    public void setGatheredAmount(Integer gatheredAmount) {
-        this.gatheredAmount = gatheredAmount;
+    public void setPaidAmount(Integer paidAmount) {
+        this.paidAmount = paidAmount;
     }
 
-    public String getGatherTag() {
-        return gatherTag;
+    @Override
+    public String getPayTag() {
+        return payTag;
     }
 
-    public void setGatherTag(String gatherTag) {
-        this.gatherTag = gatherTag;
+    @Override
+    public void setPayTag(String payTag) {
+        this.payTag = payTag;
     }
 
-    public Integer getMaxCapacityAmount() {
-        return maxCapacityAmount;
+    public String getPayAss() {
+        return payAss;
     }
 
-    public void setMaxCapacityAmount(Integer maxCapacityAmount) {
-        this.maxCapacityAmount = maxCapacityAmount;
+    public void setPayAss(String payAss) {
+        this.payAss = payAss;
     }
 
     public String getFirstKindId() {
@@ -207,26 +209,18 @@ public class SPayEX extends SPay {
         this.storageUnitAbbreviation = storageUnitAbbreviation;
     }
 
-    public String getPayAss() {
-        return payAss;
+    public int getScAmoupayAssnt() {
+        return scAmoupayAssnt;
     }
 
-    public void setPayAss(String payAss) {
-        this.payAss = payAss;
-    }
-
-    public int getScAmount() {
-        return scAmount;
-    }
-
-    public void setScAmount(int scAmount) {
-        this.scAmount = scAmount;
+    public void setScAmoupayAssnt(int scAmoupayAssnt) {
+        this.scAmoupayAssnt = scAmoupayAssnt;
     }
 
     public SPayEX() {
     }
 
-    public SPayEX(Integer id, Integer parentId, String productId, String productName, String productDescribe, Integer amount, String amountUnit, Double costPrice, Double subtotal, Integer gatheredAmount, String gatherTag, Integer maxCapacityAmount, String firstKindId, String firstKindName, String secondKindId, String secondKindName, String thirdKindId, String thirdKindName, String storageUnitAbbreviation, String payAss, int scAmount) {
+    public SPayEX(Integer id, Integer parentId, String productId, String productName, String productDescribe, Integer amount, String amountUnit, Double costPrice, Double subtotal, Integer paidAmount, String payTag, String payAss, String firstKindId, String firstKindName, String secondKindId, String secondKindName, String thirdKindId, String thirdKindName, String storageUnitAbbreviation, int scAmoupayAssnt) {
         this.id = id;
         this.parentId = parentId;
         this.productId = productId;
@@ -236,9 +230,9 @@ public class SPayEX extends SPay {
         this.amountUnit = amountUnit;
         this.costPrice = costPrice;
         this.subtotal = subtotal;
-        this.gatheredAmount = gatheredAmount;
-        this.gatherTag = gatherTag;
-        this.maxCapacityAmount = maxCapacityAmount;
+        this.paidAmount = paidAmount;
+        this.payTag = payTag;
+        this.payAss = payAss;
         this.firstKindId = firstKindId;
         this.firstKindName = firstKindName;
         this.secondKindId = secondKindId;
@@ -246,7 +240,6 @@ public class SPayEX extends SPay {
         this.thirdKindId = thirdKindId;
         this.thirdKindName = thirdKindName;
         this.storageUnitAbbreviation = storageUnitAbbreviation;
-        this.payAss = payAss;
-        this.scAmount = scAmount;
+        this.scAmoupayAssnt = scAmoupayAssnt;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface SPayDetailsMapper extends BaseMapper<SPayDetails> {
 
-    @Select("select *,sc.amount as scAmount  from `s_pay_details` spd\n" +
+    @Select("select *,sc.amount as scAmoupayAssnt  from `s_pay_details` spd\n" +
             "left join `s_pay` sp  on sp.ID = spd.PARENT_ID \n" +
             "left join s_cell sc on spd.PRODUCT_ID = sc.PRODUCT_ID\n" +
             "where spd.PARENT_ID=#{parentId}")

@@ -22,6 +22,11 @@ public class SPayDetailsServiceImpl extends ServiceImpl<SPayDetailsMapper, SPayD
      */
     @Override
     public List<SPayEX> queryByParentIdSPayDetails(String parentId) {
-        return sPayDetailsMapper.queryByParentIdSPayDetails(parentId);
+        List<SPayEX> sPayEXES = sPayDetailsMapper.queryByParentIdSPayDetails(parentId);
+        System.out.println(sPayEXES.toArray());
+        for (SPayEX s:sPayEXES) {
+            System.out.println(s);
+        }
+        return sPayEXES;
     }
 }
