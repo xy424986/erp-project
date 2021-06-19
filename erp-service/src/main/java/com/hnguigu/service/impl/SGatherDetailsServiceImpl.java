@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hnguigu.mapper.SGatherDetailsMapper;
 import com.hnguigu.service.SGatherDetailsService;
 import com.hnguigu.vo.SGatherDetails;
+import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class SGatherDetailsServiceImpl extends ServiceImpl<SGatherDetailsMapper,
      * @return
      */
     @Override
-    public List<SGatherDetails> queryByParentIdSGatherDetails(String parentId) {
+    public List<SGatherEx> queryByParentIdSGatherDetails(String parentId) {
         return sGatherDetailsMapper.queryByParentIdSGatherDetails(parentId);
     }
 }

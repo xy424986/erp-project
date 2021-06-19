@@ -53,6 +53,7 @@ public class DFileController {
     public IPage<DFile> queryAllDFile(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
                                       @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
                                       DFile dFile){
+        dFile.setCheckTag("S001-1");
         return  dFileService.queryAllDFile(pageno,pagesize,dFile);
     }
 

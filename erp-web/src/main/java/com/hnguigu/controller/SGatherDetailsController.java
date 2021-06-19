@@ -2,6 +2,7 @@ package com.hnguigu.controller;
 
 import com.hnguigu.service.SGatherDetailsService;
 import com.hnguigu.vo.SGatherDetails;
+import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class SGatherDetailsController {
      * @return
      */
     @RequestMapping("/queryByParentIdSGatherDetails.May")
-    public List<SGatherDetails> queryByParentIdSGatherDetails(String parentId){
+    public List<SGatherEx> queryByParentIdSGatherDetails(String parentId){
         System.out.println("queryByParentIdSGatherDetails"+parentId);
         return sGatherDetailsService.queryByParentIdSGatherDetails(parentId);
     }

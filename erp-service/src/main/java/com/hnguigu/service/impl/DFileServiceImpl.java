@@ -39,8 +39,7 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     /**
      * xyb
      * hhy
-     * 查询安全库存配置单表格数据
-     *
+     *查询安全库存配置单表格数据
      * @param pageno
      * @param pagesize
      * @param dFile
@@ -49,7 +48,10 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     @Override
     public IPage<DFile> queryAllDFile(int pageno, int pagesize, DFile dFile) {
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("CHECK_TAG", "S001-1");
+       //xyb
+        if (!StringUtils.isEmpty(dFile.getCheckTag())) {
+            queryWrapper.eq("CHECK_TAG", dFile.getCheckTag());
+        }
 //        hhy
         if (!StringUtils.isEmpty(dFile.getDesignProcedureTag())) {
             queryWrapper.eq("DESIGN_PROCEDURE_TAG", dFile.getDesignProcedureTag());
@@ -58,36 +60,31 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         if (!StringUtils.isEmpty(dFile.getProductName())) {
             queryWrapper.like("name", dFile.getProductName());
         }
-        return this.page(new Page<DFile>(pageno, pagesize), queryWrapper);
+        return this.page(new Page<DFile>(pageno,pagesize), queryWrapper);
     }
 
-    /**
-     * xyb
-     * 查询安全库存配置单的数据
-     *
+    /**xyb
+     *查询安全库存配置单的数据
      * @param productId
      * @return
      */
     @Override
     public DFile queryByIdDFile(String productId) {
-        System.out.println("queryByIdDFile1的productId" + productId);
+        System.out.println("queryByIdDFile1的productId"+productId);
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("PRODUCT_ID", productId);
-        return this.getOne(queryWrapper);
+        queryWrapper.eq("PRODUCT_ID",productId);
+        return  this.getOne(queryWrapper);
     }
-
-    /**
-     * xyb
-     * 查询安全库存配置单中的表格数据
-     *
+    /**xyb
+     *查询安全库存配置单中的表格数据
      * @param productId
      * @return
      */
     @Override
     public List<DFile> queryByIdDFile2(String productId) {
-        System.out.println("queryByIdDFile2的productId" + productId);
+        System.out.println("queryByIdDFile2的productId"+productId);
         QueryWrapper<DFile> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("PRODUCT_ID", productId);
-        return this.list(queryWrapper);
+        queryWrapper.eq("PRODUCT_ID",productId);
+        return  this.list(queryWrapper);
     }
 }

@@ -52,7 +52,7 @@ public class SPayDetails {
     private String payTag;/*出库标志
                             K002-1: 已登记
                             K002-2: 已调度*/
-
-
+    @TableField("PAY_ASS")
+    private String payAss;/*储存地址集合*/
 
 }
