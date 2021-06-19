@@ -10,6 +10,7 @@ import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -47,20 +48,25 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
         MDesignProcedureDetails mDesignProcedureDetails = new MDesignProcedureDetails();
 
         int row = 0;
-
+        int id = 1;
         for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtend) {
             mDesignProcedureDetails.setProcedureId(mDesignProcedureExtend1.getProcedureId());
+            mDesignProcedureDetails.setParentId(1);
+            mDesignProcedureDetails.setDetailsNumber(id);
+            id++;
             mDesignProcedureDetails.setProcedureName(mDesignProcedureExtend1.getProcedureName());
             mDesignProcedureDetails.setLabourHourAmount(mDesignProcedureExtend1.getLabourHourAmount());
             mDesignProcedureDetails.setProcedureDescribe(mDesignProcedureExtend1.getProcedureDescribe());
             mDesignProcedureDetails.setAmountUnit(mDesignProcedureExtend1.getAmountUnit());
             mDesignProcedureDetails.setCostPrice(mDesignProcedureExtend1.getCostPrice());
             mDesignProcedureDetails.setRegister(mDesignProcedureExtend1.getRegister());
-            mDesignProcedureDetails.setSubtotal(mDesignProcedureExtend1.getLabourHourAmount()*mDesignProcedureExtend1.getCostPrice());
+            mDesignProcedureDetails.setSubtotal(mDesignProcedureExtend1.getLabourHourAmount() * mDesignProcedureExtend1.getCostPrice());
             mDesignProcedureDetails.setRegisterTime(new Date());
-//            row = mDesignProcedureDetailsMapper.insert(mDesignProcedureDetails);
+            mDesignProcedureDetails.setDesignModuleTag("D002-0");
+            mDesignProcedureDetails.setDesignModuleChangeTag("D003-0");
+            row = mDesignProcedureDetailsMapper.insert(mDesignProcedureDetails);
         }
-        System.out.println(mDesignProcedureDetails);
+//        System.out.println(mDesignProcedureDetails);
         return row;
     }
 }

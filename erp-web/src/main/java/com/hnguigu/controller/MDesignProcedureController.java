@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@Transactional
 @RequestMapping("/mDesignProcedure")
 public class MDesignProcedureController {
 
@@ -22,6 +21,7 @@ public class MDesignProcedureController {
     @Autowired
     MDesignProcedureDetailsService mDesignProcedureDetailsService;
 
+    @Transactional
     @RequestMapping(value = "insert.action", produces = {"text/json;charset=utf-8"})
     public String insert(@RequestBody List<MDesignProcedureExtend> mDesignProcedureExtend) {
 
@@ -30,7 +30,7 @@ public class MDesignProcedureController {
         if (row != 0 && row1 !=0) {
             return "已提交";
         }
-        System.out.println(mDesignProcedureExtend);
+//        System.out.println(mDesignProcedureExtend);
         return "提交失败";
     }
 }
