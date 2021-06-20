@@ -1,7 +1,10 @@
 package com.hnguigu.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hnguigu.service.MDesignProcedureDetailsService;
 import com.hnguigu.service.MDesignProcedureService;
+import com.hnguigu.vo.DFile;
+import com.hnguigu.vo.MDesignProcedure;
 import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,5 +35,12 @@ public class MDesignProcedureController {
         }
 //        System.out.println(mDesignProcedureExtend);
         return "提交失败";
+    }
+
+    @RequestMapping("queryByState.action")
+    public IPage<MDesignProcedure> queryByState(@RequestParam(value = "pageNumber",defaultValue = "1") int pageNumber,
+                                     @RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
+                                     MDesignProcedure mDesignProcedure){
+        return mDesignProcedureService.queryAll(pageNumber, pageSize, mDesignProcedure);
     }
 }

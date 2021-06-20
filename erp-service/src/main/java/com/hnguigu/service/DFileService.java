@@ -10,6 +10,14 @@ public interface DFileService extends IService<DFile> {
 
     /**
      * hhy
+     * 根据id修改生产工序设计单数据
+     * @param id
+     * @return
+     */
+    int updateById(int id);
+
+    /**
+     * hhy
      * 根据复核状态查询生产工序设计单数据
      * 状态：
      * S001-0: 等待审核

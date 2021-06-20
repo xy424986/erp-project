@@ -18,7 +18,6 @@ import java.util.Date;
 @TableName("d_file")
 public class DFile {
 
-
     @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;//序号
 
