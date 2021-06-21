@@ -37,7 +37,20 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
 //    }
 
     /**
-     * xyb
+     *hhy
+     * @param id
+     * @return
+     */
+    @Override
+    public int updateById(int id) {
+        DFile dFile = new DFile();
+        dFile.setDesignProcedureTag("G001-1");
+        dFile.setId(id);
+        return dFileMapper.updateById(dFile);
+    }
+
+    /**
+     * xyb/
      * hhy
      *查询安全库存配置单表格数据
      * @param pageno

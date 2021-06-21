@@ -37,8 +37,6 @@ public class DFileController {
     public IPage<DFile> queryByState(@RequestParam(value = "pageNumber",defaultValue = "1") int pageNumber,
                                     @RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
                                     DFile dFile){
-        dFile.setDesignProcedureTag("G001-0");
-
         return dFileService.queryAllDFile(pageNumber, pageSize, dFile);
     }
 

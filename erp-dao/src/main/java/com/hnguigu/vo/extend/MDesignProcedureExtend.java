@@ -1,8 +1,6 @@
 package com.hnguigu.vo.extend;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hnguigu.vo.MDesignProcedure;
 
 
 import java.util.Date;
@@ -34,10 +32,12 @@ public class MDesignProcedureExtend {
 
     private String procedureDescribe1;/*设计要求*/
 
+    private Integer dFileId;//产品序号
+
     public MDesignProcedureExtend() {
     }
 
-    public MDesignProcedureExtend(String productName, String productId, String designer, String procedureName, String procedureId, String procedureDescribe, Double labourHourAmount, String amountUnit, Double costPrice, String register, Date registerTime, String procedureDescribe1) {
+    public MDesignProcedureExtend(String productName, String productId, String designer, String procedureName, String procedureId, String procedureDescribe, Double labourHourAmount, String amountUnit, Double costPrice, String register, Date registerTime, String procedureDescribe1, Integer dFileId) {
         this.productName = productName;
         this.productId = productId;
         this.designer = designer;
@@ -50,6 +50,7 @@ public class MDesignProcedureExtend {
         this.register = register;
         this.registerTime = registerTime;
         this.procedureDescribe1 = procedureDescribe1;
+        this.dFileId = dFileId;
     }
 
     public String getProductName() {
@@ -148,6 +149,14 @@ public class MDesignProcedureExtend {
         this.procedureDescribe1 = procedureDescribe1;
     }
 
+    public Integer getdFileId() {
+        return dFileId;
+    }
+
+    public void setdFileId(Integer dFileId) {
+        this.dFileId = dFileId;
+    }
+
     @Override
     public String toString() {
         return "MDesignProcedureExtend{" +
@@ -163,6 +172,7 @@ public class MDesignProcedureExtend {
                 ", register='" + register + '\'' +
                 ", registerTime=" + registerTime +
                 ", procedureDescribe1='" + procedureDescribe1 + '\'' +
+                ", dFileId=" + dFileId +
                 '}';
     }
 }
