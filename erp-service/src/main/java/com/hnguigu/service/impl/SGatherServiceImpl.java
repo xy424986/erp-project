@@ -134,4 +134,14 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         sGatherQueryWrapper.eq("GATHER_ID",gatherId);
         return this.getOne(sGatherQueryWrapper);
     }
+    /**
+     * 入库-复核-xyb
+     * @param sGather
+     * @return
+     */
+    @Override
+    public boolean amendSGather(SGather sGather) {
+        sGather.setCheckTag("S001-1");
+        return this.updateById(sGather);
+    }
 }

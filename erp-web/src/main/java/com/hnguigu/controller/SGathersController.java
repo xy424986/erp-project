@@ -3,6 +3,7 @@ package com.hnguigu.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hnguigu.service.SGatherService;
 import com.hnguigu.util.Scheduling;
+import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,16 @@ public class SGathersController {
     @RequestMapping("/queryByGatherIdSGather.May")
     public SGather queryByGatherIdSGather(String gatherId){
         return sGatherService.queryByGatherIdSGather(gatherId);
+    }
+
+    /**
+     * 入库-复核-xyb
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/amendSGather.May")
+    public boolean amendSGather(SGather sGather){
+        return sGatherService.amendSGather(sGather);
     }
 
 }

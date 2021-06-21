@@ -25,4 +25,24 @@ public class SGatherDetailsServiceImpl extends ServiceImpl<SGatherDetailsMapper,
     public List<SGatherEx> queryByParentIdSGatherDetails(String parentId) {
         return sGatherDetailsMapper.queryByParentIdSGatherDetails(parentId);
     }
+    /**
+     * 入库查询-查看-xyb
+     * @param id
+     * @return
+     */
+    @Override
+    public SGatherEx queryByIdSGatherEx(int id) {
+        System.out.println("queryByIdSGatherEx的id:"+id);
+        return sGatherDetailsMapper.queryByIdSGatherEx(id);
+    }
+    /**
+     * 入库查询-查看-表格-xyb
+     * @param id
+     * @return
+     */
+    @Override
+    public List<SGatherEx> queryByIdSGatherEx2(int id) {
+        System.out.println("queryByIdSGatherEx2的id:"+id);
+        return sGatherDetailsMapper.queryByIdSGatherEx2(id);
+    }
 }

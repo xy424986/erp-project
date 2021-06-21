@@ -15,5 +15,16 @@ public interface SGatherDetailsService extends IService<SGatherDetails> {
      * @return
      */
     List<SGatherEx> queryByParentIdSGatherDetails(String parentId);
-
+    /**
+     * 入库查询-查看-xyb
+     * @param id
+     * @return
+     */
+    SGatherEx queryByIdSGatherEx(int id);
+    /**
+     * 入库查询-查看-表格-xyb
+     * @param id
+     * @return
+     */
+    List<SGatherEx> queryByIdSGatherEx2(int id);
 }

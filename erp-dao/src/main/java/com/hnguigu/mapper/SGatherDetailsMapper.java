@@ -22,5 +22,15 @@ public interface SGatherDetailsMapper extends BaseMapper<SGatherDetails> {
             "where sgd.PARENT_ID=#{parentId1} and sgd.GATHER_TAG='K002-1'")
     List<SGatherDetails> queryByParentIdSGatherDetails1(@Param("parentId1") String id);
 
+    @Select("select *,sc.amount as scAmount  from `s_gather_details` sgd\n" +
+            "left join `s_gather` sg  on sg.ID = sgd.PARENT_ID\n" +
+            "left join s_cell sc on sgd.PRODUCT_ID = sc.PRODUCT_ID\n" +
+            "where sgd.ID=#{id}")
+    SGatherEx queryByIdSGatherEx(@Param("id") int id);
 
+    @Select("select *,sc.amount as scAmount  from `s_gather_details` sgd\n" +
+            "left join `s_gather` sg  on sg.ID = sgd.PARENT_ID\n" +
+            "left join s_cell sc on sgd.PRODUCT_ID = sc.PRODUCT_ID\n" +
+            "where sgd.ID=#{id1}")
+    List<SGatherEx> queryByIdSGatherEx2(@Param("id1") int id);
 }
