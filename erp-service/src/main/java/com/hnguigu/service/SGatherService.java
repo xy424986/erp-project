@@ -34,4 +34,10 @@ public interface SGatherService extends IService<SGather> {
      * @return
      */
     SGather queryByGatherIdSGather(String gatherId);
+    /**
+     * 入库-复核-xyb
+     * @param sGather
+     * @return
+     */
+    boolean amendSGather(SGather sGather);
 }

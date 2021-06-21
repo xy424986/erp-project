@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.hnguigu.vo.SGather;
 import lombok.Data;
 
-/*@Data*/
+@Data
 /*@TableName("s_gather_details")*/
 public class SGatherEx extends SGather {
 
@@ -54,4 +54,59 @@ public class SGatherEx extends SGather {
 
     private int scAmount;
 
+    @Override
+    public String toString() {
+        return "SGatherEx{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productDescribe='" + productDescribe + '\'' +
+                ", amount=" + amount +
+                ", amountUnit='" + amountUnit + '\'' +
+                ", costPrice=" + costPrice +
+                ", subtotal=" + subtotal +
+                ", gatheredAmount=" + gatheredAmount +
+                ", gatherTag='" + gatherTag + '\'' +
+                ", maxCapacityAmount=" + maxCapacityAmount +
+                ", firstKindId='" + firstKindId + '\'' +
+                ", firstKindName='" + firstKindName + '\'' +
+                ", secondKindId='" + secondKindId + '\'' +
+                ", secondKindName='" + secondKindName + '\'' +
+                ", thirdKindId='" + thirdKindId + '\'' +
+                ", thirdKindName='" + thirdKindName + '\'' +
+                ", storageUnitAbbreviation='" + storageUnitAbbreviation + '\'' +
+                ", ass='" + ass + '\'' +
+                ", scAmount=" + scAmount +
+                '}';
+    }
+
+
+
+    public SGatherEx() {
+    }
+
+    public SGatherEx(Integer id, Integer parentId, String productId, String productName, String productDescribe, Integer amount, String amountUnit, Double costPrice, Double subtotal, Integer gatheredAmount, String gatherTag, Integer maxCapacityAmount, String firstKindId, String firstKindName, String secondKindId, String secondKindName, String thirdKindId, String thirdKindName, String storageUnitAbbreviation, String ass, int scAmount) {
+        this.id = id;
+        this.parentId = parentId;
+        this.productId = productId;
+        this.productName = productName;
+        this.productDescribe = productDescribe;
+        this.amount = amount;
+        this.amountUnit = amountUnit;
+        this.costPrice = costPrice;
+        this.subtotal = subtotal;
+        this.gatheredAmount = gatheredAmount;
+        this.gatherTag = gatherTag;
+        this.maxCapacityAmount = maxCapacityAmount;
+        this.firstKindId = firstKindId;
+        this.firstKindName = firstKindName;
+        this.secondKindId = secondKindId;
+        this.secondKindName = secondKindName;
+        this.thirdKindId = thirdKindId;
+        this.thirdKindName = thirdKindName;
+        this.storageUnitAbbreviation = storageUnitAbbreviation;
+        this.ass = ass;
+        this.scAmount = scAmount;
+    }
 }
