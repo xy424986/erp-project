@@ -24,6 +24,28 @@ public class MDesignProcedureController {
     @Autowired
     MDesignProcedureDetailsService mDesignProcedureDetailsService;
 
+    /**
+     * hhy
+     * 审核定制产品生产工序设计单
+     * @param mDesignProcedure
+     * @return
+     */
+    @RequestMapping(value = "audit.action", produces = {"text/json;charset=utf-8"})
+    public String audit(MDesignProcedure mDesignProcedure) {
+
+        int row = mDesignProcedureService.updateByMDP(mDesignProcedure);
+        if (row != 0) {
+            return "已通过";
+        }
+        return "审核异常";
+    }
+
+    /**
+     * hhy
+     * 提交定制产品生产工序设计单
+     * @param mDesignProcedureExtend
+     * @return
+     */
     @Transactional
     @RequestMapping(value = "insert.action", produces = {"text/json;charset=utf-8"})
     public String insert(@RequestBody List<MDesignProcedureExtend> mDesignProcedureExtend) {
@@ -37,6 +59,15 @@ public class MDesignProcedureController {
         return "提交失败";
     }
 
+    /**
+     * hhy
+     *根据状态查询出所有已提交的
+     * 定制产品生产工序设计单用于审核操作
+     * @param pageNumber
+     * @param pageSize
+     * @param mDesignProcedure
+     * @return
+     */
     @RequestMapping("queryByState.action")
     public IPage<MDesignProcedure> queryByState(@RequestParam(value = "pageNumber",defaultValue = "1") int pageNumber,
                                      @RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
