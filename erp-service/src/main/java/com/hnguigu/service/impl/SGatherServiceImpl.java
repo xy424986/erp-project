@@ -10,6 +10,7 @@ import com.hnguigu.mapper.SCellMapper;
 import com.hnguigu.mapper.SGatherDetailsMapper;
 import com.hnguigu.mapper.SGatherMapper;
 import com.hnguigu.service.SGatherService;
+import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
@@ -17,6 +18,7 @@ import com.hnguigu.vo.SGatherDetails;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -66,6 +68,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
      * @param scheduling 入库调度特制beng
      * @return
      */
+    @Transactional
     @Override
     public String addSGather(Scheduling scheduling) {
         System.out.println("scheduling"+scheduling);
@@ -143,5 +146,47 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     public boolean amendSGather(SGather sGather) {
         sGather.setCheckTag("S001-1");
         return this.updateById(sGather);
+    }
+    /**
+     * 入库登记-xyb
+     * @param putInStorages
+     * @return
+     */
+    @Transactional
+    @Override
+    public boolean addPutInStorage(List<PutInStorage> putInStorages) {
+        SGatherDetails sGatherDetails = new SGatherDetails();
+        SGather sGather = new SGather();
+        UpdateWrapper<SGather> sGatherUpdateWrapper = new UpdateWrapper<>();
+
+        Integer sum=0;
+        int i = 0;
+        for (PutInStorage put:putInStorages) {
+            System.out.println("addPutInStorage-putInStorages:"+put);
+            sGatherDetails.setId(put.getId());//明细表-id
+            sGatherDetails.setGatheredAmount(put.getGatheredAmount());//明细表-确认入库件数
+           sum+=put.getGatheredAmount();//确认入库总件数
+            if (!StringUtil.isEmpty(put.getRegister())) {
+                System.out.println("put.getRegister():"+put.getRegister());
+                sGather.setRegister(put.getRegister());//登记人
+            }
+            if (put.getRegisterTime()!=null){
+                System.out.println("put.getRegisterTime():"+put.getRegisterTime());
+                sGather.setRegisterTime(put.getRegisterTime());//登记时间
+            }
+            if (!StringUtil.isEmpty(put.getGatherId())) {
+                System.out.println("put.getGatherId():"+put.getGatherId());
+                sGatherUpdateWrapper.eq("GATHER_ID",put.getGatherId());//用入库单号做条件
+            }
+            sGatherDetails.setGatherTag("K002-1");//明细表状态已调度
+             i = sGatherDetailsMapper.updateById(sGatherDetails);//修改入库明细表
+        }
+        sGather.setCheckTag("S001-0");//等待审核
+        sGather.setGatherTag("K002-1");//已调度
+        sGather.setGatheredAmountSum(sum);//确认入库总件数
+        System.out.println("i:"+i);
+        boolean update = this.update(sGather, sGatherUpdateWrapper);
+        System.out.println("update:"+update);
+        return update;//修改入库表
     }
 }

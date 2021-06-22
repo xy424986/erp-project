@@ -2,9 +2,12 @@ package com.hnguigu.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.extend.SGatherEx;
+
+import java.util.List;
 
 public interface SGatherService extends IService<SGather> {
 
@@ -40,4 +43,10 @@ public interface SGatherService extends IService<SGather> {
      * @return
      */
     boolean amendSGather(SGather sGather);
+    /**
+     * 入库登记-xyb
+     * @param putInStorages
+     * @return
+     */
+    boolean addPutInStorage(List<PutInStorage> putInStorages);
 }

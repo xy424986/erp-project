@@ -66,5 +66,14 @@ public class SPayController {
         System.out.println("addSPay-SchedulingOutbound:"+schedulingOutbound);
         return sPayService.addSPay(schedulingOutbound);
     }
+    /**
+     * 出库-复核-xyb
+     * @param sPay
+     * @return
+     */
+    @RequestMapping("/amendSPay.May")
+    public boolean amendSPay(SPay sPay){
+        return sPayService.amendSPay(sPay);
+    }
 
 }

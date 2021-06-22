@@ -140,6 +140,20 @@ public class DFile {
     @TableField("DESIGN_CELL_TAG")
     private String designCellTag;/*库存分配标志,K001-0: 未设计,K001-1: 已设计*/
 
+    @TableField(exist = false)
+    private String designer;//设计人
+
+    @TableField(exist = false)
+    private String moduleDescribe;//设计要求
+
+    @TableField(exist = false)
+    private Double costPriceSum;//物料总成本
+
+    @TableField(exist = false)
+    private int amount;//数量
+
+    @TableField(exist = false)
+    private Double subtotal;//小计
 
 
 }

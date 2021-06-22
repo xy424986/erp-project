@@ -1,6 +1,7 @@
 package com.hnguigu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hnguigu.vo.SPay;
 import com.hnguigu.vo.SPayDetails;
 import com.hnguigu.vo.extend.SPayEX;
 
@@ -13,4 +14,17 @@ public interface SPayDetailsService extends IService<SPayDetails> {
      * @return
      */
     List<SPayEX> queryByParentIdSPayDetails(String parentId);
+    /**
+     * 出库查询-查看-xyb
+     * @param id
+     * @return
+     */
+    SPayEX queryByIdSPayEX(int id);
+    /**
+     * 出库查询-查看-表格-xyb
+     * @param id
+     * @return
+     */
+    List<SPayEX> queryByIdSPayEX2(int id);
+
 }

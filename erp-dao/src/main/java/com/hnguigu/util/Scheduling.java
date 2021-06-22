@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Scheduling {
     private String productId;/*产品编号*/
-    private String gatherId;/*产品编号*/
+    private String gatherId;/*入库编号*/
     private String attemper;/*调度人*/
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date attemperTime;/*调度时间*/

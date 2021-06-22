@@ -29,4 +29,25 @@ public class SPayDetailsServiceImpl extends ServiceImpl<SPayDetailsMapper, SPayD
         }
         return sPayEXES;
     }
+    /**
+     * 出库查询-查看-xyb
+     * @param id
+     * @return
+     */
+    @Override
+    public SPayEX queryByIdSPayEX(int id) {
+        System.out.println("queryByIdSPayEX-id:"+id);
+        return sPayDetailsMapper.queryByIdSPayEX(id);
+    }
+
+    /**
+     * 出库查询-查看-表格-xyb
+     * @param id
+     * @return
+     */
+    @Override
+    public List<SPayEX> queryByIdSPayEX2(int id) {
+        System.out.println("queryByIdSPayEX2-id:"+id);
+        return sPayDetailsMapper.queryByIdSPayEX2(id);
+    }
 }

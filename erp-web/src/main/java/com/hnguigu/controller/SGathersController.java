@@ -2,15 +2,15 @@ package com.hnguigu.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hnguigu.service.SGatherService;
+import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -51,7 +51,7 @@ public class SGathersController {
      * @return
      */
     /*@RequestMapping(value = "/addSGath.May",produces = {"text/json;charset=utf-8"})*/
-    @RequestMapping("/addSGath.May")
+    @RequestMapping(value ="/addSGath.May",produces = {"text/json;charset=utf-8"})
     public String addSGath(Scheduling scheduling){
         return sGatherService.addSGather(scheduling);
     }
@@ -76,4 +76,16 @@ public class SGathersController {
         return sGatherService.amendSGather(sGather);
     }
 
+    /**
+     * 入库登记-xyb
+     * @param putInStorages
+     * @return
+     */
+    @RequestMapping(value = "/addPutInStorage.May", produces = {"text/json;charset=utf-8"})
+    public String addPutInStorage(@RequestBody List<PutInStorage> putInStorages){
+        boolean b = sGatherService.addPutInStorage(putInStorages);
+        if (b)
+            return "true";
+        return "false";
+    }
 }

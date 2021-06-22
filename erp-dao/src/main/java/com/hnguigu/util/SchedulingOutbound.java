@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class SchedulingOutbound {
     private String productId;/*产品编号*/
-    private String payId;/*产品编号*/
+    private String payId;/*出库编号*/
     private String attemper;/*调度人*/
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date attemperTime;/*调度时间*/

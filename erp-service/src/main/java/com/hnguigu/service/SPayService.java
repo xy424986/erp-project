@@ -37,4 +37,10 @@ public interface SPayService extends IService<SPay> {
      * @return
      */
     String addSPay(SchedulingOutbound schedulingOutbound);
+    /**
+     * 出库-复核-xyb
+     * @param sPay
+     * @return
+     */
+    boolean amendSPay(SPay sPay);
 }
