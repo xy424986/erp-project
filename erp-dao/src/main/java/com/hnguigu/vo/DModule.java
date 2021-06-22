@@ -87,6 +87,7 @@ public class DModule  {
                                 B002-0: 未变更
                                 B002-1: 已变更*/
 
-
+    @TableField(exist = false)
+    private String designModuleTag;/*物料组成标志,W001-0: 未设计,W001-1: 已设计*/
 
 }

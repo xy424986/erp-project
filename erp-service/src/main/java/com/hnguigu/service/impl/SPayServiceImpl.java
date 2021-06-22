@@ -15,6 +15,7 @@ import com.hnguigu.vo.*;
 import com.hnguigu.vo.extend.SPayEX;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -69,6 +70,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
      * @param schedulingOutbound 出库调度特制beng
      * @return
      */
+    @Transactional
     @Override
     public String addSPay(SchedulingOutbound schedulingOutbound) {
         System.out.println("SchedulingOutbound"+schedulingOutbound);
@@ -126,5 +128,15 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
             return "本次出库数量应该与应入库数量一致!";
         }
         return "出库失败!";
+    }
+    /**
+     * 出库-复核-xyb
+     * @param sPay
+     * @return
+     */
+    @Override
+    public boolean amendSPay(SPay sPay) {
+        sPay.setCheckTag("S001-1");
+        return this.updateById(sPay);
     }
 }

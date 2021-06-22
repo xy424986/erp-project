@@ -1,6 +1,9 @@
 package com.hnguigu.controller;
 
 import com.hnguigu.service.SPayDetailsService;
+import com.hnguigu.vo.SGather;
+import com.hnguigu.vo.SPay;
+import com.hnguigu.vo.extend.SGatherEx;
 import com.hnguigu.vo.extend.SPayEX;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/SPay")
+@RequestMapping("/SPayDetails")
 public class SPayDetailsController {
     @Autowired
     SPayDetailsService sPayDetailsService;
@@ -26,4 +29,23 @@ public class SPayDetailsController {
         System.out.println("queryByParentIdSPayDetails-parentId:"+parentId);
         return sPayDetailsService.queryByParentIdSPayDetails(parentId);
     }
+    /**
+     * 出库查询-查看-xyb
+     * @param id
+     * @return
+     */
+    @RequestMapping("/queryByIdSPayEX.May")
+    public SPayEX queryByIdSPayEX(int id){
+        return sPayDetailsService.queryByIdSPayEX(id);
+    }
+    /**
+     * 出库查询-查看-表格-xyb
+     * @param id
+     * @return
+     */
+    @RequestMapping("/queryByIdSPayEX2.May")
+    public List<SPayEX> queryByIdSPayEX2(int id){
+        return sPayDetailsService.queryByIdSPayEX2(id);
+    }
+
 }
