@@ -1,94 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名 -->
 <mapper namespace="com.hnguigu.mapper.MDesignProcedureMapper">
-<!--<resultMap id="mDesignMap" type="MDesignProcedure">-->
-<!--<id column="ID" property="id"></id>-->
-<!--    <result column="DESIGN_ID" property="designId"></result>-->
-<!--    <result column="FIRST_KIND_ID" property="firstKindId"></result>-->
-<!--    <result column="FIRST_KIND_NAME" property="firstKindName"></result>-->
-<!--    <result column="SECOND_KIND_ID" property="secondKindId"></result>-->
-<!--    <result column="SECOND_KIND_NAME" property="secondKindName"></result>-->
-<!--    <result column="THIRD_KIND_ID" property="thirdKindId"></result>-->
-<!--    <result column="THIRD_KIND_NAME" property="thirdKindName"></result>-->
-<!--    <result column="PRODUCT_ID" property="productId"></result>-->
-<!--    <result column="PRODUCT_NAME" property="productName"></result>-->
-<!--    <result column="PROCEDURE_DESCRIBE" property="procedureDescribe"></result>-->
-<!--    <result column="COST_PRICE_SUM" property="costPriceSum"></result>-->
-<!--    <result column="MODULE_COST_PRICE_SUM" property="moduleCostPriceSum"></result>-->
-<!--    <result column="DESIGNER" property="designer"></result>-->
-<!--    <result column="REGISTER" property="register"></result>-->
-<!--    <result column="REGISTER_TIME" property="registerTime"></result>-->
-<!--    <result column="CHECKER" property="checker"></result>-->
-<!--    <result column="CHECK_TIME" property="checkTime"></result>-->
-<!--    <result column="CHECK_SUGGESTION" property="checkSuggestion"></result>-->
-<!--    <result column="CHECK_TAG" property="checkTag"></result>-->
-<!--    <result column="CHANGER" property="changer"></result>-->
-<!--    <result column="CHANGE_TIME" property="changeTime"></result>-->
-<!--    <result column="CHANGE_TAG" property="changeTag"></result>-->
-<!--    <result column="DESIGN_MODULE_TAG" property="designModuleTag"></result>-->
-<!--    <result column="DESIGN_MODULE_CHANGE_TAG" property="designModuleChangeTag"></result>-->
-<!--</resultMap>-->
-<!--&lt;!&ndash;添加工序&ndash;&gt;-->
-<!--<insert id="insert" parameterType="MDesignProcedure">-->
-<!--INSERT INTO `vuedb02`.`m_design_procedure` (-->
-<!--  `ID`,-->
-<!--  `DESIGN_ID`,-->
-<!--  `FIRST_KIND_ID`,-->
-<!--  `FIRST_KIND_NAME`,-->
-<!--  `SECOND_KIND_ID`,-->
-<!--  `SECOND_KIND_NAME`,-->
-<!--  `THIRD_KIND_ID`,-->
-<!--  `THIRD_KIND_NAME`,-->
-<!--  `PRODUCT_ID`,-->
-<!--  `PRODUCT_NAME`,-->
-<!--  `PROCEDURE_DESCRIBE`,-->
-<!--  `COST_PRICE_SUM`,-->
-<!--  `MODULE_COST_PRICE_SUM`,-->
-<!--  `DESIGNER`,-->
-<!--  `REGISTER`,-->
-<!--  `REGISTER_TIME`,-->
-<!--  `CHECKER`,-->
-<!--  `CHECK_TIME`,-->
-<!--  `CHECK_SUGGESTION`,-->
-<!--  `CHECK_TAG`,-->
-<!--  `CHANGER`,-->
-<!--  `CHANGE_TIME`,-->
-<!--  `CHANGE_TAG`,-->
-<!--  `DESIGN_MODULE_TAG`,-->
-<!--  `DESIGN_MODULE_CHANGE_TAG`-->
-<!--)-->
-<!--VALUES-->
-<!--  (-->
-<!--    'ID',-->
-<!--    'DESIGN_ID',-->
-<!--    'FIRST_KIND_ID',-->
-<!--    'FIRST_KIND_NAME',-->
-<!--    'SECOND_KIND_ID',-->
-<!--    'SECOND_KIND_NAME',-->
-<!--    'THIRD_KIND_ID',-->
-<!--    'THIRD_KIND_NAME',-->
-<!--    'PRODUCT_ID',-->
-<!--    'PRODUCT_NAME',-->
-<!--    'PROCEDURE_DESCRIBE',-->
-<!--    'COST_PRICE_SUM',-->
-<!--    'MODULE_COST_PRICE_SUM',-->
-<!--    'DESIGNER',-->
-<!--    'REGISTER',-->
-<!--    'REGISTER_TIME',-->
-<!--    'CHECKER',-->
-<!--    'CHECK_TIME',-->
-<!--    'CHECK_SUGGESTION',-->
-<!--    'CHECK_TAG',-->
-<!--    'CHANGER',-->
-<!--    'CHANGE_TIME',-->
-<!--    'CHANGE_TAG',-->
-<!--    'DESIGN_MODULE_TAG',-->
-<!--    'DESIGN_MODULE_CHANGE_TAG'-->
-<!--  ) ;-->
+    <resultMap id="mDesignMap" type="MDesignProcedure">
+    <id column="ID" property="id"></id>
+        <result column="DESIGN_ID" property="designId"></result>
+        <result column="FIRST_KIND_ID" property="firstKindId"></result>
+        <result column="FIRST_KIND_NAME" property="firstKindName"></result>
+        <result column="SECOND_KIND_ID" property="secondKindId"></result>
+        <result column="SECOND_KIND_NAME" property="secondKindName"></result>
+        <result column="THIRD_KIND_ID" property="thirdKindId"></result>
+        <result column="THIRD_KIND_NAME" property="thirdKindName"></result>
+        <result column="PRODUCT_ID" property="productId"></result>
+        <result column="PRODUCT_NAME" property="productName"></result>
+        <result column="PROCEDURE_DESCRIBE" property="procedureDescribe"></result>
+        <result column="COST_PRICE_SUM" property="costPriceSum"></result>
+        <result column="MODULE_COST_PRICE_SUM" property="moduleCostPriceSum"></result>
+        <result column="DESIGNER" property="designer"></result>
+        <result column="REGISTER" property="register"></result>
+        <result column="REGISTER_TIME" property="registerTime"></result>
+        <result column="CHECKER" property="checker"></result>
+        <result column="CHECK_TIME" property="checkTime"></result>
+        <result column="CHECK_SUGGESTION" property="checkSuggestion"></result>
+        <result column="CHECK_TAG" property="checkTag"></result>
+        <result column="CHANGER" property="changer"></result>
+        <result column="CHANGE_TIME" property="changeTime"></result>
+        <result column="CHANGE_TAG" property="changeTag"></result>
+        <result column="DESIGN_MODULE_TAG" property="designModuleTag"></result>
+        <result column="DESIGN_MODULE_CHANGE_TAG" property="designModuleChangeTag"></result>
+    </resultMap>
 
-
-<!--</insert>-->
+<!--    <select id="queryByState" parameterType="MDesignProcedure" resultMap="mDesignMap">-->
+<!--SELECT DISTINCT *,mdpd.* FROM m_design_procedure mdp LEFT JOIN m_design_procedure_details mdpd-->
+<!--ON mdp.`ID` = mdpd.`PARENT_ID`-->
+<!--WHERE mdp.`CHECK_TAG` = 'S001-0'-->
+<!--AND mdp.`CHANGE_TAG` = 'B002-0'-->
+<!--    </select>-->
 </mapper>

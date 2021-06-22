@@ -22,17 +22,13 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
 
     /**
      * hhy
-     * 根据工序改变状态查询
-     * D003-0: 未变更
-     * D003-1: 已变更
-     *
-     * @param State
+     * @param pId
      * @return
      */
     @Override
-    public List<MDesignProcedureDetails> queryByChangeState(String State) {
+    public List<MDesignProcedureDetails> queryByPId(int pId) {
         QueryWrapper<MDesignProcedureDetails> queryWrapper = new QueryWrapper<MDesignProcedureDetails>();
-        queryWrapper.eq("DESIGN_MODULE_CHANGE_TAG", State);
+        queryWrapper.eq("PARENT_ID", pId);
         return mDesignProcedureDetailsMapper.selectList(queryWrapper);
     }
 

@@ -16,5 +16,19 @@ public interface MDesignProcedureService extends IService<MDesignProcedure> {
      */
     int insert(List<MDesignProcedureExtend> mDesignProcedureExtend);
 
+    /**
+     * hhy
+     * @param mDesignProcedure
+     * @return
+     */
+    int updateByMDP(MDesignProcedure mDesignProcedure);
+
+    /**
+     * hhy
+     * @param pageno
+     * @param pagesize
+     * @param mDesignProcedure
+     * @return
+     */
     IPage<MDesignProcedure> queryAll(int pageno, int pagesize, MDesignProcedure mDesignProcedure);
 }

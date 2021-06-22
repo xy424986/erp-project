@@ -28,6 +28,18 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
 
     /**
      * hhy
+     * @param mDesignProcedure
+     * @return
+     */
+    @Override
+    public int updateByMDP(MDesignProcedure mDesignProcedure) {
+        mDesignProcedure.setCheckTime(new Date());
+        mDesignProcedure.setCheckTag(mDesignProcedure.getCheckTag());
+        return mDesignProcedureMapper.updateById(mDesignProcedure);
+    }
+
+    /**
+     * hhy
      *
      * @param mDesignProcedureExtend
      * @return
@@ -75,15 +87,15 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
      */
     @Override
     public IPage<MDesignProcedure> queryAll(int pageno, int pagesize, MDesignProcedure mDesignProcedure) {
-        QueryWrapper<MDesignProcedure> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<MDesignProcedure> queryWrapper = new QueryWrapper<MDesignProcedure>();
 
         if (!StringUtils.isEmpty(mDesignProcedure.getCheckTag())) {
             queryWrapper.eq("CHECK_TAG", mDesignProcedure.getCheckTag());
         }
 
-        if (!StringUtils.isEmpty(mDesignProcedure.getProductName())) {
-            queryWrapper.like("name", mDesignProcedure.getProductName());
-        }
+//        if (!StringUtils.isEmpty(mDesignProcedure.getProductName())) {
+//            queryWrapper.like("name", mDesignProcedure.getProductName());
+//        }
         return this.page(new Page<MDesignProcedure>(pageno,pagesize), queryWrapper);
     }
 }

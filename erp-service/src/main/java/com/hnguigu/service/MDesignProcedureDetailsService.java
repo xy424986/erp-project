@@ -8,15 +8,13 @@ import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import java.util.List;
 
 public interface MDesignProcedureDetailsService extends IService<MDesignProcedureDetails> {
+
     /**
      * hhy
-     * 根据工序改变状态查询
-     * D003-0: 未变更
-     * D003-1: 已变更
-     * @param State
+     * @param pId
      * @return
      */
-    List<MDesignProcedureDetails> queryByChangeState(String State);
+    List<MDesignProcedureDetails> queryByPId(int pId);
 
     /**
      * hhy

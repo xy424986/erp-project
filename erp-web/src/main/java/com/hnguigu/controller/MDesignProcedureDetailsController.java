@@ -19,11 +19,13 @@ public class MDesignProcedureDetailsController {
 
     /**
      * hhy
+     * 根据MDesignProcedure id查询数据审核
+     * @param pId
      * @return
      */
-//    @RequestMapping("queryByChangeState.action")
-//    public List<MDesignProcedureDetails> queryByChangeState(){
-//        return mDesignProcedureDetailsService.queryByChangeState("D003-0");
-//    }
+    @RequestMapping("queryByPId.action")
+    public List<MDesignProcedureDetails> queryByPId(int pId){
+        return mDesignProcedureDetailsService.queryByPId(pId);
+    }
 
 }
