@@ -22,13 +22,13 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
 
     /**
      * hhy
-     * @param pId
+     * @param mDesignProcedureDetails
      * @return
      */
     @Override
-    public List<MDesignProcedureDetails> queryByPId(int pId) {
+    public List<MDesignProcedureDetails> queryByPId(MDesignProcedureDetails mDesignProcedureDetails) {
         QueryWrapper<MDesignProcedureDetails> queryWrapper = new QueryWrapper<MDesignProcedureDetails>();
-        queryWrapper.eq("PARENT_ID", pId);
+        queryWrapper.eq("PARENT_ID", mDesignProcedureDetails.getParentId());
         return mDesignProcedureDetailsMapper.selectList(queryWrapper);
     }
 

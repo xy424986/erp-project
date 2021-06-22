@@ -20,12 +20,12 @@ public class MDesignProcedureDetailsController {
     /**
      * hhy
      * 根据MDesignProcedure id查询数据审核
-     * @param pId
+     * @param mDesignProcedureDetails
      * @return
      */
     @RequestMapping("queryByPId.action")
-    public List<MDesignProcedureDetails> queryByPId(int pId){
-        return mDesignProcedureDetailsService.queryByPId(pId);
+    public List<MDesignProcedureDetails> queryByPId(MDesignProcedureDetails mDesignProcedureDetails){
+        return mDesignProcedureDetailsService.queryByPId(mDesignProcedureDetails);
     }
 
 }
