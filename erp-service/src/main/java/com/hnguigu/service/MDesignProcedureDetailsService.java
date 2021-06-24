@@ -22,4 +22,10 @@ public interface MDesignProcedureDetailsService extends IService<MDesignProcedur
      * @return
      */
     int insert(List<MDesignProcedureExtend> mDesignProcedureExtend);
+    /**
+     * 根据产品生产工序id查询相应的工序明细
+     * @param id
+     * @return
+     */
+    public List<MDesignProcedureDetails> queryByparentId(int id);
 }

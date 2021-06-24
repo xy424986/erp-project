@@ -28,4 +28,9 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
         queryWrapper.eq("PARENT_ID", mDesignProcedureModule.getParentId());
         return mDesignProcedureModuleMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public List<MDesignProcedureModule> queryByparentId(int id) {
+        return mDesignProcedureModuleMapper.queryByparentId(id);
+    }
 }

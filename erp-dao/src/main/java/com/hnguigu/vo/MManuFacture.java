@@ -64,7 +64,7 @@ public class MManuFacture {
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
-    private String shecker;/*审核人*/
+    private String checker;/*审核人*/
 
     @TableField("CHECK_TIME")
     private Date checkTime;/*审核时间*/
