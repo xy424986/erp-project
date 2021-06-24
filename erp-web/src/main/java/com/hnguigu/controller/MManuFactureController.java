@@ -25,6 +25,10 @@ import java.util.List;
 public class MManuFactureController {
     @Autowired
     MManuFactureService mManuFactureService;
+    @Autowired
+    MProcedureService mProcedureService;
+    @Autowired
+    MProcedureModuleService mProcedureModuleService;
 
     /**
      * 生产查询-首页表格-xyb
@@ -60,14 +64,6 @@ public class MManuFactureController {
         return mManuFactureService.queryByIdMManuFactureEx1(id);
     }
 
-@RequestMapping("/MManuFacture")
-public class MManuFactureController {
-    @Autowired
-    MManuFactureService mManuFactureService;
-    @Autowired
-    MProcedureService mProcedureService;
-    @Autowired
-    MProcedureModuleService mProcedureModuleService;
     /**
      * 生产派工单审核：查询未审核的派工单-skl
      * @param pageno
