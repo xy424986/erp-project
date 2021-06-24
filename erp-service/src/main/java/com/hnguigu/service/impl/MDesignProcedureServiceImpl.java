@@ -28,6 +28,26 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
 
     /**
      * hhy
+     * 提交物料设计单
+     * @param mDesignProcedureExtendList
+     * @return
+     */
+    @Override
+    public int updateByIds(List<MDesignProcedureExtend> mDesignProcedureExtendList) {
+        MDesignProcedure mDesignProcedure = new MDesignProcedure();
+
+        Double sum = 0.0;
+        for (MDesignProcedureExtend mDesignProcedureExtend : mDesignProcedureExtendList){
+            sum += mDesignProcedureExtend.getModuleSubtotal();
+            mDesignProcedure.setDesignModuleTag("G002-1");
+            mDesignProcedure.setId(mDesignProcedureExtend.getmDPId());
+        }
+        mDesignProcedure.setModuleCostPriceSum(sum);
+        return mDesignProcedureMapper.updateById(mDesignProcedure);
+    }
+
+    /**
+     * hhy
      * @param mDesignProcedure
      * @return
      */

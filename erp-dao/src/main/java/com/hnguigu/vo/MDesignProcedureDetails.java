@@ -56,7 +56,6 @@ public class MDesignProcedureDetails  {
     @TableField("MODULE_SUBTOTAL")
     private Double moduleSubtotal;/*物料成本小计*/
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
     @TableField("REGISTER")
     private String register;/*登记人*/
 

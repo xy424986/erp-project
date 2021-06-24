@@ -20,7 +20,6 @@ import java.io.Serializable;
 @TableName("d_module_details")
 public class DModuleDetails {
 
-
     @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;/*序号*/
 
