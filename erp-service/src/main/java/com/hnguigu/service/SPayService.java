@@ -2,12 +2,15 @@ package com.hnguigu.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hnguigu.util.OutInStorage;
 import com.hnguigu.util.Scheduling;
 import com.hnguigu.util.SchedulingOutbound;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.SPay;
 import com.hnguigu.vo.extend.SGatherEx;
 import com.hnguigu.vo.extend.SPayEX;
+
+import java.util.List;
 
 public interface SPayService extends IService<SPay> {
     /**
@@ -43,4 +46,10 @@ public interface SPayService extends IService<SPay> {
      * @return
      */
     boolean amendSPay(SPay sPay);
+    /**
+     * 出库登记-xyb
+     * @param outInStorages
+     * @return
+     */
+    boolean addOutInStorage(List<OutInStorage> outInStorages);
 }
