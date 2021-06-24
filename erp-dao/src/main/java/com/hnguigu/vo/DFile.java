@@ -19,7 +19,7 @@ import java.util.Date;
 public class DFile {
 
     @TableId(value = "ID", type = IdType.AUTO)
-    private Integer id;//序号
+    private Integer id;//序号,
 
     @TableField("PRODUCT_ID")
     private String productId;//产品编号

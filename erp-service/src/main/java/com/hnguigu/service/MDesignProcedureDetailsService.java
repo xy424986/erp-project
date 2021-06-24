@@ -11,10 +11,10 @@ public interface MDesignProcedureDetailsService extends IService<MDesignProcedur
 
     /**
      * hhy
-     * @param pId
+     * @param mDesignProcedureDetails
      * @return
      */
-    List<MDesignProcedureDetails> queryByPId(int pId);
+    List<MDesignProcedureDetails> queryByPId(MDesignProcedureDetails mDesignProcedureDetails);
 
     /**
      * hhy
