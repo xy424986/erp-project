@@ -2,16 +2,17 @@ package com.hnguigu.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hnguigu.service.SPayService;
+import com.hnguigu.util.OutInStorage;
+import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
 import com.hnguigu.util.SchedulingOutbound;
 import com.hnguigu.vo.SPay;
 import com.hnguigu.vo.extend.SGatherEx;
 import com.hnguigu.vo.extend.SPayEX;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -75,5 +76,16 @@ public class SPayController {
     public boolean amendSPay(SPay sPay){
         return sPayService.amendSPay(sPay);
     }
-
+    /**
+     * 出库登记-xyb
+     * @param outInStorages
+     * @return
+     */
+    @RequestMapping(value = "/addOutInStorage.May", produces = {"text/json;charset=utf-8"})
+    public String addOutInStorage(@RequestBody List<OutInStorage> outInStorages){
+        boolean b = sPayService.addOutInStorage(outInStorages);
+        if (b)
+            return "true";
+        return "false";
+    }
 }

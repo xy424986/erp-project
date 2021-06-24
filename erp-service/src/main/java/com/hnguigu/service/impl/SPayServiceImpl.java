@@ -10,6 +10,7 @@ import com.hnguigu.mapper.SCellMapper;
 import com.hnguigu.mapper.SPayDetailsMapper;
 import com.hnguigu.mapper.SPayMapper;
 import com.hnguigu.service.SPayService;
+import com.hnguigu.util.OutInStorage;
 import com.hnguigu.util.SchedulingOutbound;
 import com.hnguigu.vo.*;
 import com.hnguigu.vo.extend.SPayEX;
@@ -138,5 +139,46 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
     public boolean amendSPay(SPay sPay) {
         sPay.setCheckTag("S001-1");
         return this.updateById(sPay);
+    }
+    /**
+     * 出库登记-xyb
+     * @param outInStorages
+     * @return
+     */
+    @Transactional
+    @Override
+    public boolean addOutInStorage(List<OutInStorage> outInStorages) {
+        SPay sPay = new SPay();
+        SPayDetails sPayDetails = new SPayDetails();
+        UpdateWrapper<SPay> sPayUpdateWrapper = new UpdateWrapper<>();
+        Integer sum=0;
+        int i = 0;
+        for (OutInStorage out:outInStorages) {
+            System.out.println("addOutInStorage-outInStorages:"+out);
+            sPayDetails.setId(out.getId());//明细表-id
+            sPayDetails.setPaidAmount(out.getGatheredAmount());//明细表-确认入库件数
+            sum+=out.getGatheredAmount();//确认入库总件数
+            if (!StringUtil.isEmpty(out.getRegister())) {
+                System.out.println("out.getRegister():"+out.getRegister());
+                sPay.setRegister(out.getRegister());//登记人
+            }
+            if (out.getRegisterTime()!=null){
+                System.out.println("out.getRegisterTime():"+out.getRegisterTime());
+                sPay.setRegisterTime(out.getRegisterTime());//登记时间
+            }
+            if (!StringUtil.isEmpty(out.getGatherId())) {
+                System.out.println("out.getGatherId():"+out.getGatherId());
+                sPayUpdateWrapper.eq("GATHER_ID",out.getGatherId());//用入库单号做条件
+            }
+            sPayDetails.setPayTag("K002-1");//明细表状态已调度
+            i = sPayDetailsMapper.updateById(sPayDetails);//修改入库明细表
+        }
+        sPay.setCheckTag("S001-0");//等待审核
+        sPay.setPayTag("K002-1");//已调度
+        sPay.setPaidAmountSum(sum);//确认入库总件数
+        System.out.println("i:"+i);
+        boolean update = this.update(sPay,sPayUpdateWrapper);
+        System.out.println("update:"+update);
+        return update;//修改入库表
     }
 }

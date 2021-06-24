@@ -1,12 +1,11 @@
 package com.hnguigu.util;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
 @Data
-public class PutInStorage {
+public class OutInStorage {
     private Integer id;/*入库id*/
     private Integer gatheredAmount;/*确认入库件数*/
     private String gatherId;/*入库编号*/
