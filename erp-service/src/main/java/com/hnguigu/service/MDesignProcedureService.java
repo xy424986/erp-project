@@ -9,6 +9,16 @@ import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import java.util.List;
 
 public interface MDesignProcedureService extends IService<MDesignProcedure> {
+
+
+    /**
+     * hhy
+     * 提交工序物料单修改数据
+     * @param mDesignProcedureExtendList
+     * @return
+     */
+    int updateByIds(List<MDesignProcedureExtend> mDesignProcedureExtendList);
+
     /**
      * hhy
      * @param mDesignProcedureExtend

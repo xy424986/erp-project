@@ -3,11 +3,26 @@ package com.hnguigu.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hnguigu.vo.MDesignProcedureDetails;
+import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
 import com.hnguigu.vo.extend.MDesignProcedureExtend;
 
 import java.util.List;
 
 public interface MDesignProcedureDetailsService extends IService<MDesignProcedureDetails> {
+
+    /**
+     * hhy
+     * @param mDesignProcedureExtendList
+     * @return
+     */
+    int updateByPId(List<MDesignProcedureExtend> mDesignProcedureExtendList);
+
+    /**
+     * hhy
+     * @param mDesignProcedureDetailsExtendList
+     * @return
+     */
+    int update(List<MDesignProcedureDetailsExtend> mDesignProcedureDetailsExtendList);
 
     /**
      * hhy
