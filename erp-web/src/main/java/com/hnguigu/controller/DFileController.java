@@ -40,7 +40,7 @@ public class DFileController {
         return dFileService.queryAllDFile(pageNumber, pageSize, dFile);
     }
 
-    /**xyb
+    /**
      * 查询安全库存配置单表格数据-xyb
      * @param pageno
      * @param pagesize
@@ -55,8 +55,8 @@ public class DFileController {
         return  dFileService.queryAllDFile(pageno,pagesize,dFile);
     }
 
-    /**xyb
-     * 查询安全库存配置单的数据
+    /**
+     * 查询安全库存配置单的数据-xyb
      * @param productId
      * @return
      */
@@ -66,8 +66,8 @@ public class DFileController {
         return  dFileService.queryByIdDFile(productId);
     }
 
-    /**xyb
-     * 查询安全库存配置单中的表格数据
+    /**
+     * 查询安全库存配置单中的表格数据-xyb
      * @param productId
      * @return
      */

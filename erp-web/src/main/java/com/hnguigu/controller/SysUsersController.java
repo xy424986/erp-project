@@ -37,6 +37,8 @@ public class SysUsersController {
 //        }
 //        SysUsers one = sysUsersService.getOne(queryWrapper);
         SysUsers login = sysUsersService.login(sysUsers);
+        //提供登记人复核人
+        session.setAttribute("login",login);
         System.out.println(login);
         if(login!=null){
             session.setAttribute("loginId",login.getLoginId());
