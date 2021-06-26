@@ -32,4 +32,16 @@ public class DModuleServiceImpl extends ServiceImpl<DModuleMapper, DModule> impl
         return dModulePageInfo;
     }
 
+    /**
+     * hhy
+     * @param dModule
+     * @return
+     */
+    @Override
+    public DModule queryByDesignId(DModule dModule) {
+        QueryWrapper<DModule> queryWrapper = new QueryWrapper<DModule>();
+        queryWrapper.eq("DESIGN_ID", dModule.getDesignId());
+        return dModuleMapper.selectOne(queryWrapper);
+    }
+
 }

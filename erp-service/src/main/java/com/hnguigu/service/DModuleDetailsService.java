@@ -1,6 +1,7 @@
 package com.hnguigu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hnguigu.vo.DModule;
 import com.hnguigu.vo.DModuleDetails;
 
 import java.util.List;
@@ -13,5 +14,12 @@ public interface DModuleDetailsService extends IService<DModuleDetails> {
      * @return
      */
     public List<DModuleDetails> getByparentId(int parentId);
+
+    /**
+     * hhy
+     * @param dModule
+     * @return
+     */
+    List<DModuleDetails> queryByParentId(DModule dModule);
 
 }

@@ -6,9 +6,12 @@ import com.hnguigu.mapper.MDesignProcedureModuleMapper;
 import com.hnguigu.service.MDesignProcedureModuleService;
 import com.hnguigu.vo.MDesignProcedureDetails;
 import com.hnguigu.vo.MDesignProcedureModule;
+import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
+import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,6 +19,34 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
 
     @Autowired
     MDesignProcedureModuleMapper mDesignProcedureModuleMapper;
+
+    /**
+     * hhy
+     * @param mDesignProcedureDetailsExtendList
+     * @return
+     */
+    @Override
+    public int insert(List<MDesignProcedureDetailsExtend> mDesignProcedureDetailsExtendList) {
+
+        MDesignProcedureModule mDesignProcedureModule = new MDesignProcedureModule();
+
+        int row = 0;
+        int id = 1;
+        for (MDesignProcedureDetailsExtend mDesignProcedureDetailsExtend : mDesignProcedureDetailsExtendList) {
+            mDesignProcedureModule.setParentId(mDesignProcedureDetailsExtend.getmDPDId());
+            mDesignProcedureModule.setDetailsNumber(id);
+            mDesignProcedureModule.setProductId(mDesignProcedureDetailsExtend.getProductId());
+            mDesignProcedureModule.setProductName(mDesignProcedureDetailsExtend.getProductName());
+            mDesignProcedureModule.setAmount(mDesignProcedureDetailsExtend.getAmount());
+            mDesignProcedureModule.setProductDescribe(mDesignProcedureDetailsExtend.getProductDescribe());
+            mDesignProcedureModule.setAmountUnit(mDesignProcedureDetailsExtend.getAmountUnit());
+            mDesignProcedureModule.setCostPrice(mDesignProcedureDetailsExtend.getCostPrice());
+            mDesignProcedureModule.setSubtotal(mDesignProcedureDetailsExtend.getAmount() * mDesignProcedureDetailsExtend.getCostPrice());
+            id++;
+            row = mDesignProcedureModuleMapper.insert(mDesignProcedureModule);
+        }
+        return row;
+    }
 
     /**
      * hhy
@@ -27,5 +58,10 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
         QueryWrapper<MDesignProcedureModule> queryWrapper = new QueryWrapper<MDesignProcedureModule>();
         queryWrapper.eq("PARENT_ID", mDesignProcedureModule.getParentId());
         return mDesignProcedureModuleMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<MDesignProcedureModule> queryByparentId(int id) {
+        return mDesignProcedureModuleMapper.queryByparentId(id);
     }
 }

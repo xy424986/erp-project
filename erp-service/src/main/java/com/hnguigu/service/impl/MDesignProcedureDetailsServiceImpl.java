@@ -6,7 +6,9 @@ import com.hnguigu.mapper.MDesignProcedureDetailsMapper;
 import com.hnguigu.service.MDesignProcedureDetailsService;
 import com.hnguigu.vo.MDesignProcedure;
 import com.hnguigu.vo.MDesignProcedureDetails;
+import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
 import com.hnguigu.vo.extend.MDesignProcedureExtend;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,41 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
 
     @Autowired
     MDesignProcedureDetailsMapper mDesignProcedureDetailsMapper;
+
+
+    /**
+     * hhy
+     * @param mDesignProcedureExtendList
+     * @return
+     */
+    @Override
+    public int updateByPId(List<MDesignProcedureExtend> mDesignProcedureExtendList) {
+        MDesignProcedureDetails mDesignProcedureDetails = new MDesignProcedureDetails();
+
+        return 0;
+    }
+
+    /**
+     * hhy
+     * @param mDesignProcedureDetailsExtendList
+     * @return
+     */
+    @Override
+    public int update(List<MDesignProcedureDetailsExtend> mDesignProcedureDetailsExtendList) {
+
+        MDesignProcedureDetails mDesignProcedureDetails = new MDesignProcedureDetails();
+
+        Double moduleSubtotal = 0.0;
+        for (MDesignProcedureDetailsExtend mDesignProcedureDetailsExtend : mDesignProcedureDetailsExtendList){
+            mDesignProcedureDetails.setId(mDesignProcedureDetailsExtend.getmDPDId());
+            moduleSubtotal = mDesignProcedureDetailsExtend.getAmount()*mDesignProcedureDetailsExtend.getCostPrice();
+        }
+
+        mDesignProcedureDetails.setRegisterTime(new Date());
+        mDesignProcedureDetails.setDesignModuleTag("D002-1");
+        mDesignProcedureDetails.setModuleSubtotal(moduleSubtotal);
+        return mDesignProcedureDetailsMapper.updateById(mDesignProcedureDetails);
+    }
 
     /**
      * hhy
@@ -42,7 +79,6 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
     public int insert(List<MDesignProcedureExtend> mDesignProcedureExtend) {
 
         MDesignProcedureDetails mDesignProcedureDetails = new MDesignProcedureDetails();
-
         int row = 0;
         int id = 1;
         for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtend) {
@@ -57,12 +93,17 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
             mDesignProcedureDetails.setCostPrice(mDesignProcedureExtend1.getCostPrice());
             mDesignProcedureDetails.setRegister(mDesignProcedureExtend1.getRegister());
             mDesignProcedureDetails.setSubtotal(mDesignProcedureExtend1.getLabourHourAmount() * mDesignProcedureExtend1.getCostPrice());
-            mDesignProcedureDetails.setRegisterTime(new Date());
             mDesignProcedureDetails.setDesignModuleTag("D002-0");
             mDesignProcedureDetails.setDesignModuleChangeTag("D003-0");
             row = mDesignProcedureDetailsMapper.insert(mDesignProcedureDetails);
         }
-//        System.out.println(mDesignProcedureDetails);
         return row;
     }
+
+    @Override
+    public List<MDesignProcedureDetails> queryByparentId(int id) {
+        return mDesignProcedureDetailsMapper.queryByparentId(id);
+    }
+
+
 }

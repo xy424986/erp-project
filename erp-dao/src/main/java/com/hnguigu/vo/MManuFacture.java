@@ -66,7 +66,7 @@ public class MManuFacture {
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
-    private String shecker;/*审核人*/
+    private String checker;/*审核人*/
 
     @TableField("CHECK_TIME")
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")

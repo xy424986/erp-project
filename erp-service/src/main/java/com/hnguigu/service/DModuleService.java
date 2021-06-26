@@ -14,4 +14,11 @@ public interface DModuleService extends IService<DModule> {
      * @return
      */
     PageInfo<DModule> query_design_sheetdata(int pageno, int pagesize);
+
+    /**
+     * hhy
+     * @param dModule
+     * @return
+     */
+    DModule queryByDesignId(DModule dModule);
 }

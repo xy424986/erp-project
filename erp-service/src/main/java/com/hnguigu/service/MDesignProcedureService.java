@@ -9,6 +9,16 @@ import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import java.util.List;
 
 public interface MDesignProcedureService extends IService<MDesignProcedure> {
+
+
+    /**
+     * hhy
+     * 提交工序物料单修改数据
+     * @param mDesignProcedureExtendList
+     * @return
+     */
+    int updateByIds(List<MDesignProcedureExtend> mDesignProcedureExtendList);
+
     /**
      * hhy
      * @param mDesignProcedureExtend
@@ -31,4 +41,11 @@ public interface MDesignProcedureService extends IService<MDesignProcedure> {
      * @return
      */
     IPage<MDesignProcedure> queryAll(int pageno, int pagesize, MDesignProcedure mDesignProcedure);
+
+    /**
+     * 根据产品编号查询产品生产工序数据-skl
+     * @param productId
+     * @return
+     */
+    public MDesignProcedure queryByproductID(String productId);
 }
