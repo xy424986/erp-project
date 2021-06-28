@@ -9,9 +9,11 @@ import com.hnguigu.service.SCellService;
 import com.hnguigu.util.IdUtil;
 import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SCell;
+import com.hnguigu.vo.extend.SCellEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -38,26 +40,27 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
      * 安全库存配置单-复核-总数据查询-xyb
      * @return
      */
-    public PageInfo<DFile> queryAllSCll(int pageNo, int pageSize, DFile dFile, String tag,String tag2){
+    public PageInfo<SCellEx> queryAllSCll(int pageNo, int pageSize, DFile dFile, String tag, String tag2){
         System.out.println("queryAllSCll"+tag+":"+tag2);
            // 设置分页参数
         PageHelper.startPage(pageNo, pageSize);
-        List<DFile> sCells = sCellMapper.queryAllSCll(tag,tag2);
+        List<SCellEx> sCells = sCellMapper.queryAllSCll(tag,tag2);
         // 封装分页对象
-        PageInfo<DFile> sCellPageInfo = new PageInfo<>(sCells);
+        PageInfo<SCellEx> sCellPageInfo = new PageInfo<SCellEx>(sCells);
         return sCellPageInfo;
     }
     /**
      *查询安全库存配置单-复核的数据-xyb
      * @param productId
+     * @param session
      * @return
      */
     @Override
-    public SCell queryByIdSCell(String productId) {
+    public SCell queryByIdSCell(String productId, HttpSession session) {
         System.out.println("queryByIdSCell的productId"+productId);
-        QueryWrapper<SCell> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SCell> queryWrapper = new QueryWrapper<SCell>();
         queryWrapper.eq("PRODUCT_ID",productId);
-        return  this.getOne(queryWrapper);
+        return this.getOne(queryWrapper);
     }
     /**
      *查询安全库存配置单中的-复核表格数据-xyb
@@ -74,11 +77,11 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
     /**
      * 制作安全库存配置单-复核-xyb
      * @param id,CheckTag
+     * @param sCell
      * @return
      */
     @Override
-    public boolean amendCheckTag(int id, String CheckTag) {
-        SCell sCell = this.getById(id);
+    public boolean amendCheckTag(int id, SCell sCell) {
         sCell.setCheckTag("S001-1");
         return this.updateById(sCell);
     }
@@ -94,7 +97,16 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         return this.updateById(sCell);
     }
 
-
+    @Override
+    public PageInfo<SCellEx> queryAllSCll2(int pageno, int pagesize, DFile dFile, String s, String s1) {
+        System.out.println("queryAllSCll"+s+":"+s1);
+        // 设置分页参数
+        PageHelper.startPage(pageno,pagesize);
+        List<SCellEx> sCells = sCellMapper.queryAllSCll2(s,s1);
+        // 封装分页对象
+        PageInfo<SCellEx> sCellPageInfo = new PageInfo<SCellEx>(sCells);
+        return sCellPageInfo;
+    }
 
 
 }

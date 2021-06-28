@@ -6,12 +6,14 @@ import com.hnguigu.service.SCellService;
 import com.hnguigu.util.PageUtil;
 import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SCell;
+import com.hnguigu.vo.extend.SCellEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -37,11 +39,11 @@ public class SCellController {
      * @return
      */
     @RequestMapping("/queryAllSCell.May")
-    public PageUtil<DFile> queryAllSCell(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
-                                      @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
-                                         DFile dFile){
-        PageInfo<DFile> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,"S001-0", "S001-2");
-        PageUtil<DFile> pageUtil =new PageUtil<DFile>();
+    public PageUtil<SCellEx> queryAllSCell(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
+                                           @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
+                                           DFile dFile){
+        PageInfo<SCellEx> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,"S001-0","");
+        PageUtil<SCellEx> pageUtil =new PageUtil<SCellEx>();
         pageUtil.setTotal(sCellPageInfo.getTotal());
         pageUtil.setRows(sCellPageInfo.getList());
         return pageUtil;
@@ -53,9 +55,9 @@ public class SCellController {
      * @return
      */
     @RequestMapping("/queryByIdSCell.May")
-    public SCell queryByIdSCell(String productId){
+    public SCell queryByIdSCell(String productId, HttpSession session){
         System.out.println("queryByIdDFile的productId"+productId);
-        return  sCellService.queryByIdSCell(productId);
+        return  sCellService.queryByIdSCell(productId,session);
     }
 
     /**
@@ -72,12 +74,12 @@ public class SCellController {
     /**
      * 安全库存配置单中的-复核-xyb
      * @param id
-     * @param CheckTag
+     * @param sCell
      * @return
      */
     @RequestMapping("/amendCheckTag.May")
-    public boolean amendCheckTag(int id,String CheckTag){
-        return sCellService.amendCheckTag(id,CheckTag);
+    public boolean amendCheckTag(int id,SCell sCell){
+        return sCellService.amendCheckTag(id,sCell);
     }
 
 
@@ -86,11 +88,11 @@ public class SCellController {
      * @return
      */
     @RequestMapping("/queryAllSCell2.May")
-    public PageUtil<DFile> queryAllSCell2(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
+    public PageUtil<SCellEx> queryAllSCell2(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
                                          @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
                                          DFile dFile){
-        PageInfo<DFile> sCellPageInfo = sCellService.queryAllSCll(pageno,pagesize,dFile,"S001-1", "S001-2");
-        PageUtil<DFile> pageUtil =new PageUtil<DFile>();
+        PageInfo<SCellEx> sCellPageInfo = sCellService.queryAllSCll2(pageno,pagesize,dFile,"S001-1", "S001-2");
+        PageUtil<SCellEx> pageUtil =new PageUtil<SCellEx>();
         pageUtil.setTotal(sCellPageInfo.getTotal());
         pageUtil.setRows(sCellPageInfo.getList());
         return pageUtil;
@@ -108,4 +110,18 @@ public class SCellController {
     }
 
 
+    /**
+     * 动态库存查询-查询-总数据查询-xyb
+     * @return
+     */
+    @RequestMapping("/queryAllSCell3.May")
+    public PageUtil<SCellEx> queryAllSCell3(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
+                                            @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
+                                            DFile dFile){
+        PageInfo<SCellEx> sCellPageInfo = sCellService.queryAllSCll2(pageno,pagesize,dFile,"S001-1","");
+        PageUtil<SCellEx> pageUtil =new PageUtil<SCellEx>();
+        pageUtil.setTotal(sCellPageInfo.getTotal());
+        pageUtil.setRows(sCellPageInfo.getList());
+        return pageUtil;
+    }
 }

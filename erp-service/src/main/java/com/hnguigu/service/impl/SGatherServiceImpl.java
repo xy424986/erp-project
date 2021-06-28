@@ -72,12 +72,17 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     @Override
     public String addSGather(Scheduling scheduling) {
         System.out.println("scheduling"+scheduling);
-        SGather sGather = new SGather();
+
         // 本次入库数量=应入库数
         // b)本次入库数量如果不等于应入库数
         QueryWrapper<SGatherDetails> sGatherDetailsQueryWrapper = new QueryWrapper<>();
         sGatherDetailsQueryWrapper.eq("PRODUCT_ID",scheduling.getProductId());
         SGatherDetails sGatherDetails = sGatherDetailsMapper.selectOne(sGatherDetailsQueryWrapper);
+
+        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+        sGatherQueryWrapper.eq("GATHER_ID",scheduling.getGatherId());
+        SGather sGather = this.getOne(sGatherQueryWrapper);
+        sGather.setAmountSum(sGather.getAmountSum()+scheduling.getAmount());//总确认数
         if (sGatherDetails.getAmount().equals(scheduling.getAmount())){
             // 本次入库数量<=最大存储量—当前存储量
             QueryWrapper<SCell> sCellQueryWrapper = new QueryWrapper<>();
@@ -110,6 +115,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
 
             sGather.setAttemper(scheduling.getAttemper());//调度人
             sGather.setAttemperTime(scheduling.getAttemperTime());//调度时间;
+
 
             UpdateWrapper<SGather> sGatherUpdateWrapper = new UpdateWrapper<>();
             sGatherUpdateWrapper.eq("GATHER_ID",scheduling.getGatherId());

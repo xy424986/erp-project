@@ -93,5 +93,11 @@ public class SCell  {
     @TableField("THE_DESIGNER")
     private String theDesigner;/*设计人*/
 
+    @TableField("CHANGE_REN")
+    private String changeRen;/*变更人*/
+
+    @TableField("CHANGE_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
+    private Date changeTime;/*变更时间*/
 
 }
