@@ -203,4 +203,9 @@ public class MManuFactureController {
         MProceduring one = mProceduringService.getOne(queryWrapper);
         return one;
     }
+    @RequestMapping("dengjitiaojian_Make_productionByparentid.action")
+    public boolean dengjitiaojian_Make_productionByparentid(int id){
+        MProcedure byId = mProcedureService.getById(id-1);
+        return "G005-2".equals(byId.getProcedureTransferTag());
+    }
 }

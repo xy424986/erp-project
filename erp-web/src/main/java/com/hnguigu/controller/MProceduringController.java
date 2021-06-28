@@ -138,7 +138,7 @@ public class MProceduringController {
     }
 
     /**
-     * 生产登记复核，工序登记通过方法
+     * 生产登记复核，工序登记通过方法-skl
      * @param gongxuId
      * @param checker
      * @param checkTime
@@ -163,7 +163,7 @@ public class MProceduringController {
         return false;
     }
     /**
-     * 生产登记复核，工序登记不通过方法
+     * 生产登记复核，工序登记不通过方法-skl
      * @param gongxuId
      * @param
      * @param
