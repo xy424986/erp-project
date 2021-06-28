@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,10 +31,23 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
      */
     @Override
     public boolean addSCll(SCell sCell) {
-        System.out.println(sCell);
         IdUtil idUtil = new IdUtil();
-      /*  String cellId = idUtil.CellId(sCell);
-        sCell.setStoreId(cellId);*/
+        System.out.println(sCell);
+        List<SCell> list = this.list();
+        if (list.size()!=0) {
+            SCell sCell1 = list.get(list.size() - 1);
+            sCell.setStoreId(sCell1.getStoreId());
+            String cellId = idUtil.CellId(sCell);
+            sCell.setStoreId(cellId);
+            System.out.println(cellId);
+        }else {
+            //获取当前时间
+            Date dt=new Date();
+            SimpleDateFormat matter1=new SimpleDateFormat("yyyyMMdd");
+            String date = matter1.format(dt);
+            sCell.setStoreId("400"+date+"00001");
+            System.out.println("400"+date+"00001");
+        }
         sCell.setCheckTag("S001-0");
         return this.save(sCell);
     }
@@ -59,7 +74,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
     public SCell queryByIdSCell(String productId, HttpSession session) {
         System.out.println("queryByIdSCell的productId"+productId);
         QueryWrapper<SCell> queryWrapper = new QueryWrapper<SCell>();
-        queryWrapper.eq("PRODUCT_ID",productId);
+        queryWrapper.eq("STORE_ID",productId);
         return this.getOne(queryWrapper);
     }
     /**

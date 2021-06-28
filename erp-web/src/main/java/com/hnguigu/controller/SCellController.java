@@ -31,7 +31,9 @@ public class SCellController {
     @RequestMapping("/addScll.May")
     public boolean addSCll(SCell sCell){
         System.out.println(sCell);
-        return sCellService.addSCll(sCell);
+        boolean b = sCellService.addSCll(sCell);
+
+        return b;
     }
 
     /**
