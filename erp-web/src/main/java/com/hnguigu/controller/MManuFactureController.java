@@ -203,6 +203,12 @@ public class MManuFactureController {
         MProceduring one = mProceduringService.getOne(queryWrapper);
         return one;
     }
+
+    /**
+     * 查询所有工序是否审核完成
+     * @param id
+     * @return
+     */
     @RequestMapping("dengjitiaojian_Make_productionByparentid.action")
     public boolean dengjitiaojian_Make_productionByparentid(int id){
         MProcedure byId = mProcedureService.getById(id-1);
