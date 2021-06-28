@@ -53,6 +53,6 @@ public class MProcedureModule  {
     @TableField("REAL_SUBTOTAL")
     private Double realSubtotal;/*实际物料成本小计*/
 
-
-
+    @TableField(exist = false)
+    private Integer rowamount;//本次数量
 }

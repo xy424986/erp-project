@@ -1,15 +1,13 @@
 package com.hnguigu.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hnguigu.service.MManuFactureService;
+import com.hnguigu.service.*;
 import com.hnguigu.vo.MManuFacture;
 import com.hnguigu.vo.extend.MManuFactureEx;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hnguigu.service.MManuFactureService;
-import com.hnguigu.service.MProcedureModuleService;
-import com.hnguigu.service.MProcedureService;
 import com.hnguigu.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +27,10 @@ public class MManuFactureController {
     MProcedureService mProcedureService;
     @Autowired
     MProcedureModuleService mProcedureModuleService;
+    @Autowired
+    MProceduringService mProceduringService;
+    @Autowired
+    MProcedureModulingService mProcedureModulingService;
 
     /**
      * 生产查询-首页表格-xyb
@@ -85,7 +87,6 @@ public class MManuFactureController {
      */
     @RequestMapping("shenhe_Make_productionByid.action")
     public MManuFacture shenhe_Make_productionByid(int id){
-        System.out.println(mManuFactureService.getById(id));
         return mManuFactureService.getById(id);
     }
 
@@ -96,7 +97,6 @@ public class MManuFactureController {
      */
     @RequestMapping("shenhe_Make_productionparentid.action")
     public List<MProcedure> shenhe_Make_productionparentid(int id){
-        System.out.println(mProcedureService.queryByparentID(id));
         return mProcedureService.queryByparentID(id);
     }
     /**
@@ -113,7 +113,7 @@ public class MManuFactureController {
     }
 
     /**
-     * 生产派工单通过审核
+     * 生产派工单通过审核-skl
      * @param mManuFacture
      * @return
      */
@@ -127,7 +127,7 @@ public class MManuFactureController {
     }
 
     /**
-     * 生产派工单不通过审核
+     * 生产派工单不通过审核-skl
      * @param mManuFacture
      * @return
      */
@@ -138,5 +138,69 @@ public class MManuFactureController {
         byId.setChecker(mManuFacture.getChecker());
         byId.setCheckTime(mManuFacture.getCheckTime());
         return mManuFactureService.updateById(byId);
+    }
+
+    /**
+     * 生产登记，查询此工序所需要的物料-skl
+     * @param id
+     * @return
+     */
+    @RequestMapping("dengji_Make_productionByparentid.action")
+    public List<MProcedureModule> dengji_Make_productionByparentid(int id){
+        return mProcedureModuleService.querybyparentid(id);
+    }
+
+    /**
+     * 生产登记，添加交接登记-skl
+     * @param id
+     * @param realAmount
+     * @return
+     */
+    @RequestMapping("addjiaojie_Make_productionByparentid.action")
+    public boolean addjiaojie_Make_productionByparentid(int id,int realAmount){
+        MProcedure byId = mProcedureService.getById(id);
+        byId.setRealAmount(realAmount);
+        byId.setProcedureTransferTag("G005-1");
+        return mProcedureService.updateById(byId);
+    }
+    /**
+     * 生产登记复核，查询此工序所需要的物料-skl
+     * @param id
+     * @return
+     */
+    @RequestMapping("dengjifuhe_Make_productionByparentid.action")
+    public List<MProcedureModule> dengjifuhe_Make_productionByparentid(int id){
+        List<MProcedureModule> querybyparentid = mProcedureModuleService.querybyparentid(id);
+
+        for (MProcedureModule mProcedureModule:querybyparentid) {
+            MProcedure byId = mProcedureService.getById(mProcedureModule.getParentId());
+            MManuFacture byId1 = mManuFactureService.getById(byId.getParentId());
+            QueryWrapper<MProceduring> queryWrapper = new QueryWrapper<MProceduring>();
+            queryWrapper.eq("PARENT_ID", byId1.getId());
+            queryWrapper.eq("DETAILS_NUMBER", byId.getDetailsNumber());
+            MProceduring one = mProceduringService.getOne(queryWrapper);
+            QueryWrapper<MProcedureModuling> queryWrapper2 = new QueryWrapper<MProcedureModuling>();
+            queryWrapper2.eq("PARENT_ID", one.getId());
+            queryWrapper2.eq("DETAILS_NUMBER", mProcedureModule.getDetailsNumber());
+            MProcedureModuling one1 = mProcedureModulingService.getOne(queryWrapper2);
+            mProcedureModule.setRowamount(one1.getAmount());
+        }
+        return querybyparentid;
+    }
+    /**
+     * 生产登记复核，查询此工序数据-skl
+     * @param id
+     * @return
+     */
+    @RequestMapping("dengjifuhe_Make_productionByparentidtwo.action")
+    public MProceduring dengjifuhe_Make_productionByparentidtwo(int id){
+
+        MProcedure byId = mProcedureService.getById(id);
+        MManuFacture byId1 = mManuFactureService.getById(byId.getParentId());
+        QueryWrapper<MProceduring> queryWrapper = new QueryWrapper<MProceduring>();
+        queryWrapper.eq("PARENT_ID", byId1.getId());
+        queryWrapper.eq("DETAILS_NUMBER", byId.getDetailsNumber());
+        MProceduring one = mProceduringService.getOne(queryWrapper);
+        return one;
     }
 }

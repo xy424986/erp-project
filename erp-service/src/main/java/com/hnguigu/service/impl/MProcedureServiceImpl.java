@@ -23,4 +23,9 @@ public class MProcedureServiceImpl extends ServiceImpl<MProcedureMapper, MProced
     public List<MProcedure> queryByparentID(int id) {
         return mProcedureMapper.queryByparentID(id);
     }
+
+    @Override
+    public List<MProcedure> queryByparentIDtwo(int id) {
+        return mProcedureMapper.queryByparentIDtwo(id);
+    }
 }
