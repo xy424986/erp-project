@@ -1,7 +1,4 @@
 package com.hnguigu.util;
-
-
-
 import com.hnguigu.vo.*;
 
 import java.text.DecimalFormat;
@@ -53,13 +50,8 @@ public class IdUtil {
 
     //生产计划编号
     public static String ApplyId(MApply apply){
-
-
-
-
         int b=0;
         String str2="0001";
-
         //获取当前时间
         Date dt=new Date();
         SimpleDateFormat matter1=new SimpleDateFormat("yyyyMMdd");
