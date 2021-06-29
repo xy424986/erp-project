@@ -41,13 +41,11 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
      */
     @Override
     public IPage<SGather> queryAllSGather(int pageNo, int pageSize, SGather sGather) {
-       /* PageHelper.startPage(pageNo, pageSize);
-        List<DFile> sGathers = sGatherMapper.querySGather();
-        PageInfo<DFile> sCellPageInfo = new PageInfo<>(sGathers);*/
-        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
         if (!StringUtil.isEmpty(sGather.getGatherId())) {
             sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
         }
+        sGatherQueryWrapper.eq("GATHER_TAG","K002-1");
         IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
         System.out.println("queryAllSGather:"+page);
         return page;
@@ -150,7 +148,6 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
      */
     @Override
     public boolean amendSGather(SGather sGather) {
-        sGather.setCheckTag("S001-1");
         return this.updateById(sGather);
     }
     /**
