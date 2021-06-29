@@ -32,7 +32,6 @@ public class SCellController {
     public boolean addSCll(SCell sCell){
         System.out.println(sCell);
         boolean b = sCellService.addSCll(sCell);
-
         return b;
     }
 
@@ -99,7 +98,20 @@ public class SCellController {
         pageUtil.setRows(sCellPageInfo.getList());
         return pageUtil;
     }
-
+    /**
+     * 安全库存配置单-修改-总数据查询-xyb
+     * @return
+     */
+    @RequestMapping("/queryAllSCell4.May")
+    public PageUtil<SCellEx> queryAllSCell4(@RequestParam(value = "pageno",defaultValue = "1") int pageno,
+                                            @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
+                                            DFile dFile){
+        PageInfo<SCellEx> sCellPageInfo = sCellService.queryAllSCll2(pageno,pagesize,dFile,"", "S001-2");
+        PageUtil<SCellEx> pageUtil =new PageUtil<SCellEx>();
+        pageUtil.setTotal(sCellPageInfo.getTotal());
+        pageUtil.setRows(sCellPageInfo.getList());
+        return pageUtil;
+    }
 
     /**
      * 制作安全库存配置单-修改-xyb

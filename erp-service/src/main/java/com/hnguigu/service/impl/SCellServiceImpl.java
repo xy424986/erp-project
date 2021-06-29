@@ -1,9 +1,12 @@
 package com.hnguigu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
+import com.hnguigu.mapper.DFileMapper;
 import com.hnguigu.mapper.SCellMapper;
 import com.hnguigu.service.SCellService;
 import com.hnguigu.util.IdUtil;
@@ -12,6 +15,7 @@ import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.extend.SCellEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -24,11 +28,14 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
     @Autowired
     SCellMapper sCellMapper;
 
+    @Autowired
+    DFileMapper dFileMapper;
     /**
      * 制作安全库存配置单-添加-xyb
      * @param sCell
      * @return
      */
+    @Transactional
     @Override
     public boolean addSCll(SCell sCell) {
         IdUtil idUtil = new IdUtil();
@@ -49,6 +56,14 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
             System.out.println("400"+date+"00001");
         }
         sCell.setCheckTag("S001-0");
+
+        QueryWrapper<DFile> dFileQueryWrapper = new QueryWrapper<>();
+        dFileQueryWrapper.eq("PRODUCT_ID",sCell.getProductId());
+        DFile dFile = dFileMapper.selectOne(dFileQueryWrapper);
+        dFile.setDesignCellTag("K001-1");
+        UpdateWrapper<DFile> dFileUpdateWrapper = new UpdateWrapper<>();
+        dFileUpdateWrapper.eq("PRODUCT_ID",sCell.getProductId());
+        dFileMapper.update(dFile,dFileUpdateWrapper);
         return this.save(sCell);
     }
     /**
@@ -97,7 +112,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
      */
     @Override
     public boolean amendCheckTag(int id, SCell sCell) {
-        sCell.setCheckTag("S001-1");
+        System.out.println("amendCheckTag"+sCell.getCheckTag());
         return this.updateById(sCell);
     }
     /**
@@ -108,15 +123,24 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
     @Override
     public boolean amendSCll(SCell sCell) {
         System.out.println(sCell);
-        sCell.setCheckTag("S001-2");
+        sCell.setCheckTag("S001-0");
         return this.updateById(sCell);
     }
 
     @Override
     public PageInfo<SCellEx> queryAllSCll2(int pageno, int pagesize, DFile dFile, String s, String s1) {
         System.out.println("queryAllSCll"+s+":"+s1);
+        String s2="";
+        String s3="";
         // 设置分页参数
         PageHelper.startPage(pageno,pagesize);
+        if(!StringUtil.isEmpty(dFile.getProductId())){
+            s2=" and df.PRODUCT_ID='"+dFile.getProductId()+"'";
+        }
+        if(!StringUtil.isEmpty(dFile.getProductName())){
+            s3=" and df.PRODUCT_NAME like'%"+dFile.getProductName()+"%'";
+        }
+        System.out.println(s2+s3);
         List<SCellEx> sCells = sCellMapper.queryAllSCll2(s,s1);
         // 封装分页对象
         PageInfo<SCellEx> sCellPageInfo = new PageInfo<SCellEx>(sCells);

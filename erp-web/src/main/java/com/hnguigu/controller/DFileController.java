@@ -52,6 +52,7 @@ public class DFileController {
                                       @RequestParam(value = "pagesize",defaultValue = "10") int pagesize,
                                       DFile dFile){
         dFile.setCheckTag("S001-1");
+        dFile.setDesignCellTag("K001-0");
         return  dFileService.queryAllDFile(pageno,pagesize,dFile);
     }
 

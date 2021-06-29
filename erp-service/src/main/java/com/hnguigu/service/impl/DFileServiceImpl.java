@@ -65,14 +65,20 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         if (!StringUtils.isEmpty(dFile.getCheckTag())) {
             queryWrapper.eq("CHECK_TAG", dFile.getCheckTag());
         }
+        if (!StringUtils.isEmpty(dFile.getDesignCellTag())) {
+            queryWrapper.eq("DESIGN_CELL_TAG", dFile.getDesignCellTag());
+        }
+        if (!StringUtils.isEmpty(dFile.getProductId())) {
+            queryWrapper.eq("PRODUCT_ID", dFile.getProductId());
+        }
+        if (!StringUtils.isEmpty(dFile.getProductName())) {
+            queryWrapper.eq("PRODUCT_NAME", dFile.getProductName());
+        }
 //        hhy
         if (!StringUtils.isEmpty(dFile.getDesignProcedureTag())) {
             queryWrapper.eq("DESIGN_PROCEDURE_TAG", dFile.getDesignProcedureTag());
         }
 
-        if (!StringUtils.isEmpty(dFile.getProductName())) {
-            queryWrapper.like("name", dFile.getProductName());
-        }
         return this.page(new Page<DFile>(pageno,pagesize), queryWrapper);
     }
 
