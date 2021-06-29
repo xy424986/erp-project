@@ -123,11 +123,11 @@ public class SPayController {
      * @param sPay
      * @return
      */
-    @RequestMapping("/queryAllSPay3.May")
-    public IPage<SPay> qyeryAllSPay3(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+    @RequestMapping("/queryChuKuAllSPay.May")
+    public IPage<SPay> queryChuKuAllSPay(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
                                      @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
                                      SPay sPay){
-        sPay.setCheckTag("S001-1");
-        return sPayService.queryAllSPay1(pageNo,pageSize,sPay);
+
+        return sPayService.queryChuKuAllSPay(pageNo,pageSize,sPay);
     }
 }

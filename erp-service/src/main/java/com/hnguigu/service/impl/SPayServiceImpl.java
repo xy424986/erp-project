@@ -67,6 +67,26 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
         return  this.page(new Page<SPay>(pageNo, pageSize), sPayQueryWrapper);
     }
     /**
+     * chu库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    @Override
+    public IPage<SPay> queryChuKuAllSPay(int pageNo, int pageSize, SPay sPay) {
+        QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
+        if (!StringUtil.isEmpty(sPay.getPayId())) {
+            sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
+        }
+        sPayQueryWrapper.eq("PAY_TAG","K002-2");
+        sPayQueryWrapper.eq("CHECK_TAG","S001-2");
+        sPayQueryWrapper.or();
+        sPayQueryWrapper.eq("CHECK_TAG","S001-1");
+        return  this.page(new Page<SPay>(pageNo, pageSize), sPayQueryWrapper);
+    }
+
+    /**
      * 出库调度-总数据-调度查询-xyb
      * @param payId
      * @return

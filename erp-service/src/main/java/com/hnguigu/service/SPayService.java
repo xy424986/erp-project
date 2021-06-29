@@ -60,4 +60,12 @@ public interface SPayService extends IService<SPay> {
      * @return
      */
      IPage<SPay> queryAllSPay1(int pageNo, int pageSize, SPay sPay);
-    }
+    /**
+     * chu库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    IPage<SPay> queryChuKuAllSPay(int pageNo, int pageSize, SPay sPay);
+}

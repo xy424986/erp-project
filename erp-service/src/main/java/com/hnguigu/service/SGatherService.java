@@ -49,4 +49,20 @@ public interface SGatherService extends IService<SGather> {
      * @return
      */
     boolean addPutInStorage(List<PutInStorage> putInStorages);
-}
+    /**
+     * 入库管理-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+     IPage<SGather> queryAllSGather1(int pageNo, int pageSize, SGather sGather);
+    /**
+     * 入库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+     IPage<SGather> queryRuKuAllSGather(int pageNo, int pageSize, SGather sGather);
+    }
