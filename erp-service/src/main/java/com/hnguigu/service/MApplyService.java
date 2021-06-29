@@ -8,6 +8,12 @@ import com.hnguigu.vo.ManufactureConfigProcedureList;
 import java.util.List;
 
 public interface MApplyService extends IService<MApply> {
+    /**
+     * 制定生产派工单：根据产品编号查询生产计划数据
+     * @param productId
+     * @return
+     */
+    public MApply queryByproductId(String productId);
 
     /**
      *  hhy

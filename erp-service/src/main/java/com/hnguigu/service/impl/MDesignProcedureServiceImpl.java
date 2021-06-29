@@ -133,4 +133,13 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
 //        }
         return this.page(new Page<MDesignProcedure>(pageno, pagesize), queryWrapper);
     }
+    /**
+     * 根据产品编号查询产品生产工序数据-skl
+     * @param productId
+     * @return
+     */
+    @Override
+    public MDesignProcedure queryByproductID(String productId) {
+        return mDesignProcedureMapper.queryByproductID(productId);
+    }
 }

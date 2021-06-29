@@ -41,4 +41,11 @@ public interface MDesignProcedureService extends IService<MDesignProcedure> {
      * @return
      */
     IPage<MDesignProcedure> queryAll(int pageno, int pagesize, MDesignProcedure mDesignProcedure);
+
+    /**
+     * 根据产品编号查询产品生产工序数据-skl
+     * @param productId
+     * @return
+     */
+    public MDesignProcedure queryByproductID(String productId);
 }

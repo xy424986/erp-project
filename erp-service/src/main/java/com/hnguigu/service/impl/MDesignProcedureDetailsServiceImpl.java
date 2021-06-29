@@ -10,6 +10,7 @@ import com.hnguigu.vo.MDesignProcedure;
 import com.hnguigu.vo.MDesignProcedureDetails;
 import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
 import com.hnguigu.vo.extend.MDesignProcedureExtend;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,4 +110,11 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
         }
         return row;
     }
+
+    @Override
+    public List<MDesignProcedureDetails> queryByparentId(int id) {
+        return mDesignProcedureDetailsMapper.queryByparentId(id);
+    }
+
+
 }

@@ -18,7 +18,6 @@ import java.io.Serializable;
 @TableName("m_procedure_moduling")
 public class MProcedureModuling  {
 
-
     @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;/*序号*/
 

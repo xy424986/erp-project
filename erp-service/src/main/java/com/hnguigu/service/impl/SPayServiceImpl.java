@@ -75,13 +75,19 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
     @Override
     public String addSPay(SchedulingOutbound schedulingOutbound) {
         System.out.println("SchedulingOutbound"+schedulingOutbound);
-        SPay sPay = new SPay();
+
 
 
         //b)如果是生产出库，则应把相应的出库产品数量更新到生产工序物料的补充数量中
         QueryWrapper<SPayDetails> sPayDetailsQueryWrapper = new QueryWrapper<>();
         sPayDetailsQueryWrapper.eq("PRODUCT_ID",schedulingOutbound.getProductId());
         SPayDetails sPayDetails = sPayDetailsMapper.selectOne(sPayDetailsQueryWrapper);
+
+        QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
+        sPayQueryWrapper.eq("PAY_ID", schedulingOutbound.getPayId());
+        SPay sPay = this.getOne(sPayQueryWrapper);
+        sPay.setAmountSum(sPay.getAmountSum()+schedulingOutbound.getAmount());//总确认数
+
         // 本次出库数量=应出库数
         if (sPayDetails.getAmount().equals(schedulingOutbound.getAmount())){
             // 本次出库数量<=当前存储量
@@ -115,6 +121,9 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
 
             sPay.setAttemper(schedulingOutbound.getAttemper());//调度人
             sPay.setAttemperTime(schedulingOutbound.getAttemperTime());//调度时间;
+
+           // 如果是生产出库，则应把相应的出库产品数量更新到生产工序物料的补充数量中
+
 
             UpdateWrapper<SPay> sPayUpdateWrapper = new UpdateWrapper<>();
             sPayUpdateWrapper.eq("PAY_ID",schedulingOutbound.getPayId());

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -61,12 +62,14 @@ public class MManuFacture {
     private String register;/*登记人*/
 
     @TableField("REGISTER_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date registerTime;/*登记时间*/
 
     @TableField("CHECKER")
-    private String shecker;/*审核人*/
+    private String checker;/*审核人*/
 
     @TableField("CHECK_TIME")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "Asia/Shanghai")
     private Date checkTime;/*审核时间*/
 
     @TableField("REMARK")
