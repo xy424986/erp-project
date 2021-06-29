@@ -109,5 +109,9 @@ public class MDesignProcedure {
                                             G003-0: 未变更
                                             G003-1: 已变更*/
 
+    @TableField(exist = false)
+    private String designProcedureTag;/*工序组成标志,G001-0: 未设计,G001-1: 已设计*/
 
+    @TableField(exist = false)
+    private Integer dFileId;//序号,
 }

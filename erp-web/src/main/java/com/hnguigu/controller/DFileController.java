@@ -26,6 +26,17 @@ public class DFileController {
 
     /**
      * hhy
+     * @param dFile
+     * @return
+     */
+    @RequestMapping("queryByState1.action")
+    public List<DFile> queryByState(DFile dFile){
+//        System.out.println(dFile);
+        return dFileService.queryByState(dFile);
+    }
+
+    /**
+     * hhy
      * 根据复核状态查询生产工序设计单数据
      * 状态：
      * S001-0: 等待审核

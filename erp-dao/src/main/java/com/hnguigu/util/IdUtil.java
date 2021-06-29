@@ -54,9 +54,6 @@ public class IdUtil {
     //生产计划编号
     public static String ApplyId(MApply apply){
 
-
-
-
         int b=0;
         String str2="0001";
 

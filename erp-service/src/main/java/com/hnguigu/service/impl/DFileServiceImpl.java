@@ -21,20 +21,29 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
 
     /**
      * hhy
-     * 根据复核状态查询生产工序设计单数据
-     * 状态：
-     * S001-0: 等待审核
-     * S001-1: 审核通过
-     * S001-2: 审核不通过
-     * @param state
+     * @param dFile
      * @return
      */
-//    @Override
-//    public List<DFile> queryByState(String state) {
-//        QueryWrapper<DFile> queryWrapper = new QueryWrapper<DFile>();
-//        queryWrapper.eq("CHECK_TAG", state);
-//        return dFileMapper.selectList(queryWrapper);
-//    }
+    @Override
+    public List<DFile> queryByState(DFile dFile) {
+        QueryWrapper<DFile> queryWrapper = new QueryWrapper<DFile>();
+        if(!StringUtils.isEmpty(dFile.getType())){
+            //用途类型
+            queryWrapper.eq("TYPE", dFile.getType());
+        }
+        if(!StringUtils.isEmpty(dFile.getCheckTag())){
+            //审核状态
+            queryWrapper.eq("CHECK_TAG", dFile.getCheckTag());
+        }
+        if(!StringUtils.isEmpty(dFile.getDesignModuleTag())){
+            //物料组成设计状态
+            queryWrapper.eq("DESIGN_MODULE_TAG", dFile.getDesignModuleTag());
+        }
+        if(!StringUtils.isEmpty(dFile.getDesignProcedureTag())){
+            queryWrapper.eq("DESIGN_PROCEDURE_TAG", dFile.getDesignProcedureTag());
+        }
+        return dFileMapper.selectList(queryWrapper);
+    }
 
     /**
      *hhy

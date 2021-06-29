@@ -3,7 +3,9 @@ package com.hnguigu.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hnguigu.mapper.MDesignProcedureDetailsMapper;
+import com.hnguigu.mapper.MDesignProcedureMapper;
 import com.hnguigu.service.MDesignProcedureDetailsService;
+import com.hnguigu.service.MDesignProcedureService;
 import com.hnguigu.vo.MDesignProcedure;
 import com.hnguigu.vo.MDesignProcedureDetails;
 import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
@@ -21,7 +23,10 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
     @Autowired
     MDesignProcedureDetailsMapper mDesignProcedureDetailsMapper;
 
-
+    @Autowired
+    MDesignProcedureMapper mDesignProcedureMapper;
+    @Autowired
+    private MDesignProcedureService mDesignProcedureService;
     /**
      * hhy
      * @param mDesignProcedureExtendList
@@ -71,18 +76,24 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
     /**
      * hhy
      *
-     * @param mDesignProcedureExtend
+     * @param
      * @return
      */
     @Override
-    public int insert(List<MDesignProcedureExtend> mDesignProcedureExtend) {
+    public int insert(List<MDesignProcedureExtend> mDesignProcedureExtendList) {
+
+
 
         MDesignProcedureDetails mDesignProcedureDetails = new MDesignProcedureDetails();
         int row = 0;
         int id = 1;
-        for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtend) {
+        MDesignProcedure mDesignProcedure = new MDesignProcedure();
+//        for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtendList){
+        int parentId = mDesignProcedureService.insert(mDesignProcedureExtendList);
+        System.out.println(parentId);
+        for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtendList) {
             mDesignProcedureDetails.setProcedureId(mDesignProcedureExtend1.getProcedureId());
-            mDesignProcedureDetails.setParentId(1);
+            mDesignProcedureDetails.setParentId(parentId);
             mDesignProcedureDetails.setDetailsNumber(id);
             id++;
             mDesignProcedureDetails.setProcedureName(mDesignProcedureExtend1.getProcedureName());
