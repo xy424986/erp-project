@@ -135,8 +135,6 @@ public class DFile {
     @TableField("DESIGN_PROCEDURE_TAG")
     private String designProcedureTag;/*工序组成标志,G001-0: 未设计,G001-1: 已设计*/
 
-
-
     @TableField("DESIGN_CELL_TAG")
     private String designCellTag;/*库存分配标志,K001-0: 未设计,K001-1: 已设计*/
 

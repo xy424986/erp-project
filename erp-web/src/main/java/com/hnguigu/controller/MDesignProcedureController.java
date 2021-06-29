@@ -25,6 +25,17 @@ public class MDesignProcedureController {
     @Autowired
     MDesignProcedureDetailsService mDesignProcedureDetailsService;
 
+
+    @RequestMapping(value = "reject.action", produces = {"text/json;charset=utf-8"})
+    public String reject(MDesignProcedure mDesignProcedure) {
+
+        int row = mDesignProcedureService.updateByMDP(mDesignProcedure);
+        if (row != 0) {
+            return "已驳回";
+        }
+        return "审核异常";
+    }
+
     /**
      * hhy
      * 工序物料设计单
@@ -68,12 +79,11 @@ public class MDesignProcedureController {
     @RequestMapping(value = "insert.action", produces = {"text/json;charset=utf-8"})
     public String insert(@RequestBody List<MDesignProcedureExtend> mDesignProcedureExtendList) {
 
-        int row = mDesignProcedureService.insert(mDesignProcedureExtendList);
         int row1 = mDesignProcedureDetailsService.insert(mDesignProcedureExtendList);
-        if (row != 0 && row1 !=0) {
+
+        if (row1 !=0) {
             return "已提交";
         }
-//        System.out.println(mDesignProcedureExtendList);
         return "提交失败";
     }
 
