@@ -161,6 +161,7 @@ public class DModuleController {
             int size=byparentId.size();
             int size1=size+1;
             dModuleDetails.get(i).setDetailsNumber(size1);
+            dModuleDetails.get(i).setResidualAmount(dModuleDetails.get(i).getAmount());
             System.out.println(dModuleDetails.get(i));
             boolean save = dModuleDetailsService.save(dModuleDetails.get(i));
             if(save=true){
