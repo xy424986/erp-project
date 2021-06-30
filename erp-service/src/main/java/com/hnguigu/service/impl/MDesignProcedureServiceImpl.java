@@ -8,13 +8,16 @@ import com.hnguigu.mapper.DFileMapper;
 import com.hnguigu.mapper.MDesignProcedureMapper;
 import com.hnguigu.service.DFileService;
 import com.hnguigu.service.MDesignProcedureService;
+import com.hnguigu.util.IdUtil;
 import com.hnguigu.vo.DFile;
+import com.hnguigu.vo.MApply;
 import com.hnguigu.vo.MDesignProcedure;
 import com.hnguigu.vo.extend.MDesignProcedureExtend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -88,12 +91,24 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
     public int insert(List<MDesignProcedureExtend> mDesignProcedureExtend) {
 
         MDesignProcedure mDesignProcedure = new MDesignProcedure();
-
+        IdUtil idUtil = new IdUtil();
         Double priceSum = 0.0;
         int dFileId = 0;
+        List<MDesignProcedure> list = this.list();
+        if (list.size() != 0) {
+            MDesignProcedure mDesignProcedure1 = list.get(list.size() - 1);
+            String procedureId = idUtil.DesignProcedureId(mDesignProcedure1);
+            mDesignProcedure.setDesignId(procedureId);//设计编号
+        } else {
+            //获取当前时间
+            Date dt = new Date();
+            SimpleDateFormat matter1 = new SimpleDateFormat("yyyyMMdd");
+            String date = matter1.format(dt);
+            mDesignProcedure.setDesignId("201" + date + "00001");//设计编号
+            System.out.println("201" + date + "00001");
+        }
 
         for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtend) {
-            mDesignProcedure.setDesignId("001");//设计编号
             mDesignProcedure.setProductId(mDesignProcedureExtend1.getProductId());//产品编号
             mDesignProcedure.setProductName(mDesignProcedureExtend1.getProductName());
             mDesignProcedure.setProcedureDescribe(mDesignProcedureExtend1.getProcedureDescribe1());
