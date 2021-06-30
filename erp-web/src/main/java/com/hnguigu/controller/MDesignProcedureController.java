@@ -49,7 +49,6 @@ public class MDesignProcedureController {
         if (row != 0) {
             return "已提交";
         }
-        System.out.println(mDesignProcedureExtendList);
         return "提交失败!";
     }
 

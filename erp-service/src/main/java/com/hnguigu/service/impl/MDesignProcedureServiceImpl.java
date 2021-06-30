@@ -59,10 +59,15 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
     @Override
     public int updateByMDP(MDesignProcedure mDesignProcedure) {
         DFile dFile = new DFile();
-        dFile.setId(mDesignProcedure.getDFileId());
-        dFile.setDesignProcedureTag(mDesignProcedure.getDesignProcedureTag());
-        dFileMapper.updateById(dFile);
-
+        if(!StringUtils.isEmpty(mDesignProcedure.getDFileId())){
+            dFile.setId(mDesignProcedure.getDFileId());
+        }
+        if(!StringUtils.isEmpty(mDesignProcedure.getDesignProcedureTag())){
+            dFile.setDesignProcedureTag(mDesignProcedure.getDesignProcedureTag());
+        }
+        if(!StringUtils.isEmpty(mDesignProcedure.getDFileId())){
+            dFileMapper.updateById(dFile);
+        }
         mDesignProcedure.setCheckTime(new Date());
         if (!StringUtils.isEmpty(mDesignProcedure.getCheckTag())) {
             mDesignProcedure.setCheckTag(mDesignProcedure.getCheckTag());

@@ -40,7 +40,7 @@ public class DModuleServiceImpl extends ServiceImpl<DModuleMapper, DModule> impl
     @Override
     public DModule queryByDesignId(DModule dModule) {
         QueryWrapper<DModule> queryWrapper = new QueryWrapper<DModule>();
-        queryWrapper.eq("DESIGN_ID", dModule.getDesignId());
+        queryWrapper.eq("PRODUCT_ID", dModule.getProductId());
         return dModuleMapper.selectOne(queryWrapper);
     }
 
