@@ -42,7 +42,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     @Override
     public IPage<SGather> queryAllSGather(int pageNo, int pageSize, SGather sGather) {
          QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sGather.getGatherId())) {
+        if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
             sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
         }
         sGatherQueryWrapper.eq("GATHER_TAG","K002-1");
@@ -61,7 +61,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     public IPage<SGather> queryAllSGather1(int pageNo, int pageSize, SGather sGather) {
         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
 
-        if (!StringUtil.isEmpty(sGather.getGatherId())) {
+        if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
             sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
         }
         if (!StringUtil.isEmpty(sGather.getCheckTag())) {
@@ -83,7 +83,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     public IPage<SGather> queryRuKuAllSGather(int pageNo, int pageSize, SGather sGather) {
         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
 
-        if (!StringUtil.isEmpty(sGather.getGatherId())) {
+        if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
             sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
         }
         sGatherQueryWrapper.eq("GATHER_TAG","K002-2");

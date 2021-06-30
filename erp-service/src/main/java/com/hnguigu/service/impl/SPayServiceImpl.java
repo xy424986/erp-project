@@ -39,7 +39,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
     @Override
     public IPage<SPay> queryAllSPay(int pageNo, int pageSize, SPay sPay) {
         QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sPay.getPayId())) {
+        if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
             sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
         }
         sPayQueryWrapper.eq("PAY_TAG","K002-1");
@@ -57,7 +57,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
     @Override
     public IPage<SPay> queryAllSPay1(int pageNo, int pageSize, SPay sPay) {
         QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sPay.getPayId())) {
+        if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
             sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
         }
         sPayQueryWrapper.eq("PAY_TAG","K002-2");
@@ -76,7 +76,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
     @Override
     public IPage<SPay> queryChuKuAllSPay(int pageNo, int pageSize, SPay sPay) {
         QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sPay.getPayId())) {
+        if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
             sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
         }
         sPayQueryWrapper.eq("PAY_TAG","K002-2");
