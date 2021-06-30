@@ -25,6 +25,7 @@ public class MDesignProcedureModuleController {
      */
     @RequestMapping("queryByPId.action")
     public List<MDesignProcedureModule> queryByPId(MDesignProcedureModule mDesignProcedureModule){
+        System.out.println(mDesignProcedureModuleService.queryByPId(mDesignProcedureModule));
         return mDesignProcedureModuleService.queryByPId(mDesignProcedureModule);
     }
 }

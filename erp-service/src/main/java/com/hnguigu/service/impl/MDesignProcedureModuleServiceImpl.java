@@ -48,7 +48,7 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
             mDesignProcedureModule.setProductDescribe(mDesignProcedureDetailsExtend.getProductDescribe());
             mDesignProcedureModule.setAmountUnit(mDesignProcedureDetailsExtend.getAmountUnit());
             mDesignProcedureModule.setCostPrice(mDesignProcedureDetailsExtend.getCostPrice());
-            mDesignProcedureModule.setSubtotal(mDesignProcedureDetailsExtend.getAmount() * mDesignProcedureDetailsExtend.getCostPrice());
+            mDesignProcedureModule.setSubtotal(mDesignProcedureDetailsExtend.getAmount1() * mDesignProcedureDetailsExtend.getCostPrice());
             id++;
             row = mDesignProcedureModuleMapper.insert(mDesignProcedureModule);
 

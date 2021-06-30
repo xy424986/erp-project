@@ -31,7 +31,6 @@ public class DFileController {
      */
     @RequestMapping("queryByState1.action")
     public List<DFile> queryByState(DFile dFile){
-//        System.out.println(dFile);
         return dFileService.queryByState(dFile);
     }
 
