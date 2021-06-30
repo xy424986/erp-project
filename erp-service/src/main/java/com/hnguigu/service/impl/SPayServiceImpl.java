@@ -60,7 +60,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
         if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
             sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
         }
-        sPayQueryWrapper.eq("PAY_TAG","K002-2");
+        sPayQueryWrapper.eq("PAY_TAG","K002-1");
         if (!StringUtil.isEmpty(sPay.getCheckTag())) {
             sPayQueryWrapper.eq("CHECK_TAG", sPay.getCheckTag());
         }
@@ -79,7 +79,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
         if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
             sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
         }
-        sPayQueryWrapper.eq("PAY_TAG","K002-2");
+        sPayQueryWrapper.eq("PAY_TAG","K002-1");
         sPayQueryWrapper.eq("CHECK_TAG","S001-2");
         sPayQueryWrapper.or();
         sPayQueryWrapper.eq("CHECK_TAG","S001-1");
@@ -120,14 +120,16 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
 
 
         //b)如果是生产出库，则应把相应的出库产品数量更新到生产工序物料的补充数量中
-        QueryWrapper<SPayDetails> sPayDetailsQueryWrapper = new QueryWrapper<>();
-        sPayDetailsQueryWrapper.eq("PRODUCT_ID",schedulingOutbound.getProductId());
-        SPayDetails sPayDetails = sPayDetailsMapper.selectOne(sPayDetailsQueryWrapper);
-
         QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
         sPayQueryWrapper.eq("PAY_ID", schedulingOutbound.getPayId());
         SPay sPay = this.getOne(sPayQueryWrapper);
-        sPay.setAmountSum(sPay.getAmountSum()+schedulingOutbound.getAmount());//总确认数
+
+        QueryWrapper<SPayDetails> sPayDetailsQueryWrapper = new QueryWrapper<>();
+        sPayDetailsQueryWrapper.eq("PARENT_ID",sPay.getId());
+        sPayDetailsQueryWrapper.eq("PRODUCT_ID",schedulingOutbound.getProductId());
+        SPayDetails sPayDetails = sPayDetailsMapper.selectOne(sPayDetailsQueryWrapper);
+
+    sPay.setAmountSum(sPay.getAmountSum()+schedulingOutbound.getAmount());//总确认数
 
         // 本次出库数量=应出库数
         if (sPayDetails.getAmount().equals(schedulingOutbound.getAmount())){
