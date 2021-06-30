@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hnguigu.service.SGatherService;
 import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
+import com.hnguigu.util.Warehousing;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.extend.SGatherEx;
@@ -87,5 +88,27 @@ public class SGathersController {
         if (b)
             return "true";
         return "false";
+    }
+    /*
+     * 入库申请提交
+     * */
+    @RequestMapping(value = "addApplyForDelivery.May",produces = {"text/json;charset=utf-8"})
+    @ResponseBody
+    public String addApplyForDelivery(@RequestBody List<Warehousing> warehousings){
+        boolean b =  sGatherService.addWarehousing(warehousings);
+        if (b)
+            return "true";
+        return "false";
+    }
+    //入库审核通过
+    @RequestMapping("updataByCheckTag1.May")
+    public boolean updataByCheckTag1(SGather sGather){
+        return sGatherService.updataByCheckTag1(sGather);
+    }
+
+    //入库审核未通过
+    @RequestMapping("updataByCheckTag.May")
+    public boolean updataByCheckTag(SGather sGather){
+        return sGatherService.updataByCheckTag(sGather);
     }
 }

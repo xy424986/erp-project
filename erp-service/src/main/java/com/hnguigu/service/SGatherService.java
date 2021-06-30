@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
+import com.hnguigu.util.Warehousing;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.extend.SGatherEx;
 
@@ -49,4 +50,12 @@ public interface SGatherService extends IService<SGather> {
      * @return
      */
     boolean addPutInStorage(List<PutInStorage> putInStorages);
+
+    boolean addWarehousing(List<Warehousing> warehousings);
+
+    //入库审核通过
+    boolean updataByCheckTag1(SGather sGather);
+
+    //入库审核未通过
+    boolean updataByCheckTag(SGather sGather);
 }

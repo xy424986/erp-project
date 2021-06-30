@@ -3,6 +3,7 @@ package com.hnguigu.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hnguigu.mapper.SGatherDetailsMapper;
 import com.hnguigu.service.SGatherDetailsService;
+import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGatherDetails;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,11 @@ public class SGatherDetailsServiceImpl extends ServiceImpl<SGatherDetailsMapper,
     public List<SGatherEx> queryByIdSGatherEx2(int id) {
         System.out.println("queryByIdSGatherEx2的id:"+id);
         return sGatherDetailsMapper.queryByIdSGatherEx2(id);
+    }
+
+    //入库查询表格
+    @Override
+    public List<DFile> queryAll(){
+        return sGatherDetailsMapper.queryAll();
     }
 }

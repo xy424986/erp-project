@@ -10,8 +10,10 @@ import com.hnguigu.mapper.SCellMapper;
 import com.hnguigu.mapper.SGatherDetailsMapper;
 import com.hnguigu.mapper.SGatherMapper;
 import com.hnguigu.service.SGatherService;
+import com.hnguigu.util.IdUtil;
 import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
+import com.hnguigu.util.Warehousing;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.SGatherDetails;
@@ -20,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -195,4 +199,94 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         System.out.println("update:"+update);
         return update;//修改入库表
     }
+    @Override
+    public boolean addWarehousing(List<Warehousing> warehousings) {
+        SGatherDetails sGatherDetails = new SGatherDetails();
+        SGather sGather = new SGather();
+        SGather sGather1 =null;
+        boolean save =false;
+        IdUtil idUtil = new IdUtil();
+        Integer sum=0;
+        int i = 0;
+        List<SGather> list = this.list();
+        if (list.size()!=0){
+             sGather1 = list.get(list.size() - 1);
+            String gatherId = idUtil.GatherId(sGather1);
+            sGather.setGatherId(gatherId);
+            System.out.println(gatherId);
+        }else {
+            //获取当前时间
+            Date dt=new Date();
+            SimpleDateFormat matter1=new SimpleDateFormat("yyyyMMdd");
+            String date =  matter1.format(dt);
+            sGather.setGatherId("402"+date+"0001");
+            System.out.println("402"+date+"0001");
+        }
+        Integer a=sGather1.getId()+1;
+        System.out.println(a);
+
+        sGather.setGatherTag("K002-1");
+        sGather.setCheckTag("S001-0");
+        for(Warehousing put: warehousings){
+            System.out.println("addWarehousing-warehousings"+put);
+            sGatherDetails.setParentId(a);//父级id
+            sGatherDetails.setAmount(put.getAmount());//数量
+            sGatherDetails.setProductDescribe(put.getProductDescribe());//描述
+            sGatherDetails.setSubtotal(put.getSubtotal());//小计
+            sGatherDetails.setProductName(put.getProductName());//产品名称
+            sGatherDetails.setProductId(put.getProductId());//入库编号
+            sGatherDetails.setAmountUnit(put.getAmountUnit());//单位
+
+            if(!StringUtil.isEmpty(put.getRegister())){
+                System.out.println("put.getRegister():"+put.getRegister());
+                sGather.setRegister(put.getRegister());//登记人
+            }
+            if (put.getRegisterTime()!=null){
+                System.out.println("put.getRegisterTime():"+put.getRegisterTime());
+                sGather.setRegisterTime(put.getRegisterTime());//登记时间
+            }
+            if (!StringUtil.isEmpty(put.getStorer())){
+                System.out.println("put.getStorer:"+put.getStorer());
+                sGather.setStorer(put.getStorer());//入库人
+            }
+            if (!StringUtil.isEmpty(put.getReason())){
+                System.out.println("put.getReason:()"+put.getReason());
+                sGather.setReason(put.getReason());//入库理由
+            }
+            if (put.getAmountSum()>=0){
+                System.out.println("put.getAmountSum():"+put.getAmountSum());
+                sGather.setAmountSum(put.getAmountSum());//总数量
+            }
+            if (put.getCostPriceSum()>=0){
+                System.out.println("put.getCostPriceSum():"+put.getCostPriceSum());
+                sGather.setCostPriceSum(put.getCostPriceSum());//总金额
+            }
+            sGatherDetails.setGatherTag("K002-1");
+
+            i = sGatherDetailsMapper.insert(sGatherDetails);
+        }
+        save = this.save(sGather);
+        System.out.println("i:"+i);
+        System.out.println("update:"+save);
+        return save;
+    }
+
+    //入库审核
+    @Override
+    public boolean updataByCheckTag1 (SGather sGather){
+        sGather.setCheckTag("S001-1");
+        return this.updateById(sGather);
+
+    }
+
+    @Override
+    public boolean updataByCheckTag(SGather sGather){
+        sGather.setCheckTag("S001-2");
+        return this.updateById(sGather) ;
+    }
+//    @Override
+//    public boolean amendSGather(SGather sGather) {
+//        sGather.setCheckTag("S001-1");
+//        return this.updateById(sGather);
+//    }
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,6 +33,12 @@ public class MManuFactureController {
     MProceduringService mProceduringService;
     @Autowired
     MProcedureModulingService mProcedureModulingService;
+    @Autowired
+    SPayService sPayService;
+    @Autowired
+    DFileService dFileService;
+    @Autowired
+    SPayDetailsService sPayDetailsService;
 
     /**
      * 生产查询-首页表格-xyb
@@ -123,6 +131,64 @@ public class MManuFactureController {
         byId.setCheckTag("S001-1");
         byId.setChecker(mManuFacture.getChecker());
         byId.setCheckTime(mManuFacture.getCheckTime());
+        List<MProcedure> mProcedures = mProcedureService.queryByparentID(byId.getId());
+        for (MProcedure mProcedure:mProcedures) {
+            List<SPay> list = sPayService.list();
+            int size=list.size();
+            int size1=size+1;
+
+            Date dt=new Date();
+            SimpleDateFormat matter1=new SimpleDateFormat("yyyyMMdd");
+            String date = matter1.format(dt);
+            SPay sPay = new SPay();
+            sPay.setPayId("402"+date+"00"+size1);
+            sPay.setReason("C002-1");
+            sPay.setReasonexact(byId.getManufactureId()+"-"+mProcedure.getProcedureName());
+            sPay.setStorer(mManuFacture.getChecker());
+            sPay.setRegister(mManuFacture.getChecker());
+            sPay.setRegisterTime(mManuFacture.getCheckTime());
+            sPay.setChecker(mManuFacture.getChecker());
+            sPay.setCheckTime(mManuFacture.getCheckTime());
+            sPay.setCheckTag("S001-0");
+            sPay.setPayTag("K002-1");
+            sPay.setAmountSum(0);
+            sPay.setCostPriceSum(0.0);
+
+            boolean save = sPayService.save(sPay);
+
+            int zjs=0;
+            Double zje=0.0;
+            List<MProcedureModule> querybyparentid = mProcedureModuleService.querybyparentid(mProcedure.getId());
+            for (MProcedureModule mProcedureModule:querybyparentid) {
+                QueryWrapper<SPay> queryWrapper = new QueryWrapper<SPay>();
+                queryWrapper.eq("REASONEXACT",byId.getManufactureId()+"-"+mProcedure.getProcedureName());
+                SPay one = sPayService.getOne(queryWrapper);
+
+                QueryWrapper<DFile> queryWrapper2 = new QueryWrapper<DFile>();
+                queryWrapper2.eq("PRODUCT_ID",mProcedureModule.getProductId());
+                DFile one1 = dFileService.getOne(queryWrapper2);
+                SPayDetails sPayDetails = new SPayDetails();
+
+                sPayDetails.setParentId(one.getId());
+                sPayDetails.setProductId(mProcedureModule.getProductId());
+                sPayDetails.setProductName(mProcedureModule.getProductName());
+                sPayDetails.setProductDescribe(one1.getProductDescribe());//描述
+                zjs=zjs+mProcedureModule.getAmount();
+                sPayDetails.setAmount(mProcedureModule.getAmount());//数量
+                sPayDetails.setAmountUnit(one1.getAmountUnit());//单位
+                sPayDetails.setCostPrice(mProcedureModule.getCostPrice());//单价
+                sPayDetails.setSubtotal(mProcedureModule.getAmount()*mProcedureModule.getCostPrice());//小计
+                zje=zje+mProcedureModule.getAmount()*mProcedureModule.getCostPrice();
+                sPayDetails.setPayTag("K002-1");//出库标志K002-1: 已登记K002-2: 已调度
+                boolean save1 = sPayDetailsService.save(sPayDetails);
+            }
+            QueryWrapper<SPay> queryWrapper3 = new QueryWrapper<SPay>();
+            queryWrapper3.eq("REASONEXACT",byId.getManufactureId()+"-"+mProcedure.getProcedureName());
+            SPay one3 = sPayService.getOne(queryWrapper3);
+            one3.setAmountSum(zjs);
+            one3.setCostPriceSum(zje);
+            boolean b = sPayService.updateById(one3);
+        }
         return mManuFactureService.updateById(byId);
     }
 

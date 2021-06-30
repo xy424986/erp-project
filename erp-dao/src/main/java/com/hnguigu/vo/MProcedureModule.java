@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 注：
@@ -55,4 +56,16 @@ public class MProcedureModule  {
 
     @TableField(exist = false)
     private Integer rowamount;//本次数量
+
+    @TableField(exist = false)
+    private String shr;
+
+    @TableField(exist = false)
+    private boolean iswancheng;
+
+    @TableField(exist = false)
+    private BigDecimal gss;
+
+    @TableField(exist = false)
+    private BigDecimal sl;
 }

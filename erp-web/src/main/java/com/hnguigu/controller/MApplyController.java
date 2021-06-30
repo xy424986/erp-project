@@ -116,7 +116,9 @@ public class MApplyController {
         queryWrapper.eq("PRODUCT_ID", mManuFacture.getProductId());
         MDesignProcedure one = mDesignProcedureService.getOne(queryWrapper);
         mManuFacture.setModuleCostPriceSun(one.getModuleCostPriceSum());
+        mManuFacture.setPealModuleCostPriceSun(0.0);
         mManuFacture.setLabourCostPriceSun(one.getCostPriceSum());
+        mManuFacture.setPeallabourCostPriceSun(0.0);
 
         List<MManuFacture> list = mManuFactureService.list();
         int size = list.size();
@@ -159,8 +161,11 @@ public class MApplyController {
             mProcedure.setProcedureName(mDesignProcedureDetails.get(i).getProcedureName());//工序名称
             mProcedure.setProcedureId(mDesignProcedureDetails.get(i).getProcedureId());//工序编号
             mProcedure.setLabourHourAmount(mDesignProcedureDetails.get(i).getLabourHourAmount());//设计工时数
+            mProcedure.setRealLabourHourAmount(0.0);
             mProcedure.setSubtotal(mDesignProcedureDetails.get(i).getSubtotal());//设计工时成本
+            mProcedure.setRealSubtotal(0.0);
             mProcedure.setModuleSubtotal(mDesignProcedureDetails.get(i).getModuleSubtotal());//设计物料成本
+            mProcedure.setRealModuleSubtotal(0.0);
             mProcedure.setCostPrice(mDesignProcedureDetails.get(i).getCostPrice());//单位工时成本
             mProcedure.setDemandAmount(one.getAmount());//工序投产数量
             mProcedure.setProcedureFinishTag("G004-0");//工序完成标志
@@ -186,7 +191,10 @@ public class MApplyController {
                     mProcedureModule.setProductName(mDesignProcedureModule.getProductName());//产品名称
                     mProcedureModule.setCostPrice(mDesignProcedureModule.getCostPrice());//物料单价
                     mProcedureModule.setAmount(mDesignProcedureModule.getAmount());//设计数量
+                    mProcedureModule.setRenewAmount(0);
+                    mProcedureModule.setRealAmount(0);
                     mProcedureModule.setSubtotal(mDesignProcedureModule.getSubtotal());//设计物料成本小计
+                    mProcedureModule.setRealSubtotal(0.0);
                     System.out.println(mProcedureModule);
                     boolean save1 = mProcedureModuleService.save(mProcedureModule);
                     if(save1==true){
