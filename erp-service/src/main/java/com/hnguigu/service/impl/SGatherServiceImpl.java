@@ -45,17 +45,61 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
      */
     @Override
     public IPage<SGather> queryAllSGather(int pageNo, int pageSize, SGather sGather) {
-       /* PageHelper.startPage(pageNo, pageSize);
-        List<DFile> sGathers = sGatherMapper.querySGather();
-        PageInfo<DFile> sCellPageInfo = new PageInfo<>(sGathers);*/
-        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sGather.getGatherId())) {
+         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+        if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
             sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
         }
+        sGatherQueryWrapper.eq("GATHER_TAG","K002-1");
         IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
         System.out.println("queryAllSGather:"+page);
         return page;
     }
+    /**
+     * 入库管理-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @Override
+    public IPage<SGather> queryAllSGather1(int pageNo, int pageSize, SGather sGather) {
+        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+
+        if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
+            sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
+        }
+        if (!StringUtil.isEmpty(sGather.getCheckTag())) {
+            sGatherQueryWrapper.eq("CHECK_TAG", sGather.getCheckTag());
+        }
+        sGatherQueryWrapper.eq("GATHER_TAG","K002-2");
+        IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
+        System.out.println("queryAllSGather:"+page);
+        return page;
+    }
+    /**
+     * 入库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @Override
+    public IPage<SGather> queryRuKuAllSGather(int pageNo, int pageSize, SGather sGather) {
+        QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
+
+        if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
+            sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
+        }
+        sGatherQueryWrapper.eq("GATHER_TAG","K002-2");
+        sGatherQueryWrapper.eq("CHECK_TAG","S001-2");
+        sGatherQueryWrapper.or();
+        sGatherQueryWrapper.eq("CHECK_TAG","S001-1");
+
+        IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
+        System.out.println("queryAllSGather:"+page);
+        return page;
+    }
+
     /**
      * 入库调度单-查询-xyb
      *
@@ -154,7 +198,6 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
      */
     @Override
     public boolean amendSGather(SGather sGather) {
-        sGather.setCheckTag("S001-1");
         return this.updateById(sGather);
     }
     /**

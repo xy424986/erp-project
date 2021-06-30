@@ -35,6 +35,54 @@ public class SGathersController {
     }
 
     /**
+     * 入库登记-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/queryAllSGather1.May")
+    public IPage<SGather> queryAllSGather1(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                          @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                          SGather sGather){
+
+        return sGatherService.queryAllSGather1(pageNo,pageSize,sGather);
+    }
+    /**
+     * 入库复核-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/queryAllSGather2.May")
+    public IPage<SGather> queryAllSGather2(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                           @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                           SGather sGather){
+        sGather.setCheckTag("S001-0");
+        return sGatherService.queryAllSGather1(pageNo,pageSize,sGather);
+    }
+    /**
+     * 入库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    /**
+     * 入库复核-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/queryRuKuAllSGather.May")
+    public IPage<SGather> queryRuKuAllSGather(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                           @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                           SGather sGather){
+        return sGatherService.queryRuKuAllSGather(pageNo,pageSize,sGather);
+    }
+     /**
      * 入库调度单-查询-xyb
      * @param id 产品编号
      * @return

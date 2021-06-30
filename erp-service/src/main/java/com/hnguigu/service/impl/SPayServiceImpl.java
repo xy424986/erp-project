@@ -39,10 +39,51 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
     @Override
     public IPage<SPay> queryAllSPay(int pageNo, int pageSize, SPay sPay) {
         QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
-        if (!StringUtil.isEmpty(sPay.getPayId()))
-        sPayQueryWrapper.eq("PAY_ID",sPay.getPayId());
+        if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
+            sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
+        }
+        sPayQueryWrapper.eq("PAY_TAG","K002-1");
+
         return  this.page(new Page<SPay>(pageNo, pageSize), sPayQueryWrapper);
 
+    }
+    /**
+     * 出库管理-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    @Override
+    public IPage<SPay> queryAllSPay1(int pageNo, int pageSize, SPay sPay) {
+        QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
+        if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
+            sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
+        }
+        sPayQueryWrapper.eq("PAY_TAG","K002-2");
+        if (!StringUtil.isEmpty(sPay.getCheckTag())) {
+            sPayQueryWrapper.eq("CHECK_TAG", sPay.getCheckTag());
+        }
+        return  this.page(new Page<SPay>(pageNo, pageSize), sPayQueryWrapper);
+    }
+    /**
+     * chu库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    @Override
+    public IPage<SPay> queryChuKuAllSPay(int pageNo, int pageSize, SPay sPay) {
+        QueryWrapper<SPay> sPayQueryWrapper = new QueryWrapper<>();
+        if (!StringUtil.isEmpty(sPay.getPayId())&&!"undefined".equals(sPay.getPayId())) {
+            sPayQueryWrapper.eq("PAY_ID", sPay.getPayId());
+        }
+        sPayQueryWrapper.eq("PAY_TAG","K002-2");
+        sPayQueryWrapper.eq("CHECK_TAG","S001-2");
+        sPayQueryWrapper.or();
+        sPayQueryWrapper.eq("CHECK_TAG","S001-1");
+        return  this.page(new Page<SPay>(pageNo, pageSize), sPayQueryWrapper);
     }
 
     /**
@@ -146,7 +187,6 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements SP
      */
     @Override
     public boolean amendSPay(SPay sPay) {
-        sPay.setCheckTag("S001-1");
         return this.updateById(sPay);
     }
     /**
