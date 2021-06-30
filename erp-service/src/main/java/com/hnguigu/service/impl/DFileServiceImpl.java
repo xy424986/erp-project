@@ -84,6 +84,9 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
             queryWrapper.eq("PRODUCT_NAME", dFile.getProductName());
         }
 //        hhy
+        if (!StringUtils.isEmpty(dFile.getType())) {
+            queryWrapper.eq("TYPE", dFile.getType());
+        }
         if (!StringUtils.isEmpty(dFile.getDesignProcedureTag())) {
             queryWrapper.eq("DESIGN_PROCEDURE_TAG", dFile.getDesignProcedureTag());
         }

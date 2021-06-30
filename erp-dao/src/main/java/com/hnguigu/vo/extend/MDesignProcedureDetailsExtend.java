@@ -25,16 +25,20 @@ public class MDesignProcedureDetailsExtend {
 
     private Double costPrice;/*单价*/
 
-    private Integer amount;/*本工序数量*/
+    private Integer amount;/*数量*/
+
+    private Integer amount1;/*自定义数量*/
 
     private Integer mDPId;/*序号*/
 
     private Integer mDPDId;/*序号*/
 
+    private Integer residualAmount;/*可用数量*/
+
     public MDesignProcedureDetailsExtend() {
     }
 
-    public MDesignProcedureDetailsExtend(String procedureId, String procedureName, String register, Date registerTime, String productName, String productId, String productDescribe, String amountUnit, Double costPrice, Integer amount, Integer mDPId, Integer mDPDId) {
+    public MDesignProcedureDetailsExtend(String procedureId, String procedureName, String register, Date registerTime, String productName, String productId, String productDescribe, String amountUnit, Double costPrice, Integer amount, Integer amount1, Integer mDPId, Integer mDPDId, Integer residualAmount) {
         this.procedureId = procedureId;
         this.procedureName = procedureName;
         this.register = register;
@@ -45,8 +49,38 @@ public class MDesignProcedureDetailsExtend {
         this.amountUnit = amountUnit;
         this.costPrice = costPrice;
         this.amount = amount;
+        this.amount1 = amount1;
         this.mDPId = mDPId;
         this.mDPDId = mDPDId;
+        this.residualAmount = residualAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "MDesignProcedureDetailsExtend{" +
+                "procedureId='" + procedureId + '\'' +
+                ", procedureName='" + procedureName + '\'' +
+                ", register='" + register + '\'' +
+                ", registerTime=" + registerTime +
+                ", productName='" + productName + '\'' +
+                ", productId='" + productId + '\'' +
+                ", productDescribe='" + productDescribe + '\'' +
+                ", amountUnit='" + amountUnit + '\'' +
+                ", costPrice=" + costPrice +
+                ", amount=" + amount +
+                ", amount1=" + amount1 +
+                ", mDPId=" + mDPId +
+                ", mDPDId=" + mDPDId +
+                ", residualAmount=" + residualAmount +
+                '}';
+    }
+
+    public Integer getResidualAmount() {
+        return residualAmount;
+    }
+
+    public void setResidualAmount(Integer residualAmount) {
+        this.residualAmount = residualAmount;
     }
 
     public String getProcedureId() {
@@ -145,21 +179,11 @@ public class MDesignProcedureDetailsExtend {
         this.mDPDId = mDPDId;
     }
 
-    @Override
-    public String toString() {
-        return "MDesignProcedureDetailsExtend{" +
-                "procedureId='" + procedureId + '\'' +
-                ", procedureName='" + procedureName + '\'' +
-                ", register='" + register + '\'' +
-                ", registerTime=" + registerTime +
-                ", productName='" + productName + '\'' +
-                ", productId='" + productId + '\'' +
-                ", productDescribe='" + productDescribe + '\'' +
-                ", amountUnit='" + amountUnit + '\'' +
-                ", costPrice=" + costPrice +
-                ", amount=" + amount +
-                ", mDPId=" + mDPId +
-                ", mDPDId=" + mDPDId +
-                '}';
+    public Integer getAmount1() {
+        return amount1;
+    }
+
+    public void setAmount1(Integer amount1) {
+        this.amount1 = amount1;
     }
 }

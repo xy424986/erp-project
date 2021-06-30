@@ -1,11 +1,15 @@
 package com.hnguigu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hnguigu.mapper.DModuleDetailsMapper;
 import com.hnguigu.mapper.MDesignProcedureDetailsMapper;
 import com.hnguigu.mapper.MDesignProcedureMapper;
+import com.hnguigu.service.DModuleDetailsService;
 import com.hnguigu.service.MDesignProcedureDetailsService;
 import com.hnguigu.service.MDesignProcedureService;
+import com.hnguigu.vo.DModuleDetails;
 import com.hnguigu.vo.MDesignProcedure;
 import com.hnguigu.vo.MDesignProcedureDetails;
 import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
@@ -26,8 +30,10 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
 
     @Autowired
     MDesignProcedureMapper mDesignProcedureMapper;
+
     @Autowired
     private MDesignProcedureService mDesignProcedureService;
+
     /**
      * hhy
      * @param mDesignProcedureExtendList
@@ -59,6 +65,7 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
         mDesignProcedureDetails.setRegisterTime(new Date());
         mDesignProcedureDetails.setDesignModuleTag("D002-1");
         mDesignProcedureDetails.setModuleSubtotal(moduleSubtotal);
+
         return mDesignProcedureDetailsMapper.updateById(mDesignProcedureDetails);
     }
 
@@ -91,7 +98,7 @@ public class MDesignProcedureDetailsServiceImpl extends ServiceImpl<MDesignProce
         MDesignProcedure mDesignProcedure = new MDesignProcedure();
 //        for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtendList){
         int parentId = mDesignProcedureService.insert(mDesignProcedureExtendList);
-        System.out.println(parentId);
+
         for (MDesignProcedureExtend mDesignProcedureExtend1 : mDesignProcedureExtendList) {
             mDesignProcedureDetails.setProcedureId(mDesignProcedureExtend1.getProcedureId());
             mDesignProcedureDetails.setParentId(parentId);

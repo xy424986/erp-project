@@ -1,9 +1,12 @@
 package com.hnguigu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hnguigu.mapper.DModuleDetailsMapper;
 import com.hnguigu.mapper.MDesignProcedureModuleMapper;
 import com.hnguigu.service.MDesignProcedureModuleService;
+import com.hnguigu.vo.DModuleDetails;
 import com.hnguigu.vo.MDesignProcedureDetails;
 import com.hnguigu.vo.MDesignProcedureModule;
 import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
@@ -20,6 +23,10 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
     @Autowired
     MDesignProcedureModuleMapper mDesignProcedureModuleMapper;
 
+
+    @Autowired
+    DModuleDetailsMapper dModuleDetailsMapper;
+
     /**
      * hhy
      * @param mDesignProcedureDetailsExtendList
@@ -29,7 +36,7 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
     public int insert(List<MDesignProcedureDetailsExtend> mDesignProcedureDetailsExtendList) {
 
         MDesignProcedureModule mDesignProcedureModule = new MDesignProcedureModule();
-
+        DModuleDetails dModuleDetails = new DModuleDetails();
         int row = 0;
         int id = 1;
         for (MDesignProcedureDetailsExtend mDesignProcedureDetailsExtend : mDesignProcedureDetailsExtendList) {
@@ -44,6 +51,11 @@ public class MDesignProcedureModuleServiceImpl extends ServiceImpl<MDesignProced
             mDesignProcedureModule.setSubtotal(mDesignProcedureDetailsExtend.getAmount() * mDesignProcedureDetailsExtend.getCostPrice());
             id++;
             row = mDesignProcedureModuleMapper.insert(mDesignProcedureModule);
+
+            UpdateWrapper<DModuleDetails> updateWrapper = new UpdateWrapper<DModuleDetails>();
+            updateWrapper.eq("PRODUCT_ID", mDesignProcedureDetailsExtend.getProductId());
+            dModuleDetails.setResidualAmount(mDesignProcedureDetailsExtend.getResidualAmount()-mDesignProcedureDetailsExtend.getAmount1());
+            dModuleDetailsMapper.update(dModuleDetails, updateWrapper);
         }
         return row;
     }

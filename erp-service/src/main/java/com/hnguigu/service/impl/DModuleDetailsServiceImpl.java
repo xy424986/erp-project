@@ -7,6 +7,7 @@ import com.hnguigu.service.DModuleDetailsService;
 import com.hnguigu.service.DModuleService;
 import com.hnguigu.vo.DModule;
 import com.hnguigu.vo.DModuleDetails;
+import com.hnguigu.vo.extend.MDesignProcedureDetailsExtend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,12 @@ public class DModuleDetailsServiceImpl extends ServiceImpl<DModuleDetailsMapper,
 
     @Autowired
     DModuleService dModuleService;
+
+    @Override
+    public int updateBy(List<MDesignProcedureDetailsExtend> mDesignProcedureDetailsExtendList) {
+        return 0;
+    }
+
     /**
      * 物料组成设计添加的方法第三部-skl
      * @param
