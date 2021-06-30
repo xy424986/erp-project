@@ -14,7 +14,6 @@ public interface SPayMapper extends BaseMapper<SPay> {
             "left join `d_file` df on df.PRODUCT_ID = sc.PRODUCT_ID\n" +
             "where spd.`ID`=#{id}\n" +
             "and sc.check_tag='S001-1'\n" +
-            "and sp.check_tag='S001-1'\n" +
             "and sp.PAY_TAG='K002-1'\n" +
             "and spd.PAY_TAG='K002-1' ")
     SPayEX queryByIdSPayEX(@Param("id") int id);

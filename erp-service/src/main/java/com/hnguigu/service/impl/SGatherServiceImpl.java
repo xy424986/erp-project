@@ -17,6 +17,7 @@ import com.hnguigu.util.Warehousing;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.SGatherDetails;
+import com.hnguigu.vo.SPayDetails;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,7 +72,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         if (!StringUtil.isEmpty(sGather.getCheckTag())) {
             sGatherQueryWrapper.eq("CHECK_TAG", sGather.getCheckTag());
         }
-        sGatherQueryWrapper.eq("GATHER_TAG","K002-2");
+        sGatherQueryWrapper.eq("GATHER_TAG","K002-1");
         IPage<SGather> page = this.page(new Page<SGather>(pageNo, pageSize), sGatherQueryWrapper);
         System.out.println("queryAllSGather:"+page);
         return page;
@@ -90,7 +91,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         if (!StringUtil.isEmpty(sGather.getGatherId())&&!"undefined".equals(sGather.getGatherId())) {
             sGatherQueryWrapper.eq("GATHER_ID", sGather.getGatherId());
         }
-        sGatherQueryWrapper.eq("GATHER_TAG","K002-2");
+        sGatherQueryWrapper.eq("GATHER_TAG","K002-1");
         sGatherQueryWrapper.eq("CHECK_TAG","S001-2");
         sGatherQueryWrapper.or();
         sGatherQueryWrapper.eq("CHECK_TAG","S001-1");
@@ -129,7 +130,7 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
 
         QueryWrapper<SGather> sGatherQueryWrapper = new QueryWrapper<>();
         sGatherQueryWrapper.eq("GATHER_ID",scheduling.getGatherId());
-        SGather sGather = this.getOne(sGatherQueryWrapper);
+       SGather sGather = this.getOne(sGatherQueryWrapper);
         sGather.setAmountSum(sGather.getAmountSum()+scheduling.getAmount());//总确认数
         if (sGatherDetails.getAmount().equals(scheduling.getAmount())){
             // 本次入库数量<=最大存储量—当前存储量
@@ -210,13 +211,17 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
     public boolean addPutInStorage(List<PutInStorage> putInStorages) {
         SGatherDetails sGatherDetails = new SGatherDetails();
         SGather sGather = new SGather();
+        SCell sCell = new SCell();
         UpdateWrapper<SGather> sGatherUpdateWrapper = new UpdateWrapper<>();
 
         Integer sum=0;
         int i = 0;
+        int j=0;
         for (PutInStorage put:putInStorages) {
             System.out.println("addPutInStorage-putInStorages:"+put);
             sGatherDetails.setId(put.getId());//明细表-id
+            j=put.getId();
+            sCell.setAmount(put.getGatheredAmount());
             sGatherDetails.setGatheredAmount(put.getGatheredAmount());//明细表-确认入库件数
            sum+=put.getGatheredAmount();//确认入库总件数
             if (!StringUtil.isEmpty(put.getRegister())) {
@@ -231,8 +236,19 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
                 System.out.println("put.getGatherId():"+put.getGatherId());
                 sGatherUpdateWrapper.eq("GATHER_ID",put.getGatherId());//用入库单号做条件
             }
+
             sGatherDetails.setGatherTag("K002-1");//明细表状态已调度
              i = sGatherDetailsMapper.updateById(sGatherDetails);//修改入库明细表
+        }
+        QueryWrapper<SGatherDetails> sGatherDetailsQueryWrapper = new QueryWrapper<>();
+        sGatherDetailsQueryWrapper.eq("ID",j);
+        List<SGatherDetails> sGatherDetails1 = sGatherDetailsMapper.selectList(sGatherDetailsQueryWrapper);
+
+        UpdateWrapper<SCell> sCellUpdateWrapper = new UpdateWrapper<>();
+        for (SGatherDetails put:sGatherDetails1) {
+            sCellUpdateWrapper.eq("PRODUCT_ID",put.getProductId());
+            //int update = sCellMapper.update(sCell, sCellUpdateWrapper);
+           // System.out.println("22"+update);
         }
         sGather.setCheckTag("S001-0");//等待审核
         sGather.setGatherTag("K002-1");//已调度
@@ -252,11 +268,13 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         Integer sum=0;
         int i = 0;
         List<SGather> list = this.list();
+        Integer a=1;
         if (list.size()!=0){
              sGather1 = list.get(list.size() - 1);
             String gatherId = idUtil.GatherId(sGather1);
             sGather.setGatherId(gatherId);
             System.out.println(gatherId);
+             a=sGather1.getId()+1;
         }else {
             //获取当前时间
             Date dt=new Date();
@@ -264,8 +282,9 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
             String date =  matter1.format(dt);
             sGather.setGatherId("402"+date+"0001");
             System.out.println("402"+date+"0001");
+
         }
-        Integer a=sGather1.getId()+1;
+
         System.out.println(a);
 
         sGather.setGatherTag("K002-1");
