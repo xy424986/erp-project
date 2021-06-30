@@ -1,6 +1,7 @@
 package com.hnguigu.controller;
 
 import com.hnguigu.service.SGatherDetailsService;
+import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGatherDetails;
 import com.hnguigu.vo.extend.SGatherEx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,11 @@ public class SGatherDetailsController {
     @RequestMapping("/queryByIdSGatherEx2.May")
     public List<SGatherEx> queryByIdSGatherEx2(int id){
         return sGatherDetailsService.queryByIdSGatherEx2(id);
+    }
+
+    //入库申请查看查询数据
+    @RequestMapping("/queryAll.May")
+    public List<DFile> queryAll(){
+        return sGatherDetailsService.queryAll();
     }
 }

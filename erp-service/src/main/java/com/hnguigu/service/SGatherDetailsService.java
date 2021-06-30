@@ -1,6 +1,7 @@
 package com.hnguigu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hnguigu.vo.DFile;
 import com.hnguigu.vo.SGatherDetails;
 
 import com.hnguigu.vo.extend.SGatherEx;
@@ -27,4 +28,6 @@ public interface SGatherDetailsService extends IService<SGatherDetails> {
      * @return
      */
     List<SGatherEx> queryByIdSGatherEx2(int id);
+    //   入库申请中的表格
+    List<DFile> queryAll();
 }

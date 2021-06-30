@@ -88,4 +88,46 @@ public class SPayController {
             return "true";
         return "false";
     }
+    /**
+     * chu库登记-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    @RequestMapping("/queryAllSPay1.May")
+    public IPage<SPay> qyeryAllSPay1(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                    @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                    SPay sPay){
+
+        return sPayService.queryAllSPay1(pageNo,pageSize,sPay);
+    }
+    /**
+     * chu库复核-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    @RequestMapping("/queryAllSPay2.May")
+    public IPage<SPay> qyeryAllSPay2(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                     @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                     SPay sPay){
+        sPay.setCheckTag("S001-0");
+        return sPayService.queryAllSPay1(pageNo,pageSize,sPay);
+    }
+    /**
+     * chu库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sPay
+     * @return
+     */
+    @RequestMapping("/queryChuKuAllSPay.May")
+    public IPage<SPay> queryChuKuAllSPay(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                     @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                     SPay sPay){
+
+        return sPayService.queryChuKuAllSPay(pageNo,pageSize,sPay);
+    }
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -86,5 +87,11 @@ public class MManuFacture {
                                                 S002-0: 待登记
                                                 S002-1: 未审核
                                                 S002-2: 已完工*/
+
+    @TableField(exist = false)
+    private List<String> ids;
+
+    @TableField(exist = false)
+    private List<MProcedure> procedureList;
 
 }

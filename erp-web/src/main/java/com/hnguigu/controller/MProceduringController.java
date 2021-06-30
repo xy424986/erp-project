@@ -3,14 +3,12 @@ package com.hnguigu.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hnguigu.service.MManuFactureService;
-import com.hnguigu.service.MProcedureModulingService;
-import com.hnguigu.service.MProcedureService;
-import com.hnguigu.service.MProceduringService;
+import com.hnguigu.service.*;
 import com.hnguigu.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +24,12 @@ public class MProceduringController {
     MProcedureService mProcedureService;
     @Autowired
     MProcedureModulingService mProcedureModulingService;
+    @Autowired
+    SGatherService sGatherService;
+    @Autowired
+    DFileService dFileService;
+    @Autowired
+    SGatherDetailsService sGatherDetailsService;
     /**
      * 生产登记：查询已审核的派工单-skl
      * @param pageno
@@ -188,6 +192,12 @@ public class MProceduringController {
         byId.setProcedureTransferTag("G005-2");
         return mProcedureService.updateById(byId);
     }
+
+    /**
+     * 生产登记，查询是否全部审核
+     * @param id
+     * @return
+     */
     @RequestMapping("all_Make_production.action")
     public boolean all_Make_production(int id){
         List<MProcedure> mProcedures = mProcedureService.queryByparentIDtwo(id);
@@ -202,7 +212,55 @@ public class MProceduringController {
             }
         }
         if(a==true){
+            int shuliang=0;
+            List<MProcedure> mProcedures1 = mProcedureService.queryByparentID(byId.getId());
+            for (MProcedure mProcedure:mProcedures1) {
+                shuliang=mProcedure.getRealAmount();
+            }
+            System.out.println(shuliang);
+            byId.setTestedAmount(shuliang);
             mManuFactureService.updateById(byId);
+            List<SGather> list = sGatherService.list();
+            int size=list.size();
+            int size1=size+1;
+
+            Date dt=new Date();
+            SimpleDateFormat matter1=new SimpleDateFormat("yyyyMMdd");
+            String date = matter1.format(dt);
+            SGather sGather = new SGather();
+            sGather.setGatherId("401"+date+"00"+size1);
+            sGather.setReason("R001-1");
+            sGather.setReasonexact(byId.getManufactureId()+"-"+"生产入库");
+            sGather.setAmountSum(shuliang);
+            List<MProceduring> selectparentid = mProceduringService.selectparentid(byId.getId());
+            for (MProceduring mProceduring:selectparentid) {
+                sGather.setStorer(mProceduring.getRegister());
+                sGather.setRegister(mProceduring.getRegister());
+                sGather.setRegisterTime(mProceduring.getRegisterTime());
+                sGather.setChecker(mProceduring.getRegister());
+                sGather.setCheckTime(mProceduring.getRegisterTime());
+            }
+            sGather.setCheckTag("S001-1");
+            sGather.setGatherTag("K002-1");
+            boolean save = sGatherService.save(sGather);
+            QueryWrapper<DFile> queryWrapper = new QueryWrapper<DFile>();
+            queryWrapper.eq("PRODUCT_ID",byId.getProductId());
+            DFile one = dFileService.getOne(queryWrapper);
+            System.out.println(sGather.getId());
+            SGatherDetails sGatherDetails = new SGatherDetails();
+            sGatherDetails.setParentId(sGather.getId());
+            sGatherDetails.setProductId(byId.getProductId());
+            sGatherDetails.setProductName(byId.getProductName());
+            sGatherDetails.setProductDescribe(one.getProductDescribe());
+            sGatherDetails.setAmount(shuliang);
+            sGatherDetails.setAmountUnit(one.getAmountUnit());
+            sGatherDetails.setCostPrice(one.getCostPrice());
+            sGatherDetails.setSubtotal(one.getCostPrice()*shuliang);
+            sGatherDetails.setGatherTag("K002-1");
+            boolean save1 = sGatherDetailsService.save(sGatherDetails);
+            sGather.setCostPriceSum(one.getCostPrice()*shuliang);
+            boolean b = sGatherService.updateById(sGather);
+            System.out.println(sGatherDetails);
         }
         return a;
     }

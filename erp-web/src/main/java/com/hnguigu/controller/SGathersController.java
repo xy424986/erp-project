@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hnguigu.service.SGatherService;
 import com.hnguigu.util.PutInStorage;
 import com.hnguigu.util.Scheduling;
+import com.hnguigu.util.Warehousing;
 import com.hnguigu.vo.SCell;
 import com.hnguigu.vo.SGather;
 import com.hnguigu.vo.extend.SGatherEx;
@@ -34,6 +35,54 @@ public class SGathersController {
     }
 
     /**
+     * 入库登记-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/queryAllSGather1.May")
+    public IPage<SGather> queryAllSGather1(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                          @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                          SGather sGather){
+
+        return sGatherService.queryAllSGather1(pageNo,pageSize,sGather);
+    }
+    /**
+     * 入库复核-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/queryAllSGather2.May")
+    public IPage<SGather> queryAllSGather2(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                           @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                           SGather sGather){
+        sGather.setCheckTag("S001-0");
+        return sGatherService.queryAllSGather1(pageNo,pageSize,sGather);
+    }
+    /**
+     * 入库查询-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    /**
+     * 入库复核-总数据查询-xyb
+     * @param pageNo
+     * @param pageSize
+     * @param sGather
+     * @return
+     */
+    @RequestMapping("/queryRuKuAllSGather.May")
+    public IPage<SGather> queryRuKuAllSGather(@RequestParam(value = "pageNo",defaultValue = "1")int pageNo,
+                                           @RequestParam(value = "pageSize",defaultValue = "5") int pageSize,
+                                           SGather sGather){
+        return sGatherService.queryRuKuAllSGather(pageNo,pageSize,sGather);
+    }
+     /**
      * 入库调度单-查询-xyb
      * @param id 产品编号
      * @return
@@ -87,5 +136,27 @@ public class SGathersController {
         if (b)
             return "true";
         return "false";
+    }
+    /*
+     * 入库申请提交
+     * */
+    @RequestMapping(value = "addApplyForDelivery.May",produces = {"text/json;charset=utf-8"})
+    @ResponseBody
+    public String addApplyForDelivery(@RequestBody List<Warehousing> warehousings){
+        boolean b =  sGatherService.addWarehousing(warehousings);
+        if (b)
+            return "true";
+        return "false";
+    }
+    //入库审核通过
+    @RequestMapping("updataByCheckTag1.May")
+    public boolean updataByCheckTag1(SGather sGather){
+        return sGatherService.updataByCheckTag1(sGather);
+    }
+
+    //入库审核未通过
+    @RequestMapping("updataByCheckTag.May")
+    public boolean updataByCheckTag(SGather sGather){
+        return sGatherService.updataByCheckTag(sGather);
     }
 }
